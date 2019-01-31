@@ -6,13 +6,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { VesselSelectionComponent } from './vessel-selection/vessel-selection.component';
 import { RoomSelectionComponent } from './room-selection/room-selection.component';
 import { ProductSelectionComponent } from './product-selection/product-selection.component';
+import { CanvasComponent } from './room-selection/canvas.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     VesselSelectionComponent,
     RoomSelectionComponent,
-    ProductSelectionComponent
+    ProductSelectionComponent,
+    CanvasComponent
   ],
   imports: [
     BrowserModule,

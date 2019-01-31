@@ -18,3 +18,7 @@ circle {
 app-room-selection {
     display: flex;
 }
+
+canvas {
+    width: 100%;
+}
