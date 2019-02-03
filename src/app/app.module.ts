@@ -7,6 +7,8 @@ import { VesselSelectionComponent } from './vessel-selection/vessel-selection.co
 import { RoomSelectionComponent } from './room-selection/room-selection.component';
 import { ProductSelectionComponent } from './product-selection/product-selection.component';
 import { CanvasComponent } from './room-selection/canvas.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -14,14 +16,18 @@ import { CanvasComponent } from './room-selection/canvas.component';
     VesselSelectionComponent,
     RoomSelectionComponent,
     ProductSelectionComponent,
-    CanvasComponent
+    CanvasComponent,
+    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     RouterModule.forRoot([
+      {path: '', component: VesselSelectionComponent},
       {path: 'vessel-selection', component: VesselSelectionComponent},
       {path: 'room-selection', component: RoomSelectionComponent},
-      {path: 'product-selection', component: ProductSelectionComponent}
+      {path: 'product-selection', component: ProductSelectionComponent},
+      {path: 'shopping-cart', component: ShoppingCartComponent}
     ])
   ],
   providers: [],
