@@ -52,11 +52,15 @@
 }
 
 #main {
+  overflow: auto;
+  height: calc(100vh - 100px);
+}
+
+#sheet {
   text-align:center;
   max-width: 1400px;
   min-height: calc(100vh - 100px);
   margin-left: auto;
   margin-right: auto;
-  padding: 32px;
   background-color: #ffffff8a;
 }
