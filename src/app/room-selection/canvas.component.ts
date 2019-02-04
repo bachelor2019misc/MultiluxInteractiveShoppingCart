@@ -28,11 +28,29 @@ export class CanvasComponent implements AfterViewInit {
       this.vesselImage.src = "assets/img/boat.jpg";
 
       this.vesselImage.onload = () => {
+          this.resize();
           this.draw();
+          window.addEventListener('resize', () => this.resize());
       };
     }
 
     private draw() {
         this.cx.drawImage(this.vesselImage, 0, 0, this.width, this.height);
     }
-  }
+
+    private resize() {
+        if(window.innerWidth < 1400) {
+            this.cx.canvas.width  = window.innerWidth;
+            this.cx.canvas.height = window.innerWidth/2;
+            this.width = window.innerWidth;
+            this.height = window.innerWidth/2;
+            this.draw();
+        } else if(this.cx.canvas.width < 1400) {
+            this.cx.canvas.width  = 1400;
+            this.cx.canvas.height = 700
+            this.width = 1400;
+            this.height = 700;
+            this.draw();
+        }
+    }
+}
