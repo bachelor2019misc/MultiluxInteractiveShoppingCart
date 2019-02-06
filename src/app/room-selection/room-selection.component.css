@@ -23,13 +23,16 @@ canvas {
     width: 1400px;
 }
 
+#linkContainer {
+    margin-bottom: 2em;
+}
 
-#links {
-    float: left;
+.link {
+    display: inline-block;
     color: black;
-    margin : 5px;
-    padding: 12px;
+    margin : 0.5em;
+    padding: 0.8em;
     list-style-type: none;
-    font-size: 18px;
+    font-size: 1.5em;
     text-decoration: none;
 }
