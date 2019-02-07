@@ -3,6 +3,7 @@ import { fromEvent } from 'rxjs';
 import { switchMap, takeUntil, pairwise } from 'rxjs/operators'
 import { logging } from 'protractor';
 import { Circle } from './circle';
+import { element } from '@angular/core/src/render3';
 
 @Component({
     selector: 'app-canvas',
@@ -14,6 +15,9 @@ export class CanvasComponent implements AfterViewInit {
 
     @Input() public width = 1400;
     @Input() public height = 700;
+
+    readonly maxWidth:number = this.width;
+    readonly maxHeight:number = this.height;
 
     private cx: CanvasRenderingContext2D;
     private vesselImage: HTMLImageElement;
@@ -82,6 +86,8 @@ export class CanvasComponent implements AfterViewInit {
                     y: res[1].clientY - rect.top
                 };
 
+                console.log(currentPos);
+
                 if (circle === undefined) {
                     var i = 0;
                     while (i < this.circles.length) {
@@ -94,8 +100,8 @@ export class CanvasComponent implements AfterViewInit {
                         }
                     }
                 } else {
-                    circle.x = currentPos.x;
-                    circle.y = currentPos.y;
+                    circle.x = currentPos.x * (this.maxWidth/this.width);
+                    circle.y = currentPos.y * (this.maxHeight/this.height);
                     this.draw();
                 }
             });
@@ -121,7 +127,7 @@ export class CanvasComponent implements AfterViewInit {
     }
 
     private colideWithCircle(x, y, circle: Circle) {
-        if (checkCollision(x, y, 10, 10, circle.x, circle.y, 20, 20)) {
+        if (checkCollision(x, y, 10, 10, circle.x * (this.width / this.maxWidth), circle.y * (this.height / this.maxHeight), 20, 20)) {
             return true;
         } else {
             return false;
@@ -129,17 +135,17 @@ export class CanvasComponent implements AfterViewInit {
     }
 
     private resize() {
-        if (window.innerWidth < 1400) {
+        if (window.innerWidth < this.maxWidth) {
             this.cx.canvas.width = window.innerWidth;
             this.cx.canvas.height = window.innerWidth / 2;
             this.width = window.innerWidth;
             this.height = window.innerWidth / 2;
             this.draw();
-        } else if (this.cx.canvas.width < 1400) {
-            this.cx.canvas.width = 1400;
-            this.cx.canvas.height = 700
-            this.width = 1400;
-            this.height = 700;
+        } else if (this.cx.canvas.width < this.maxWidth) {
+            this.cx.canvas.width = this.maxWidth;
+            this.cx.canvas.height = this.maxHeight
+            this.width = this.maxWidth;
+            this.height = this.maxHeight;
             this.draw();
         }
     }
@@ -153,7 +159,7 @@ export class CanvasComponent implements AfterViewInit {
 
     private drawCircle(circle: Circle) {
         this.cx.beginPath();
-        this.cx.arc(circle.x, circle.y, 10, 0, 2 * Math.PI);
+        this.cx.arc(circle.x * (this.width / this.maxWidth), circle.y * (this.height / this.maxHeight), 10, 0, 2 * Math.PI);
         this.cx.closePath();
         var tempColor = "rgb(255,0,0)";
         this.cx.fillStyle = tempColor;
