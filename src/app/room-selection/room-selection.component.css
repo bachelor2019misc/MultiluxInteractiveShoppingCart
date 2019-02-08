@@ -1,38 +1,6 @@
-.items-container {
-    width: 30%;
-    display: flex;
-}
-
-circle {
-    cursor: move;
-}
-
-.svg-container {
-    border: 3px dashed #000;
-    background-color: #CCC;
-    width: 70%;
-    height: 500px;
-}
-
-
-app-room-selection {
-    display: flex;
-}
-
-canvas {
-    width: 1400px;
-}
-
-#linkContainer {
-    margin-bottom: 2em;
-}
-
 .link {
     display: inline-block;
-    color: black;
     margin : 0.5em;
     padding: 0.8em;
-    list-style-type: none;
     font-size: 1.5em;
-    text-decoration: none;
 }
