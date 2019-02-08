@@ -2,6 +2,10 @@
 <h3>Please select a vessel</h3>
 
 <div>
+    <div *ngFor="let v of vessels; let i=index;" class="vessel">
+        <img src="assets/img/boat.jpg" alt="Picture of boat" height="200" width="300" routerLink="/room-selection">
+        <p>Boat 1</p>
+    </div>
     <div class="vessel">
         <img src="assets/img/boat.jpg" alt="Picture of boat" height="200" width="300" routerLink="/room-selection">
         <p>Boat 1</p>
