@@ -1,3 +1,123 @@
-<p>
-  shopping-cart works!
-</p>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<div id="main">
+  <h1 id="headline">Handlekurv</h1>
+  <div class="dropdown" style ="float:right">
+    <button class="dropbtn">Alternativer</button>
+    <div class="dropdown-content">
+      <a routerLink="#">Alternativ 1</a>
+      <a routerLink="#">Alternativ 2</a>
+      <a routerLink="#">Alternativ 3</a>
+    </div>
+  </div>
+  
+  <table class = "table">
+    <tr>
+      <th>Vare</th>
+      <th>Watt</th> 
+      <th>K</th>
+      <th>LM</th>
+      <th>Bytte</th>
+      <th>Pris før avslag</th>
+      <th>Avslag</th>
+      <th>Antall</th>
+      <th>Total pris</th>
+    </tr>
+    <tr>
+      <td>Navnet på varen</td>
+      <td>W</td>
+      <td>K</td>
+      <td>LM</td>
+      <td>XX</td>
+      <td>Pris før avslag</td>
+      <td><input type="text" id="avslag" value="0" maxlength ="4" size="4"><button onclick>OK</button></td>
+      <td><input type="text" id="myNumber" value="0" maxlength ="4" size="4"><button onclick>OK</button></td>
+      <td>Total pris</td>
+    </tr>
+    <tr>
+      <td>Navnet på varen</td>
+      <td>W</td>
+      <td>K</td>
+      <td>LM</td>
+      <td>XX</td>
+      <td>Pris før avslag</td>
+      <td><input type="text" id="myNumber" value="0" maxlength ="4" size="4"><button onclick >OK</button></td>
+      <td><input type="text" id="myNumber" value="0" maxlength ="4" size="4"><button onclick>OK</button></td>
+      <td>Total pris</td>
+    </tr>
+    <tr>
+      <td>Navnet på varen</td>
+      <td>W</td>
+      <td>K</td>
+      <td>LM</td>
+      <td>XX</td>
+      <td>Pris før avslag</td>
+      <td><input type="text" id="myNumber" value="0" maxlength ="4" size="4"><button onclick>OK</button></td>
+      <td><input type="text" id="myNumber" value="0" maxlength ="4" size="4"><button onclick>OK</button></td>
+      <td>Total pris</td>
+    </tr>
+    <tr>
+      <td>Navn på varen </td>
+      <td>W</td>
+      <td>K</td>
+      <td>LM</td>
+      <td>XX</td>
+      <td>Pris før avslag</td>
+      <td><input type="text" id="myNumber" value="0" maxlength ="4" size="4"><button onclick>OK</button></td>
+      <td><input type="text" id="myNumber" value="0" maxlength ="4" size="4"><button onclick>OK</button></td>
+      <td>Total pris</td>
+    </tr>
+    <tr>
+      <td>Navnet på varen</td>
+      <td>W</td>
+      <td>K</td>
+      <td>LM</td>
+      <td>XX</td>
+      <td>Pris før avslag</td>
+      <td><input type="text" id="avslag" value="0" maxlength ="4" size="4"><button onclick>OK</button></td>
+      <td><input type="text" id="myNumber" value="0" maxlength ="4" size="4"><button onclick>OK</button></td>
+      <td>Total pris</td>
+    </tr>
+    <tr>
+      <td>Navnet på varen</td>
+      <td>W</td>
+      <td>K</td>
+      <td>LM</td>
+      <td>XX</td>
+      <td>Pris før avslag</td>
+      <td><input type="text" id="avslag" value="0" maxlength ="4" size="4"><button onclick>OK</button></td>
+      <td><input type="text" id="myNumber" value="0" maxlength ="4" size="4"><button onclick>OK</button></td>
+      <td>Total pris</td>
+    </tr>
+    <tr>
+      <td>Navnet på varen</td>
+      <td>W</td>
+      <td>K</td>
+      <td>LM</td>
+      <td>XX</td>
+      <td>Pris før avslag</td>
+      <td><input type="text" id="avslag" value="0" maxlength ="4" size="4"><button onclick>OK</button></td>
+      <td><input type="text" id="myNumber" value="0" maxlength ="4" size="4"><button onclick>OK</button></td>
+      <td>Total pris</td>
+    </tr>
+     <tr>
+      <td>Navnet på varen</td>
+      <td>W</td>
+      <td>K</td>
+      <td>LM</td>
+      <td>XX</td>
+      <td>Pris før avslag</td>
+      <td><input type="text" id="avslag" value="0" maxlength ="4" size="4"><button onclick>OK</button></td>
+      <td><input type="text" id="myNumber" value="0" maxlength ="4" size="4"><button onclick>OK</button></td>
+      <td>Total pris</td>
+    </tr>
+  </table>
+
+  <div class="grid-container">
+    <button class="item1 resetButton buttons">Reset</button>
+    <button class="item2 saveButton buttons">Save</button>
+    <button class="item3 printButton buttons">Print</button>
+  </div>
+    
+  <router-outlet></router-outlet>
+</div>
