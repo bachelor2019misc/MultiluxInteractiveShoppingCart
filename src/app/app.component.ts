@@ -13,7 +13,7 @@ export class AppComponent {
   version = VERSION;
   title = 'MultiluxInteractiveShoppingCart';
 
-  fileNameDialogRef: MatDialogRef<LoginDialogComponent>;
+  LoginNameDialogRef: MatDialogRef<LoginDialogComponent>;
   
   files = [
     { name: 'foo.js', content: ''},
@@ -22,24 +22,13 @@ export class AppComponent {
 
   constructor(private dialog: MatDialog) {}
 
-  openAddFileDialog(file?) {
-    this.fileNameDialogRef = this.dialog.open(LoginDialogComponent, {
+  openLoginDialog(file?) {
+    this.LoginNameDialogRef = this.dialog.open(LoginDialogComponent, {
       data: {
-        filename: file ? file.name : ''
+        
       }
     });
 
-    this.fileNameDialogRef.afterClosed().pipe(
-      filter(name => name)
-    ).subscribe(name => {
-      if (file) {
-        const index = this.files.findIndex(f => f.name == file.name);
-        if (index !== -1) {
-          this.files[index] = { name, content: file.content }
-        }
-      } else {
-        this.files.push({ name, content: ''});
-      }
-    });
+    this.LoginNameDialogRef.afterClosed();
   }
 }
