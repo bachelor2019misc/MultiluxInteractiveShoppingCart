@@ -32,6 +32,7 @@ import {
   MatTabsModule,
   MatToolbarModule,
   MatTooltipModule,
+  MatDividerModule,
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -40,6 +41,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { VesselSelectionComponent } from './vessel-selection/vessel-selection.component';
 import { RoomSelectionComponent } from './room-selection/room-selection.component';
 import { ProductSelectionComponent } from './product-selection/product-selection.component';
+import { ProductDialogComponent } from './product-selection/product-dialog.component';
 import { CanvasComponent } from './room-selection/canvas.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { LoginDialogComponent } from './login-dialog.component';
@@ -50,6 +52,7 @@ import { LoginDialogComponent } from './login-dialog.component';
     VesselSelectionComponent,
     RoomSelectionComponent,
     ProductSelectionComponent,
+    ProductDialogComponent,
     CanvasComponent,
     ShoppingCartComponent,
     LoginDialogComponent
@@ -64,6 +67,10 @@ import { LoginDialogComponent } from './login-dialog.component';
     MatButtonModule,
     MatSelectModule,
     MatDialogModule,
+    MatCheckboxModule,
+    MatGridListModule,
+    MatDividerModule,
+    MatTableModule,
     MatIconModule,
     RouterModule.forRoot([
       {path: '', component: VesselSelectionComponent},
@@ -75,6 +82,6 @@ import { LoginDialogComponent } from './login-dialog.component';
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [LoginDialogComponent]
+  entryComponents: [LoginDialogComponent, ProductDialogComponent]
 })
 export class AppModule { }
