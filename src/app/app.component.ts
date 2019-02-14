@@ -25,7 +25,6 @@ export class AppComponent {
   openAddFileDialog(file?) {
     this.fileNameDialogRef = this.dialog.open(LoginDialogComponent, {
       data: {
-        filename: file ? file.name : ''
       }
     });
 

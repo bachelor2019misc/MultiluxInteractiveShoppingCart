@@ -4,8 +4,8 @@
 
 @include mat-core();
 
-$primary: mat-palette($mat-lime, 500);
-$accent:  mat-palette($mat-lime, 500, A200, A400);
+$primary: mat-palette($mat-light-blue, 500);
+$accent:  mat-palette($mat-light-blue, 500, A200, A400);
 $warn:    mat-palette($mat-red, 500);
 
 $config: mat-typography-config();
@@ -23,3 +23,21 @@ body {
     background-color: #f1f1f1;
     position: relative;
 }
+
+.mat-column-select {
+    overflow: initial;
+}
+
+
+#productTable {
+    max-width: 75%;
+}
+#productTable th {
+    min-width: 8em;
+}
+#productTable td {
+    padding-right: 3em;
+}
+#productTable th.mat-sort-header-sorted {
+    color: black;
+  }
