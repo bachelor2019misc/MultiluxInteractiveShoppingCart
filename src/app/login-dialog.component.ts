@@ -13,7 +13,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
             </mat-dialog-content>
             <mat-dialog-content>
             <mat-form-field>
-            <input matInput formControlName="password" placeholder="Enter password" (ngOnInit)="password(form)">
+            <input matInput formControlName="password" type="password" placeholder="Enter password" (ngOnInit)="password(form)">
             </mat-form-field>
             </mat-dialog-content>
             <mat-dialog-actions>
