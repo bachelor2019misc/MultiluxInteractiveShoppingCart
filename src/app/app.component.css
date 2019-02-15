@@ -11,15 +11,15 @@
   background-size: contain;
   background-repeat: no-repeat;
   height: 60px;
-  width: 340px;
+  width: 50%;
   margin-left: 24px;
   margin-top: 8px;
   margin-bottom: 8px;
   display: inline-block;
+  min-width : 50%;
 }
 
 /* Style the active/current link*/
-
 .header-right {
   float: right;
   height: 80px;
