@@ -2,71 +2,45 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, catchError, tap } from 'rxjs/operators';
+import { post } from 'selenium-webdriver/http';
 
 // FROM: https://www.djamware.com/post/5b87894280aca74669894414/angular-6-httpclient-consume-restful-api-example
 
-const endpoint = 'http://localhost:3000/api/';
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type':  'application/json',
-    'Access-Control-Allow-Origin': '*'
-  })
-};
+const baseURL = 'http://localhost:3000/api/';
+
+let headers = new HttpHeaders();
+headers = headers.set('Content-Type', 'application/json');
+let options = { headers: headers };
+
+const endpointLogin = 'login';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RestService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
+  
+  login(username:string, password:string) :Observable<any> {
+    let json = {username: username, password:password};
+    console.log(json);
+    console.log(JSON.stringify(json));
+    return this.httpPost(endpointLogin, json);
+  }
 
-  private extractData(res: Response) {
-    let body = res;
-    return body || { };
+  setNewHeader(name:string, value:string) {
+    headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json');
+    headers = headers.set(name, value);
+    options = { headers: headers };
+    console.log(headers);
   }
-  getProducts(): Observable<any> {
-    return this.http.get(endpoint + 'vessel').pipe(
-      map(this.extractData));
+
+  httpPost(endpoint:string, json:object) :Observable<any> {
+    return this.http.post(baseURL + endpoint, JSON.stringify(json), options);
   }
-  
-  getProduct(id): Observable<any> {
-    return this.http.get(endpoint + 'vessel/' + id).pipe(
-      map(this.extractData));
-  }
-  
-  addProduct (product): Observable<any> {
-    console.log(product);
-    return this.http.post<any>(endpoint + 'products', JSON.stringify(product), httpOptions).pipe(
-      tap((product) => console.log(`added product w/ id=${product.id}`)),
-      catchError(this.handleError<any>('addProduct'))
-    );
-  }
-  
-  updateProduct (id, product): Observable<any> {
-    return this.http.put(endpoint + 'products/' + id, JSON.stringify(product), httpOptions).pipe(
-      tap(_ => console.log(`updated product id=${id}`)),
-      catchError(this.handleError<any>('updateProduct'))
-    );
-  }
-  
-  deleteProduct (id): Observable<any> {
-    return this.http.delete<any>(endpoint + 'products/' + id, httpOptions).pipe(
-      tap(_ => console.log(`deleted product id=${id}`)),
-      catchError(this.handleError<any>('deleteProduct'))
-    );
-  }
-  
-  private handleError<T> (operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-  
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-  
-      // TODO: better job of transforming error for user consumption
-      console.log(`${operation} failed: ${error.message}`);
-  
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
+
+  httpGet(endpoint:string) :Observable<any> {
+    return this.http.get(baseURL + endpoint, options);
   }
 }
