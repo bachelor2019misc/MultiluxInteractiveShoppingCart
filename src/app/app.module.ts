@@ -38,24 +38,24 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
-import { VesselSelectionComponent } from './vessel-selection/vessel-selection.component';
-import { RoomSelectionComponent } from './room-selection/room-selection.component';
-import { ProductSelectionComponent } from './product-selection/product-selection.component';
-import { ProductDialogComponent } from './product-selection/product-dialog.component';
-import { CanvasComponent } from './room-selection/canvas.component';
-import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
-import { LoginDialogComponent } from './login-dialog.component';
+import { VesselsComponent } from './shared/components/vessels/vessels.component';
+import { RoomsComponent } from './shared/components/rooms/rooms.component';
+import { ProductsComponent } from './shared/components/products/products.component';
+import { SubProductsComponent } from './shared/components/products/sub-products/sub-products.component';
+import { CanvasComponent } from './shared/utils/canvas/canvas.util';
+import { ShoppingCartComponent } from './shared/components/shopping-cart/shopping-cart.component';
+import { LoginComponent } from './shared/components/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    VesselSelectionComponent,
-    RoomSelectionComponent,
-    ProductSelectionComponent,
-    ProductDialogComponent,
+    VesselsComponent,
+    RoomsComponent,
+    ProductsComponent,
+    SubProductsComponent,
     CanvasComponent,
     ShoppingCartComponent,
-    LoginDialogComponent
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -73,15 +73,15 @@ import { LoginDialogComponent } from './login-dialog.component';
     MatTableModule,
     MatIconModule,
     RouterModule.forRoot([
-      {path: '', component: VesselSelectionComponent},
-      {path: 'vessel-selection', component: VesselSelectionComponent},
-      {path: 'room-selection', component: RoomSelectionComponent},
-      {path: 'product-selection', component: ProductSelectionComponent},
+      {path: '', component: VesselsComponent},
+      {path: 'vessels', component: VesselsComponent},
+      {path: 'rooms', component: RoomsComponent},
+      {path: 'products', component: ProductsComponent},
       {path: 'shopping-cart', component: ShoppingCartComponent}
     ])
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [LoginDialogComponent, ProductDialogComponent]
+  entryComponents: [LoginComponent, SubProductsComponent]
 })
 export class AppModule { }

@@ -2,7 +2,7 @@ import { Component, Input, ElementRef, AfterViewInit, ViewChild, AfterViewChecke
 import { fromEvent } from 'rxjs';
 import { switchMap, takeUntil, pairwise } from 'rxjs/operators'
 import { logging } from 'protractor';
-import { Circle } from './circle';
+import { Circle } from './circle.util';
 import { element } from '@angular/core/src/render3';
 
 @Component({
