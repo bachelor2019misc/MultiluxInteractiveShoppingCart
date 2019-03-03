@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {VERSION, MatDialog, MatDialogRef} from '@angular/material';
-import { ProductDialogComponent } from './product-dialog.component';
-import { ProductOption } from './ProductOption';
+import { SubProductsComponent } from './sub-products/sub-products.component';
+import { ProductOption } from './sub-products/ProductOption';
 
 export interface Tile {
   cols: number;
@@ -19,16 +19,16 @@ export interface ProductOptions {
 }
 
 @Component({
-  selector: 'app-product-selection',
-  templateUrl: './product-selection.component.html',
-  styleUrls: ['./product-selection.component.css']
+  selector: 'app-products',
+  templateUrl: './products.component.html',
+  styleUrls: ['./products.component.css']
 })
-export class ProductSelectionComponent {
+export class ProductsComponent {
   version = VERSION;
   title = 'MultiluxInteractiveShoppingCart';
   
 
-  productDialogRef: MatDialogRef<ProductDialogComponent>
+  productDialogRef: MatDialogRef<SubProductsComponent>
 
   constructor(private dialog: MatDialog) {}
 
@@ -58,7 +58,7 @@ export class ProductSelectionComponent {
   }
 
   openProductDialog(productName, element_data) {
-    this.productDialogRef = this.dialog.open(ProductDialogComponent, {
+    this.productDialogRef = this.dialog.open(SubProductsComponent, {
       //Set height and width of modal
       height: "75vh",
       width: "75vw",

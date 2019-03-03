@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { RestService } from '../rest.service';
+import { RestService } from '../../services/rest.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-vessel-selection',
-  templateUrl: './vessel-selection.component.html',
-  styleUrls: ['./vessel-selection.component.css']
+  selector: 'app-vessels',
+  templateUrl: './vessels.component.html',
+  styleUrls: ['./vessels.component.css']
 })
-export class VesselSelectionComponent implements OnInit {
+export class VesselsComponent implements OnInit {
 
   vessels:any = [];
 
