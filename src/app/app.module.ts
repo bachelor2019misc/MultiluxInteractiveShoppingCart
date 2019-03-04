@@ -45,6 +45,8 @@ import { SubProductsComponent } from './shared/components/products/sub-products/
 import { CanvasComponent } from './shared/utils/canvas/canvas.util';
 import { ShoppingCartComponent } from './shared/components/shopping-cart/shopping-cart.component';
 import { LoginComponent } from './shared/components/login/login.component';
+import { Globals } from './shared/utils/globals';
+import { AddVesselComponent } from './shared/components/vessels/add-vessel/add-vessel.component'
 
 @NgModule({
   declarations: [
@@ -55,7 +57,8 @@ import { LoginComponent } from './shared/components/login/login.component';
     SubProductsComponent,
     CanvasComponent,
     ShoppingCartComponent,
-    LoginComponent
+    LoginComponent,
+    AddVesselComponent
   ],
   imports: [
     BrowserModule,
@@ -80,8 +83,8 @@ import { LoginComponent } from './shared/components/login/login.component';
       {path: 'shopping-cart', component: ShoppingCartComponent}
     ])
   ],
-  providers: [],
+  providers: [Globals],
   bootstrap: [AppComponent],
-  entryComponents: [LoginComponent, SubProductsComponent]
+  entryComponents: [LoginComponent, SubProductsComponent, AddVesselComponent]
 })
 export class AppModule { }

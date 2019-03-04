@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {VERSION, MatDialog, MatDialogRef} from '@angular/material';
 import { LoginComponent } from './shared/components/login/login.component';
+import { Globals } from './shared/utils/globals'
 
 import { filter } from 'rxjs/operators';
 
@@ -15,7 +16,7 @@ export class AppComponent {
 
   LoginNameDialogRef: MatDialogRef<LoginComponent>;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private global: Globals) {}
 
   openLoginDialog(file?) {
     this.LoginNameDialogRef = this.dialog.open(LoginComponent, {

@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { RestService } from '../../services/rest.service';
+import { RestService } from '../../services/rest/rest.service';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Globals } from '../../utils/globals';
+import { AddVesselComponent } from './add-vessel/add-vessel.component'
 
 @Component({
   selector: 'app-vessels',
@@ -11,7 +14,9 @@ export class VesselsComponent implements OnInit {
 
   vessels:any = [];
 
-  constructor(public rest:RestService, private route: ActivatedRoute, private router: Router) { }
+  AddVesselNameDialogRef: MatDialogRef<AddVesselComponent>;
+
+  constructor(public rest:RestService, private global:Globals, private route: ActivatedRoute, private router: Router, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.getVessels();
@@ -19,20 +24,29 @@ export class VesselsComponent implements OnInit {
 
   getVessels() {
     this.vessels = [];
-    //this.rest.getProducts().subscribe((data: {}) => {
-    //  console.log(data);
-    //  this.vessels = data;
-    //});
-  }
-
-  addVessel() {
-    this.rest.httpPost('vessel', {"vesselname" : "test1111","description" : "test","hidden" : false}).subscribe(
+    this.rest.httpGet("vessel").subscribe(
       res => {
         console.log(res);
+        this.vessels = res;
       },
       err => {
         console.log("Error occured: ", err);
       }
     );
+  }
+
+  openAddVessel(file?) {
+    this.AddVesselNameDialogRef = this.dialog.open(AddVesselComponent, {
+      height: "400px",
+      width: "700px",
+      data: {
+        
+      }
+    });
+    this.AddVesselNameDialogRef.afterClosed().subscribe((value) => {
+      if(value) {
+        this.getVessels()
+      }
+    });
   }
 }

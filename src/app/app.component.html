@@ -2,7 +2,15 @@
 <div class="header">
   <a href="#default" class="logo" style="object-fit : scale-down"></a>
   <div class="header-right">
-    <button id="login" (click)="openLoginDialog()">Login</button>
+    <ng-container
+      *ngIf="global.loggedIn; then loggedIn; else loggedOut">
+    </ng-container>
+    <ng-template #loggedIn>
+        <button id="login" (click)="openLoginDialog()">{{global.username}}</button>
+    </ng-template>
+    <ng-template #loggedOut>
+        <button id="login" (click)="openLoginDialog()">Login</button>
+    </ng-template>
     <a routerLink="/shopping-cart" id="shopping-cart"></a>
   </div>
 </div>

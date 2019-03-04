@@ -1,9 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { RestService } from '../../services/rest.service';
+import { RestService } from '../../services/rest/rest.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { headersToString } from 'selenium-webdriver/http';
 import { Http2ServerRequest } from 'http2';
+import { Globals } from '../../utils/globals';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     public rest: RestService,
+    private global: Globals,
     private formBuilder: FormBuilder,
     private dialogRef: MatDialogRef<LoginComponent>,
     @Inject(MAT_DIALOG_DATA) private data
@@ -35,6 +37,8 @@ export class LoginComponent implements OnInit {
       res => {
         console.log(res);
         this.rest.setNewHeader('Authorization', res.token);
+        this.global.loggedIn = true;
+        this.global.username = form.value.username;
       },
       err => {
         console.log("Error occured: ", err);
