@@ -43,4 +43,8 @@ export class RestService {
   httpGet(endpoint:string) :Observable<any> {
     return this.http.get(baseURL + endpoint, options);
   }
+
+  httpPut(endpoint:string, json:object) :Observable<any> {
+    return this.http.put(baseURL + endpoint,  JSON.stringify(json), options);
+  }
 }

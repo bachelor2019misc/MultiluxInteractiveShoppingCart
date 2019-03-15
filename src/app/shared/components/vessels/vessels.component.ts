@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import { Globals } from '../../utils/globals';
 import { AddVesselComponent } from './add-vessel/add-vessel.component'
 import { Vessel } from '../../utils/entities/vessel.entity';
+import { EditVesselComponent } from './edit-vessel/edit-vessel.component';
 
 @Component({
   selector: 'app-vessels',
@@ -17,6 +18,7 @@ export class VesselsComponent implements OnInit {
   vessels:Vessel[] = [];
 
   AddVesselNameDialogRef: MatDialogRef<AddVesselComponent>;
+  EditVesselNameDialogRef: MatDialogRef<EditVesselComponent>;
 
   constructor(public rest:RestService, private global:Globals, private route: ActivatedRoute, private router: Router, private dialog: MatDialog, private location: Location) { }
 
@@ -46,6 +48,21 @@ export class VesselsComponent implements OnInit {
       }
     });
     this.AddVesselNameDialogRef.afterClosed().subscribe((value) => {
+      if(value) {
+        this.getVessels()
+      }
+    });
+  }
+
+  openEditVessel() {
+    this.EditVesselNameDialogRef = this.dialog.open(EditVesselComponent, {
+      height: "400px",
+      width: "700px",
+      data: {
+        
+      }
+    });
+    this.EditVesselNameDialogRef.afterClosed().subscribe((value) => {
       if(value) {
         this.getVessels()
       }
