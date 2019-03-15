@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 import { VERSION, MatDialog, MatDialogRef } from '@angular/material';
 import { SubProductsComponent } from './sub-products/sub-products.component';
 import { ProductOption } from './sub-products/ProductOption';
@@ -32,7 +33,11 @@ export class ProductsComponent {
 
   productDialogRef: MatDialogRef<SubProductsComponent>
 
-  constructor(private dialog: MatDialog, private location: Location, private global: Globals) { }
+  constructor(private dialog: MatDialog, private location: Location, private global: Globals, private router: Router) { 
+    if(this.global.currentSelectedRoom === undefined) {
+      //this.router.navigate(['/', 'rooms']); TODO: add this when rooms is done
+    }
+  }
 
 
 
