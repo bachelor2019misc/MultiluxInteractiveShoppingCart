@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
+import { Globals } from '../../utils/globals';
 
 @Component({
   selector: 'app-rooms',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RoomsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private location:Location, private global:Globals) { }
 
   ngOnInit() {
   }
 
+  backClicked() {
+    this.location.back();
+  }
 }

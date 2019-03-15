@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { RestService } from '../../services/rest/rest.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { Globals } from '../../utils/globals';
 import { AddVesselComponent } from './add-vessel/add-vessel.component'
+import { Vessel } from '../../utils/entities/vessel.entity';
 
 @Component({
   selector: 'app-vessels',
@@ -12,11 +14,11 @@ import { AddVesselComponent } from './add-vessel/add-vessel.component'
 })
 export class VesselsComponent implements OnInit {
 
-  vessels:any = [];
+  vessels:Vessel[] = [];
 
   AddVesselNameDialogRef: MatDialogRef<AddVesselComponent>;
 
-  constructor(public rest:RestService, private global:Globals, private route: ActivatedRoute, private router: Router, private dialog: MatDialog) { }
+  constructor(public rest:RestService, private global:Globals, private route: ActivatedRoute, private router: Router, private dialog: MatDialog, private location: Location) { }
 
   ngOnInit() {
     this.getVessels();
@@ -48,5 +50,14 @@ export class VesselsComponent implements OnInit {
         this.getVessels()
       }
     });
+  }
+
+  setCurrectSelectedVessel(vessel: Vessel) {
+    console.log(vessel);
+    this.global.currentSelectedVessel = vessel;
+  }
+
+  backClicked() {
+    this.location.back();
   }
 }

@@ -1,17 +1,36 @@
-<app-canvas></app-canvas>
-<div id= "linkContainer">
-    <a class="link" (click)="initDialog('Minerva')">Minerva</a>
-    <a class="link" (click)="initDialog('Produkt 2')">Produkt 2</a>
-    <a class="link" (click)="initDialog('Produkt 3')">Produkt 3</a>
-    <a class="link" (click)="initDialog('Produkt 4')">Produkt 4</a>
-    <a class="link" (click)="initDialog()">Produkt</a>
-    <a class="link" (click)="initDialog()">Produkt</a>
-    <a class="link" (click)="initDialog()">Produkt</a>
-    <a class="link" (click)="initDialog()">Produkt</a>
-    <a class="link" (click)="initDialog()">Produkt</a>
-    <a class="link" (click)="initDialog()">Produkt</a>
-    <a class="link" (click)="initDialog()">Produkt</a>
-    <a class="link" (click)="initDialog()">Produkt</a>
-    <a class="link" (click)="initDialog()">Produkt</a>
-</div>
-<footer></footer>
+<ng-container
+    *ngIf="global.currentSelectedRoom !== undefined; then hasCurrentSelectedRoom; else hasCurrentSelectedRoom">
+</ng-container>
+<ng-template #hasCurrentSelectedRoom>
+    <div class="links">
+        <span>Her er du: </span>
+        <a routerLink="/vessels">Vessels</a>
+        <mat-icon class="icon-inline">keyboard_arrow_right</mat-icon>
+        <a routerLink="/rooms">Rom</a>
+        <mat-icon class="icon-inline">keyboard_arrow_right</mat-icon>
+        <a>Produkt</a>
+        <mat-icon class="icon-inline back" (click)="backClicked()">
+            arrow_back
+        </mat-icon>
+    </div>
+    <app-canvas></app-canvas>
+    <div id="linkContainer">
+        <a class="link" (click)="initDialog('Minerva')">Minerva</a>
+        <a class="link" (click)="initDialog('Produkt 2')">Produkt 2</a>
+        <a class="link" (click)="initDialog('Produkt 3')">Produkt 3</a>
+        <a class="link" (click)="initDialog('Produkt 4')">Produkt 4</a>
+        <a class="link" (click)="initDialog()">Produkt</a>
+        <a class="link" (click)="initDialog()">Produkt</a>
+        <a class="link" (click)="initDialog()">Produkt</a>
+        <a class="link" (click)="initDialog()">Produkt</a>
+        <a class="link" (click)="initDialog()">Produkt</a>
+        <a class="link" (click)="initDialog()">Produkt</a>
+        <a class="link" (click)="initDialog()">Produkt</a>
+        <a class="link" (click)="initDialog()">Produkt</a>
+        <a class="link" (click)="initDialog()">Produkt</a>
+    </div>
+    <footer></footer>
+</ng-template>
+<ng-template #noCurrentSelectedRoom>
+
+</ng-template>

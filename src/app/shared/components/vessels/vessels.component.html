@@ -1,7 +1,11 @@
+<div class="links">
+        <span>Her er du: </span>
+    <a>Vessels</a>
+</div>
 <img src="assets/img/MISCIcon.png" alt="Picture of boat" height="300" width="600">
 <div>
     <div *ngFor="let vessel of vessels; let i=index;" class="vessel">
-        <img src="{{vessel.image}}" alt="{{vessel.description}}" height="216" width="384" routerLink="/rooms">
+        <img src="{{vessel.image}}" alt="{{vessel.description}}" height="216" width="384" (click)="setCurrectSelectedVessel(vessel)" routerLink="/rooms">
         <p>{{vessel.title}}</p>
     </div>
     <div class="vessel">
@@ -12,7 +16,7 @@
         <img src="assets/img/boat.jpg" alt="Picture of boat" height="216" width="384" routerLink="/rooms">
         <p>DUMMY BOAT</p>
     </div>
-    <div *ngIf="global.loggedIn" class="vessel" (click)="openAddVessel()">
+    <div *ngIf="global.loggedIn && global.editMode" class="vessel" (click)="openAddVessel()">
         <img src="assets/img/addVessel.png" alt="Picture of boat" height="216" width="384">
     </div>
 </div>
