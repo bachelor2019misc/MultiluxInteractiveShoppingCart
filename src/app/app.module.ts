@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import {
   MatAutocompleteModule,
+  MatBadgeModule,
   MatButtonModule,
   MatButtonToggleModule,
   MatCardModule,
@@ -66,6 +67,7 @@ import { AddVesselComponent } from './shared/components/vessels/add-vessel/add-v
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    MatBadgeModule,
     MatInputModule, 
     MatButtonModule,
     MatSelectModule,
@@ -74,6 +76,7 @@ import { AddVesselComponent } from './shared/components/vessels/add-vessel/add-v
     MatGridListModule,
     MatDividerModule,
     MatTableModule,
+    MatMenuModule,
     MatIconModule,
     RouterModule.forRoot([
       {path: '', component: VesselsComponent},

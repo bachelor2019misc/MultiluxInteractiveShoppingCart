@@ -27,4 +27,12 @@ export class AppComponent {
 
     this.LoginNameDialogRef.afterClosed();
   }
+
+  enterEditMode() {
+    this.global.editMode = true;
+  }
+
+  enterViewMode() {
+    this.global.editMode = false;
+  }
 }

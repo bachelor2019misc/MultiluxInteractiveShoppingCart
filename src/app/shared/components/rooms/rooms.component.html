@@ -1,17 +1,33 @@
-<app-canvas></app-canvas>
-<div id= "linkContainer">
-    <a class= "link" routerLink= "/products">Baug</a>
-    <a class= "link" routerLink= "/products">Lugar</a>
-    <a class= "link" routerLink= "/products">Lugar</a>
-    <a class= "link" routerLink= "/products">Lugar</a>
-    <a class= "link" routerLink= "/products">Lugar</a>
-    <a class= "link" routerLink= "/products">Lugar</a>
-    <a class= "link" routerLink= "/products">Lugar</a>
-    <a class= "link" routerLink= "/products">Lugar</a>
-    <a class= "link" routerLink= "/products">Lugar</a>
-    <a class= "link" routerLink= "/products">Lugar</a>
-    <a class= "link" routerLink= "/products">Lugar</a>
-    <a class= "link" routerLink= "/products">Lugar</a>
-    <a class= "link" routerLink= "/products">Lugar</a>
-    <a class= "link" routerLink= "/products">Lugar</a>
-</div>
+<ng-container *ngIf="global.currentSelectedVessel !== undefined; then hasCurrentSelectedVessel; else noCurrentSelectedVessel">
+</ng-container>
+<ng-template #hasCurrentSelectedVessel>
+    <div class="links">
+        <span>Her er du: </span>
+        <a routerLink="/vessels">Vessels</a>
+        <mat-icon class="icon-inline">keyboard_arrow_right</mat-icon>
+        <a>{{global.currentSelectedVessel.title}}</a>
+        <mat-icon class="icon-inline back" (click)="backClicked()">
+            arrow_back
+        </mat-icon>
+    </div>
+    <app-canvas></app-canvas>
+    <div id="linkContainer">
+        <a class="link" routerLink="/products">Baug</a>
+        <a class="link" routerLink="/products">Lugar</a>
+        <a class="link" routerLink="/products">Lugar</a>
+        <a class="link" routerLink="/products">Lugar</a>
+        <a class="link" routerLink="/products">Lugar</a>
+        <a class="link" routerLink="/products">Lugar</a>
+        <a class="link" routerLink="/products">Lugar</a>
+        <a class="link" routerLink="/products">Lugar</a>
+        <a class="link" routerLink="/products">Lugar</a>
+        <a class="link" routerLink="/products">Lugar</a>
+        <a class="link" routerLink="/products">Lugar</a>
+        <a class="link" routerLink="/products">Lugar</a>
+        <a class="link" routerLink="/products">Lugar</a>
+        <a class="link" routerLink="/products">Lugar</a>
+    </div>
+</ng-template>
+<ng-template #noCurrentSelectedVessel>
+
+</ng-template>

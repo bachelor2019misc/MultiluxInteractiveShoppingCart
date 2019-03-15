@@ -11,15 +11,20 @@
   background-size: contain;
   background-repeat: no-repeat;
   height: 60px;
-  width: 50%;
   margin-left: 24px;
+  display: inline-block;
+  width: 100%;
+}
+
+.header-left {
+  height: 60px;
   margin-top: 8px;
   margin-bottom: 8px;
+  width: 50%;
   display: inline-block;
   min-width : 50%;
 }
 
-/* Style the active/current link*/
 .header-right {
   float: right;
   height: 80px;
@@ -30,13 +35,39 @@
   vertical-align: top;
   margin-top: 15px;
   margin-right: 20px;
-  padding-top: 15px;
-  padding-bottom: 15px; 
+  height: 50px; 
   display: inline-block;
   background-color: dodgerblue;
   color: white;
   text-align: center;
   border-radius: 4px;
+  font-size: 16px;
+}
+
+#enterViewBtn {
+  width: 50px;
+  vertical-align: top;
+  margin-top: 15px;
+  height: 50px; 
+  display: inline-block;
+  background-color: #C9193F;
+  color: white;
+  text-align: center;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+#enterEditBtn {
+  width: 50px;
+  vertical-align: top;
+  margin-top: 15px;
+  height: 50px; 
+  display: inline-block;
+  background-color: dodgerblue;
+  color: white;
+  text-align: center;
+  border-radius: 4px;
+  font-size: 16px;
 }
 
 #shopping-cart {
@@ -62,4 +93,21 @@
   margin-left: auto;
   margin-right: auto;
   background-color: #ffffff8a;
+}
+
+.icon-text {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.width100 {
+  width: 100%;
+}
+
+.width70 {
+  width: 70%;
+}
+
+.width30 {
+  width: 30%;
 }
