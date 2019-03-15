@@ -1,4 +1,5 @@
 export class Vessel {
+    idVessel: string;
     title: string;
     description: string;
     hidden: boolean;
