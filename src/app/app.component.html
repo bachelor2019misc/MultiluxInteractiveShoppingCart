@@ -8,7 +8,7 @@
     </ng-container>
     <ng-template #loggedIn>
       <mat-menu #appMenu="matMenu">
-        <button mat-menu-item>
+        <button mat-menu-item (click)="openEditUserDialog()">
           <mat-icon>person</mat-icon>
           <span>Rediger bruker</span>
         </button>

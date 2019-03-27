@@ -46,8 +46,9 @@ import { SubProductsComponent } from './shared/components/products/sub-products/
 import { CanvasComponent } from './shared/utils/canvas/canvas.util';
 import { ShoppingCartComponent } from './shared/components/shopping-cart/shopping-cart.component';
 import { LoginComponent } from './shared/components/login/login.component';
+import { EditUserComponent } from './shared/components/edit-user/edit-user.component';
 import { Globals } from './shared/utils/globals';
-import { AddVesselComponent } from './shared/components/vessels/add-vessel/add-vessel.component'
+import { AddVesselComponent } from './shared/components/vessels/add-vessel/add-vessel.component';
 import { EditVesselComponent } from './shared/components/vessels/edit-vessel/edit-vessel.component';
 
 @NgModule({
@@ -60,6 +61,7 @@ import { EditVesselComponent } from './shared/components/vessels/edit-vessel/edi
     CanvasComponent,
     ShoppingCartComponent,
     LoginComponent,
+    EditUserComponent,
     AddVesselComponent,
     EditVesselComponent
   ],
@@ -90,6 +92,6 @@ import { EditVesselComponent } from './shared/components/vessels/edit-vessel/edi
   ],
   providers: [Globals],
   bootstrap: [AppComponent],
-  entryComponents: [LoginComponent, SubProductsComponent, AddVesselComponent, EditVesselComponent]
+  entryComponents: [LoginComponent, EditUserComponent, SubProductsComponent, AddVesselComponent, EditVesselComponent]
 })
 export class AppModule { }
