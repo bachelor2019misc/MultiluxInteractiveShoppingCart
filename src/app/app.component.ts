@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {VERSION, MatDialog, MatDialogRef} from '@angular/material';
 import { LoginComponent } from './shared/components/login/login.component';
+import { LogoutComponent } from './shared/components/logout/logout.component';
 import { Globals } from './shared/utils/globals'
 
 import { filter } from 'rxjs/operators';
@@ -15,6 +16,7 @@ export class AppComponent {
   title = 'MultiluxInteractiveShoppingCart';
 
   LoginNameDialogRef: MatDialogRef<LoginComponent>;
+  LogoutNameDialogRef: MatDialogRef<LogoutComponent>;
 
   constructor(private dialog: MatDialog, private global: Globals) {}
 
@@ -24,8 +26,16 @@ export class AppComponent {
         
       }
     });
-
     this.LoginNameDialogRef.afterClosed();
+  }
+
+  openLogoutDialog(file?) {
+    this.LogoutNameDialogRef = this.dialog.open(LogoutComponent, {
+      data: {
+        
+      }
+    });
+    this.LogoutNameDialogRef.afterClosed();
   }
 
   enterEditMode() {

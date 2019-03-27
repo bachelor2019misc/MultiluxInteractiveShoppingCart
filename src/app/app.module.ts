@@ -46,6 +46,7 @@ import { SubProductsComponent } from './shared/components/products/sub-products/
 import { CanvasComponent } from './shared/utils/canvas/canvas.util';
 import { ShoppingCartComponent } from './shared/components/shopping-cart/shopping-cart.component';
 import { LoginComponent } from './shared/components/login/login.component';
+import {LogoutComponent } from './shared/components/logout/logout.component';
 import { Globals } from './shared/utils/globals';
 import { AddVesselComponent } from './shared/components/vessels/add-vessel/add-vessel.component'
 import { EditVesselComponent } from './shared/components/vessels/edit-vessel/edit-vessel.component';
@@ -60,6 +61,7 @@ import { EditVesselComponent } from './shared/components/vessels/edit-vessel/edi
     CanvasComponent,
     ShoppingCartComponent,
     LoginComponent,
+    LogoutComponent,
     AddVesselComponent,
     EditVesselComponent
   ],
@@ -90,6 +92,6 @@ import { EditVesselComponent } from './shared/components/vessels/edit-vessel/edi
   ],
   providers: [Globals],
   bootstrap: [AppComponent],
-  entryComponents: [LoginComponent, SubProductsComponent, AddVesselComponent, EditVesselComponent]
+  entryComponents: [LoginComponent, LogoutComponent, SubProductsComponent, AddVesselComponent, EditVesselComponent]
 })
 export class AppModule { }
