@@ -41,7 +41,7 @@ export class VesselsComponent implements OnInit {
 
   openAddVessel(file?) {
     this.AddVesselNameDialogRef = this.dialog.open(AddVesselComponent, {
-      height: "400px",
+      height: "600px",
       width: "700px",
       data: {
         

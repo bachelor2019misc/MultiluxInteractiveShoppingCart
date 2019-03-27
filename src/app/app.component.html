@@ -10,15 +10,15 @@
       <mat-menu #appMenu="matMenu">
         <button mat-menu-item>
           <mat-icon>person</mat-icon>
-          <span>Rediger bruker</span>
+          <span>Edit user</span>
         </button>
         <button mat-menu-item>
           <mat-icon>person_add</mat-icon>
-          <span>Legg til ny bruker</span>
+          <span>Add new user</span>
         </button>
         <button mat-menu-item>
           <mat-icon>exit_to_app</mat-icon>
-          <span>Logg ut</span>
+          <span>Logout</span>
         </button>
       </mat-menu>
       <ng-container *ngIf="global.editMode; then editMode; else viewMode">

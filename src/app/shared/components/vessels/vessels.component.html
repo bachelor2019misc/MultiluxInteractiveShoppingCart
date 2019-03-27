@@ -11,9 +11,10 @@
         <div *ngFor="let vessel of vessels; let i=index;" class="vessel">
             <div class="vesselImageContainer">
                 <img src="{{vessel.image}}" alt="{{vessel.description}}" height="216" width="384"
-                    (click)="setCurrectSelectedVessel(vessel)" routerLink="/rooms">
+                    (click)="setCurrectSelectedVessel(vessel)" [routerLink]="['/rooms', vessel.idVessel]">
             </div>
-            <div class="vesselTextContainer" (click)="setCurrectSelectedVessel(vessel)" routerLink="/rooms">
+            <div class="vesselTextContainer" (click)="setCurrectSelectedVessel(vessel)"
+                [routerLink]="['/rooms', vessel.idVessel]">
                 <a>{{vessel.title}}</a>
             </div>
         </div>
@@ -22,12 +23,13 @@
         <div *ngFor="let vessel of vessels; let i=index;" class="vessel">
             <div class="vesselImageContainer">
                 <img src="{{vessel.image}}" alt="{{vessel.description}}" height="216" width="384"
-                    (click)="setCurrectSelectedVessel(vessel)" routerLink="/rooms">
+                    (click)="setCurrectSelectedVessel(vessel)" [routerLink]="['/rooms', vessel.idVessel]">
                 <mat-icon class="editVesselIcon" (click)="setCurrectSelectedVessel(vessel); openEditVessel();">
                     edit
                 </mat-icon>
             </div>
-            <div class="vesselTextContainer" (click)="setCurrectSelectedVessel(vessel)" routerLink="/rooms">
+            <div class="vesselTextContainer" (click)="setCurrectSelectedVessel(vessel)"
+                [routerLink]="['/rooms', vessel.idVessel]">
                 <a>{{vessel.title}}</a>
             </div>
         </div>
@@ -39,5 +41,10 @@
                 <a>Add new vessel</a>
             </div>
         </div>
+        <button mat-fab id="fabBtn" (click)="openAddVessel()">
+            <mat-icon>
+                add
+            </mat-icon>
+        </button>
     </ng-template>
 </div>

@@ -28,6 +28,13 @@ body {
     overflow: initial;
 }
 
+#fabBtn {
+  position: fixed;
+  width: 64px;
+  height: 64px;
+  right: 24px;
+  bottom: 24px;
+}
 
 #productTable {
     max-width: 75%;

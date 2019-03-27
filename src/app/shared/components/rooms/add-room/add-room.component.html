@@ -1,0 +1,26 @@
+<form [formGroup]="form" (ngSubmit)="submit(form)">
+  <h1 mat-dialog-title>Add Room</h1>
+  <mat-dialog-content>
+    <mat-form-field>
+      <input matInput formControlName="title" placeholder="Enter title of room"
+        (ngOnInit)="title(form)">
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-content>
+    <mat-form-field>
+      <input matInput formControlName="description" placeholder="Enter description"
+        (ngOnInit)="description(form)">
+    </mat-form-field>
+  </mat-dialog-content>
+  <p>Room Image</p>
+  <input class="ng-hide" (change)="readRoomUrl($event);" id="vesselImageInput" multiple type="file" />
+  <label for="vesselImageInput" class="md-button md-raised md-primary block"></label>
+  <mat-dialog-actions class="bottom">
+    <button mat-button type="submit">Add Room</button>
+    <button mat-button type="button" (click)="dialogRef.close()">Cancel</button>
+  </mat-dialog-actions>
+</form>
+<div class="image-preview">
+  <p>Room image</p>
+  <img [src]="image" height="216" width="384">
+</div>
