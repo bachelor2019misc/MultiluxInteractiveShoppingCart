@@ -1,3 +1,6 @@
 export class Room {
-    title:string;
+    idRoom: string;
+    title: string;
+    description: string;
+    image: string;
 }

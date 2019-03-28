@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Location } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { VERSION, MatDialog, MatDialogRef } from '@angular/material';
 import { SubProductsComponent } from './sub-products/sub-products.component';
 import { ProductOption } from './sub-products/ProductOption';
@@ -26,20 +26,35 @@ export interface ProductOptions {
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent {
+export class ProductsComponent implements OnInit, OnDestroy {
+
   version = VERSION;
   title = 'MultiluxInteractiveShoppingCart';
 
+  idVessel: string;
+  idRoom: string;
+  private sub: any;
 
   productDialogRef: MatDialogRef<SubProductsComponent>
 
-  constructor(private dialog: MatDialog, private location: Location, private global: Globals, private router: Router) { 
+  constructor(private dialog: MatDialog, private location: Location, private global: Globals, private router: Router, private route: ActivatedRoute) { 
     if(this.global.currentSelectedRoom === undefined) {
       //this.router.navigate(['/', 'rooms']); TODO: add this when rooms is done
     }
   }
 
-
+  ngOnInit() {
+    this.sub = this.route.params.subscribe(params => {
+       this.idVessel = params['vesselId']; // (+) converts string 'id' to a number
+       if(this.idVessel !== this.global.currentSelectedVessel.idVessel) {
+         //TODO: get vessel
+       }
+       this.idRoom = params['roomId']; // (+) converts string 'id' to a number
+       if(this.idRoom !== this.global.currentSelectedRoom.idRoom) {
+         //TODO: get room
+       }
+    });
+  }
 
   initDialog(productName?) {
 
@@ -93,5 +108,9 @@ export class ProductsComponent {
 
   backClicked() {
     this.location.back();
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 }

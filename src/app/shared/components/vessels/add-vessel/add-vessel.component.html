@@ -12,11 +12,20 @@
         (ngOnInit)="description(form)">
     </mat-form-field>
   </mat-dialog-content>
-  <input class="ng-hide" (change)="readUrl($event);" id="vesselImageInput" multiple type="file"/>
-  <label for="vesselImageInput" class="md-button md-raised md-primary"></label>
-  <mat-dialog-actions>
+  <p>Vessel Image</p>
+  <input class="ng-hide" (change)="readVesselUrl($event);" id="vesselImageInput" multiple type="file" />
+  <label for="vesselImageInput" class="md-button md-raised md-primary block"></label>
+  <p>Blueprint Image</p>
+  <input class="ng-hide" (change)="readBlueprintUrl($event);" id="blueprintImageInput" multiple type="file" />
+  <label for="blueprintImageInput" class="md-button md-raised md-primary block"></label>
+  <mat-dialog-actions class="bottom">
     <button mat-button type="submit">Add Vessel</button>
     <button mat-button type="button" (click)="dialogRef.close()">Cancel</button>
   </mat-dialog-actions>
 </form>
-<img class="image-preview" [src]="image" height="216" width="384">
+<div class="image-preview">
+  <p>Vessel image</p>
+  <img [src]="imageVessel" height="216" width="384">
+  <p>Blueprint image</p>
+  <img [src]="imageBlueprint" height="216" width="384">
+</div>

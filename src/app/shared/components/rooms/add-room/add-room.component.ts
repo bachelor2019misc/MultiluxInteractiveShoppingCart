@@ -2,24 +2,25 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { RestService } from '../../../services/rest/rest.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { Globals } from '../../../utils/globals';
 
 @Component({
-  selector: 'app-add-vessel',
-  templateUrl: './add-vessel.component.html',
-  styleUrls: ['./add-vessel.component.css']
+  selector: 'app-add-room',
+  templateUrl: './add-room.component.html',
+  styleUrls: ['./add-room.component.css']
 })
-export class AddVesselComponent implements OnInit {
+export class AddRoomComponent implements OnInit {
   form: FormGroup;
 
-  imageVessel: any;
-  imageBlueprint: any;
+  image: any;
   title: string;
   description: string;
 
   constructor(
     public rest: RestService,
     private formBuilder: FormBuilder,
-    private dialogRef: MatDialogRef<AddVesselComponent>,
+    private dialogRef: MatDialogRef<AddRoomComponent>,
+    private global: Globals,
     @Inject(MAT_DIALOG_DATA) private data
   ) { }
 
@@ -28,17 +29,17 @@ export class AddVesselComponent implements OnInit {
       title: this.data.title ? this.data.title : '',
       description: this.data.description ? this.data.description : ''
     })
-    this.imageVessel = "assets/img/vesselPlaceholder.png";
-    this.imageBlueprint = "assets/img/vesselPlaceholder.png";
+    this.image = "assets/img/vesselPlaceholder.png";
   }
 
   submit(form: any) {
-    this.rest.httpPost('vessel', {
+    this.rest.httpPost('blueprintdot', {
       "title": form.value.title,
       "description": form.value.description,
-      "hidden": false,
-      "imageVessel": this.imageVessel,
-      "imageBlueprint": this.imageBlueprint
+      "image": this.image,
+      "xCoordinates": Math.floor(Math.random() * 1400) + 1,
+      "yCoordinates": Math.floor(Math.random() * 700) + 1,
+      "idVessel": this.global.currentSelectedVessel.idVessel
     }).subscribe(
       res => {
         console.log(res);
@@ -50,23 +51,12 @@ export class AddVesselComponent implements OnInit {
     this.dialogRef.close(true);
   }
 
-  readVesselUrl(event: any) {
+  readRoomUrl(event: any) {
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
       reader.onload = (event: ProgressEvent) => {
-        this.imageVessel = (<FileReader>event.target).result;
-        console.log("Image: ", this.imageVessel);
-      }
-      reader.readAsDataURL(event.target.files[0]);
-    }
-  }
-
-  readBlueprintUrl(event: any) {
-    if (event.target.files && event.target.files[0]) {
-      var reader = new FileReader();
-      reader.onload = (event: ProgressEvent) => {
-        this.imageBlueprint = (<FileReader>event.target).result;
-        console.log("Image: ", this.imageBlueprint);
+        this.image = (<FileReader>event.target).result;
+        console.log("Image: ", this.image);
       }
       reader.readAsDataURL(event.target.files[0]);
     }

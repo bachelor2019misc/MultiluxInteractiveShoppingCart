@@ -1,0 +1,34 @@
+<div class="canvasContainer">
+    <canvas #canvas></canvas>
+    <mat-icon *ngIf="global.editMode" class="editBlueprintIcon">
+        edit
+    </mat-icon>
+</div>
+<div>
+    <div *ngFor="let room of rooms; let i=index;" class="roomContainer">
+        <ng-container *ngIf="room === undefined; then loading; else done">
+        </ng-container>
+        <ng-template #loading>
+            <div class="room">
+                <div class="roomImage">
+
+                </div>
+                <div class="roomText">
+                    <a>Loading...</a>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template #done>
+            <div class="room">
+                <div class="roomImage">
+                    <img src="{{room.image}}" alt="{{room.description}}" height="90" width="160"
+                        (click)="setCurrectSelectedRoom(vessel)" [routerLink]="['/products', global.currentSelectedVessel.idVessel, room.idRoom]">
+                </div>
+                <div class="roomText" [routerLink]="['/products', global.currentSelectedVessel.idVessel, room.idRoom]">
+                    <a>{{room.title}}</a>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+    <div *ngIf="global.editMode" class="room">Legg til ny</div>
+</div>

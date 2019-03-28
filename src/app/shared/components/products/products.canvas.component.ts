@@ -2,15 +2,17 @@ import { Component, Input, ElementRef, AfterViewInit, ViewChild, AfterViewChecke
 import { fromEvent } from 'rxjs';
 import { switchMap, takeUntil, pairwise } from 'rxjs/operators'
 import { logging } from 'protractor';
-import { Circle } from './circle.util';
+import { RoomDot } from '../../utils/entities/roomdot.entity';
 import { element } from '@angular/core/src/render3';
+import { Room } from '../../utils/entities/room.entity';
+import { Globals } from '../../utils/globals';
 
 @Component({
-    selector: 'app-canvas',
+    selector: 'products-canvas',
     template: '<canvas #canvas></canvas>',
     styles: ['canvas { border: 1px solid #000;}']
 })
-export class CanvasComponent implements AfterViewInit {
+export class ProductsCanvasComponent implements AfterViewInit {
     @ViewChild('canvas') public canvas: ElementRef;
 
     @Input() public width = 1400;
@@ -20,8 +22,8 @@ export class CanvasComponent implements AfterViewInit {
     readonly maxHeight:number = this.height;
 
     private cx: CanvasRenderingContext2D;
-    private vesselImage: HTMLImageElement;
-    private circles: Array<Circle> = new Array();
+    private roomImage: HTMLImageElement;
+    private dots: Array<RoomDot> = new Array();
 
     public ngAfterViewInit() {
         const canvasEl: HTMLCanvasElement = this.canvas.nativeElement;
@@ -31,18 +33,10 @@ export class CanvasComponent implements AfterViewInit {
         canvasEl.width = this.width;
         canvasEl.height = this.height;
 
-        this.vesselImage = new Image();
-        this.vesselImage.src = "assets/img/boat.jpg";
+        this.roomImage = new Image();
 
-        this.vesselImage.onload = () => {
+        this.roomImage.onload = () => {
             this.resize();
-
-            this.circles;
-            this.circles.push({ x: 150, y: 100, radius: 10 });
-            this.circles.push({ x: 200, y: 20, radius: 10 });
-            this.circles.push({ x: 290, y: 120, radius: 10 });
-            this.circles.push({ x: 180, y: 300, radius: 10 });
-            this.circles.push({ x: 80, y: 220, radius: 10 });
 
             this.draw();
             window.addEventListener('resize', () => this.resize());
@@ -52,12 +46,12 @@ export class CanvasComponent implements AfterViewInit {
 
     // taken from: https://medium.com/@tarik.nzl/creating-a-canvas-component-with-free-hand-drawing-with-rxjs-and-angular-61279f577415
     private captureEvents(canvasEl: HTMLCanvasElement) {
-        var circle: Circle;
+        var dot: RoomDot;
         // this will capture all mousedown events from the canvas element
         fromEvent(canvasEl, 'mousedown')
             .pipe(
                 switchMap((e) => {
-                    circle = undefined;
+                    dot = undefined;
                     // after a mouse down, we'll record all mouse moves
                     return fromEvent(canvasEl, 'mousemove')
                         .pipe(
@@ -88,20 +82,20 @@ export class CanvasComponent implements AfterViewInit {
 
                 console.log(currentPos);
 
-                if (circle === undefined) {
+                if (dot === undefined) {
                     var i = 0;
-                    while (i < this.circles.length) {
-                        if (this.colideWithCircle(currentPos.x, currentPos.y, this.circles[i])) {
-                            circle = this.circles[i];
-                            i = this.circles.length;
-                            console.log(circle);
+                    while (i < this.dots.length) {
+                        if (this.colideWithCircle(currentPos.x, currentPos.y, this.dots[i])) {
+                            dot = this.dots[i];
+                            i = this.dots.length;
+                            console.log(dot);
                         } else {
                             i++;
                         }
                     }
                 } else {
-                    circle.x = currentPos.x * (this.maxWidth/this.width);
-                    circle.y = currentPos.y * (this.maxHeight/this.height);
+                    dot.xCoordinates = currentPos.x * (this.maxWidth/this.width);
+                    dot.yCoordinates = currentPos.y * (this.maxHeight/this.height);
                     this.draw();
                 }
             });
@@ -114,10 +108,10 @@ export class CanvasComponent implements AfterViewInit {
             };
 
             var i = 0;
-            while (i < this.circles.length) {
-                if (this.colideWithCircle(currentPos.x, currentPos.y, this.circles[i])) {
+            while (i < this.dots.length) {
+                if (this.colideWithCircle(currentPos.x, currentPos.y, this.dots[i])) {
                     document.body.style.cursor = 'pointer';
-                    i = this.circles.length;
+                    i = this.dots.length;
                 } else {
                     document.body.style.cursor = 'default';
                     i++;
@@ -126,8 +120,8 @@ export class CanvasComponent implements AfterViewInit {
         });
     }
 
-    private colideWithCircle(x, y, circle: Circle) {
-        if (checkCollision(x, y, 10, 10, circle.x * (this.width / this.maxWidth), circle.y * (this.height / this.maxHeight), 20, 20)) {
+    private colideWithCircle(x, y, dot: RoomDot) {
+        if (checkCollision(x, y, 10, 10, dot.xCoordinates * (this.width / this.maxWidth), dot.yCoordinates * (this.height / this.maxHeight), 20, 20)) {
             return true;
         } else {
             return false;
@@ -151,15 +145,15 @@ export class CanvasComponent implements AfterViewInit {
     }
 
     private draw() {
-        this.cx.drawImage(this.vesselImage, 0, 0, this.width, this.height);
-        for (var i = 0; i < this.circles.length; i++) {
-            this.drawCircle(this.circles[i]);
+        this.cx.drawImage(this.roomImage, 0, 0, this.width, this.height);
+        for (var i = 0; i < this.dots.length; i++) {
+            this.drawCircle(this.dots[i]);
         }
     }
 
-    private drawCircle(circle: Circle) {
+    private drawCircle(dot: RoomDot) {
         this.cx.beginPath();
-        this.cx.arc(circle.x * (this.width / this.maxWidth), circle.y * (this.height / this.maxHeight), 10, 0, 2 * Math.PI);
+        this.cx.arc(dot.xCoordinates * (this.width / this.maxWidth), dot.yCoordinates * (this.height / this.maxHeight), 10, 0, 2 * Math.PI);
         this.cx.closePath();
         var tempColor = "rgb(255,0,0)";
         this.cx.fillStyle = tempColor;
