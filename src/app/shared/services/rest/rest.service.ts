@@ -52,6 +52,13 @@ export class RestService {
     console.log(headers);
   }
 
+  setDefaultHeader(){
+    headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json');
+    options = { headers: headers };
+    console.log(headers);
+  }
+
   httpPost(endpoint:string, json:object) :Observable<any> {
     return this.http.post(baseURL + endpoint, JSON.stringify(json), options);
   }
