@@ -13,6 +13,7 @@ headers = headers.set('Content-Type', 'application/json');
 let options = { headers: headers };
 
 const endpointLogin = 'login';
+const endpointEditUser = 'user/';
 const endpointAddUser = 'add';
 
 @Injectable({
@@ -27,6 +28,13 @@ export class RestService {
     console.log(json);
     console.log(JSON.stringify(json));
     return this.httpPost(endpointLogin, json);
+  }
+
+  editUser(oldusername:string, username:string, password:string) :Observable<any> {
+    let json = {username: username, password:password};
+    console.log(json);
+    console.log(JSON.stringify(json));
+    return this.httpPut(endpointEditUser + oldusername, json);
   }
 
   addUser(username:string, password:string) :Observable<any> {

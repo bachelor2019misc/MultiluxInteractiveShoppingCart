@@ -48,9 +48,9 @@ import { ProductsCanvasComponent } from './shared/components/products/products.c
 import { ShoppingCartComponent } from './shared/components/shopping-cart/shopping-cart.component';
 import { LoginComponent } from './shared/components/login/login.component';
 import { AddUserComponent } from './shared/components/add-user/add-user.component';
+import { EditUserComponent } from './shared/components/edit-user/edit-user.component';
 import { Globals } from './shared/utils/globals';
-
-import { AddVesselComponent } from './shared/components/vessels/add-vessel/add-vessel.component'
+import { AddVesselComponent } from './shared/components/vessels/add-vessel/add-vessel.component';
 import { EditVesselComponent } from './shared/components/vessels/edit-vessel/edit-vessel.component';
 import { AddRoomComponent } from './shared/components/rooms/add-room/add-room.component';
 import { EditRoomComponent } from './shared/components/rooms/edit-room/edit-room.component';
@@ -69,6 +69,7 @@ import { EditRoomComponent } from './shared/components/rooms/edit-room/edit-room
     ShoppingCartComponent,
     LoginComponent,
     AddUserComponent,
+    EditUserComponent,
     AddVesselComponent,
     EditVesselComponent,
     AddRoomComponent,
@@ -101,6 +102,6 @@ import { EditRoomComponent } from './shared/components/rooms/edit-room/edit-room
   ],
   providers: [Globals],
   bootstrap: [AppComponent],
-  entryComponents: [LoginComponent, AddUserComponent, SubProductsComponent, AddVesselComponent, EditVesselComponent, AddRoomComponent, EditRoomComponent]
+  entryComponents: [LoginComponent, EditUserComponent, AddUserComponent, SubProductsComponent, AddVesselComponent, EditVesselComponent, AddRoomComponent, EditRoomComponent]
 })
 export class AppModule { }

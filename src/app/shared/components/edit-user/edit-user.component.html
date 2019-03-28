@@ -1,0 +1,35 @@
+<!-- Code for password validation from https://stackoverflow.com/questions/51605737/confirm-password-validation-in-angular-6 -->
+
+<form [formGroup]="form" (ngSubmit)="submit(form)">
+  <h1 mat-dialog-title>Edit User</h1>
+  <p>Fill the fields you want to edit</p>
+  <mat-dialog-content>
+    <mat-form-field>
+      <input matInput formControlName="username" placeholder="New username"
+        (ngOnInit)="username(form)">
+        <mat-error *ngIf="form.hasError('username')">
+            Please enter a username
+        </mat-error>
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-content>
+    <mat-form-field>
+      <input matInput placeholder="New password" formControlName="password" type="password"
+        (ngOnInit)="password(form)">
+      <mat-error *ngIf="form.hasError('password')">
+          Please enter a password
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Confirm password" formControlName="confirmPassword" [errorStateMatcher]="matcher" type="password"
+        (ngOnInit)="password(form)">
+      <mat-error *ngIf="form.hasError('notSame') && form.controls['confirmPassword'].touched">
+          The passwords do not match
+      </mat-error> 
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button type="submit" [disabled]="form.hasError('username') || form.hasError('password') || form.hasError('notSame')">Edit User</button>
+    <button mat-button type="button" (click)="dialogRef.close()">Cancel</button>
+  </mat-dialog-actions>
+</form>
