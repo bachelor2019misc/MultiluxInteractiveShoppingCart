@@ -1,25 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, ViewChildren, AfterViewChecked } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { VERSION, MatDialog, MatDialogRef } from '@angular/material';
-import { SubProductsComponent } from './sub-products/sub-products.component';
-import { ProductOption } from './sub-products/ProductOption';
 import { Globals } from '../../utils/globals';
-
-export interface Tile {
-  cols: number;
-  rows: number;
-}
-
-export interface ProductOptions {
-  amount: number;
-  name: string;
-  watt: number;
-  kelvin: number;
-  lumen: number;
-  replace: string;
-  basePrice: number;
-}
+import { RestService } from '../../services/rest/rest.service';
+import { Product } from '../../utils/entities/product.entity';
+import { RoomDot } from '../../utils/entities/roomdot.entity';
+import { ProductsCanvasComponent } from './products-canvas/products-canvas.component';
+import { AddProductComponent } from './add-product/add-product.component';
+import { EditRoomComponent } from '../rooms/edit-room/edit-room.component';
 
 @Component({
   selector: 'app-products',
@@ -28,6 +17,8 @@ export interface ProductOptions {
 })
 export class ProductsComponent implements OnInit, OnDestroy {
 
+  @ViewChild(ProductsCanvasComponent) canvas: ProductsCanvasComponent;
+
   version = VERSION;
   title = 'MultiluxInteractiveShoppingCart';
 
@@ -35,75 +26,165 @@ export class ProductsComponent implements OnInit, OnDestroy {
   idRoom: string;
   private sub: any;
 
-  productDialogRef: MatDialogRef<SubProductsComponent>
+  public dots: RoomDot[] = [];
+  public products: Product[] = [];
 
-  constructor(private dialog: MatDialog, private location: Location, private global: Globals, private router: Router, private route: ActivatedRoute) { 
-    if(this.global.currentSelectedRoom === undefined) {
+  AddProductNameDialogRef: MatDialogRef<AddProductComponent>;
+  EditRoomNameDialogRef: MatDialogRef<EditRoomComponent>;
+
+  constructor(private rest: RestService, private dialog: MatDialog, private location: Location, private global: Globals, private router: Router, private route: ActivatedRoute) {
+    if (this.global.currentSelectedRoom === undefined) {
       //this.router.navigate(['/', 'rooms']); TODO: add this when rooms is done
     }
   }
 
   ngOnInit() {
+
+    console.log("Starting ngONInit");
+
     this.sub = this.route.params.subscribe(params => {
-       this.idVessel = params['vesselId']; // (+) converts string 'id' to a number
-       if(this.idVessel !== this.global.currentSelectedVessel.idVessel) {
-         //TODO: get vessel
-       }
-       this.idRoom = params['roomId']; // (+) converts string 'id' to a number
-       if(this.idRoom !== this.global.currentSelectedRoom.idRoom) {
-         //TODO: get room
-       }
-    });
-  }
-
-  initDialog(productName?) {
-
-    productName = productName ? productName : "[PRODUCT NAME]";
-
-    //Data would be fetched from database in finished code
-    var element_data: ProductOption[] = [
-      { id: 0, amount: 1, name: "Minerva", watt: 10, kelvin: 4000, lumen: 1104, replace: "1x18W fluo", basePrice: 100 },
-      { id: 1, amount: 1, name: "Minerva", watt: 21, kelvin: 4000, lumen: 2614, replace: "2x18W fluo", basePrice: 200 },
-      { id: 2, amount: 1, name: "Minerva", watt: 23, kelvin: 4000, lumen: 2765, replace: "1x36W fluo", basePrice: 300 },
-      { id: 3, amount: 1, name: "Minerva", watt: 37, kelvin: 4000, lumen: 5009, replace: "2x36W fluo", basePrice: 400 },
-      { id: 4, amount: 1, name: "Minerva", watt: 50, kelvin: 4000, lumen: 6730, replace: "2x54W fluo", basePrice: 500 },
-      { id: 5, amount: 1, name: "Minerva", watt: 28, kelvin: 4000, lumen: 3639, replace: "1x58W fluo", basePrice: 600 },
-      { id: 6, amount: 1, name: "Minerva", watt: 51, kelvin: 4000, lumen: 6591, replace: "2x59W fluo", basePrice: 700 },
-      { id: 7, amount: 1, name: "Minerva", watt: 60, kelvin: 4000, lumen: 7584, replace: "2x58W fluo", basePrice: 800 },
-      { id: 8, amount: 1, name: "Minerva", watt: 68, kelvin: 4000, lumen: 9144, replace: "2x80W fluo", basePrice: 900 }
-    ];
-
-
-
-
-    this.openProductDialog(productName, element_data);
-  }
-
-  openProductDialog(productName, element_data) {
-    this.productDialogRef = this.dialog.open(SubProductsComponent, {
-      //Set height and width of modal
-      height: "75vh",
-      width: "75vw",
-
-      //The data to bring into the dialog component
-      data: {
-        element_data,
-        productName,
-        productImage: "product.png",
-        productDescription: "The luminaire is also available with 3000K, 5000K and 6500K " +
-          "light source and shatterproof glass. Possibility of DALI or 1-10V."
-      }
-    });
-
-    this.productDialogRef.afterClosed().subscribe(
-      data => {
-        if (data) {
-          data.forEach(element => {
-            console.log(element)
-          });
+      this.idVessel = params['idVessel'];
+      if (Number.isInteger(+this.idVessel)) {
+        if (this.global.currentSelectedVessel === undefined) {
+          console.log("There is not a defined vessel");
+          this.getVesselById(this.idVessel);
+        } else {
+          if (this.idVessel === this.global.currentSelectedVessel.idVessel) {
+            // Do nothing since the correct vessel is already in memory
+            console.log("Vessel in memory is the same as id url");
+          } else {
+            console.log("There is a vessel in memory, but it does not have the same id as the url");
+            this.getVesselById(this.idVessel);
+          }
         }
+      } else {
+        console.log("Id in url is not a number");
+        this.router.navigate(['/', 'vessels']);
       }
-    )
+
+      this.idRoom = params['idRoom'];
+      if (Number.isInteger(+this.idRoom)) {
+        if (this.global.currentSelectedVessel === undefined) {
+          console.log("There is not a defined vessel");
+          this.getRoomById(this.idRoom);
+        } else {
+          if (this.idRoom === this.global.currentSelectedRoom.idRoom) {
+            // Do nothing since the correct vessel is already in memory
+            console.log("Vessel in memory is the same as id url");
+          } else {
+            console.log("There is a vessel in memory, but it does not have the same id as the url");
+            this.getRoomById(this.idRoom);
+          }
+        }
+      } else {
+        console.log("Id in url is not a number");
+        this.router.navigate(['/', 'vessels']);
+      }
+      console.log("Getting dots");
+
+      this.getDots();
+    });
+  }
+
+  getDots() {
+    console.log("Getting dots 2");
+    this.dots = [];
+    this.products = [];
+    this.rest.httpGet("roomdotbyidroom/" + this.idRoom).subscribe(
+      res => {
+        console.log("Dots: ", res);
+        this.dots = res;
+        console.log(this.canvas);
+        this.canvas.dots = this.dots;
+        console.log("Resizing canvas");
+        this.canvas.resize();
+        let tempProducts: Product[] = [];
+        for(var i = 0; i < this.dots.length; i++) {
+          console.log("Index ", i);
+          this.rest.httpGet("product/" + this.dots[i].idProduct).subscribe(
+            res => {
+              console.log(res);
+              tempProducts.push(res);
+              console.log(tempProducts);
+              if(tempProducts.length >= this.dots.length) {
+                for(var indexDot = 0; indexDot < this.dots.length; indexDot++) {
+                  for(var indexRoom = 0; indexRoom < tempProducts.length; indexRoom++) {
+                    if(this.dots[indexDot].idProduct === tempProducts[indexRoom].idProduct) {
+                      this.products.push(tempProducts[indexRoom]);
+                    }
+                  }
+                }
+                console.log("Sorting rooms");
+                this.canvas.products = this.products;
+                this.canvas.draw();
+              }
+            },
+            err => {
+              console.log("Error occured: ", err);
+            }
+          );
+        }
+      },
+      err => {
+        console.log("Error occured: ", err);
+      }
+    );
+  }
+
+  getVesselById(idVessel: string) {
+    console.log("IdVessel before getRequest: ", idVessel);
+    this.rest.httpGet('vessel/' + idVessel).subscribe(
+      res => {
+        console.log(res);
+        this.global.currentSelectedVessel = res;
+      },
+      err => {
+        console.log("Error occured: ", err);
+      }
+    );
+  }
+
+  getRoomById(idRoom: string) {
+    console.log("IdRoom before getRequest: ", idRoom);
+    this.rest.httpGet('room/' + idRoom).subscribe(
+      res => {
+        console.log(res);
+        this.global.currentSelectedRoom = res;
+      },
+      err => {
+        console.log("Error occured: ", err);
+      }
+    );
+  }
+
+  openAddProduct(file?) {
+    this.AddProductNameDialogRef = this.dialog.open(AddProductComponent, {
+      height: "600px",
+      width: "700px",
+      data: {
+        
+      }
+    });
+    this.AddProductNameDialogRef.afterClosed().subscribe((value) => {
+      if(value) {
+        this.getDots();
+      }
+    });
+  }
+
+  openEditRoom(file?) {
+    this.EditRoomNameDialogRef = this.dialog.open(EditRoomComponent, {
+      height: "600px",
+      width: "700px",
+      data: {
+        
+      }
+    });
+    this.EditRoomNameDialogRef.afterClosed().subscribe((value) => {
+      if(value) {
+        this.getDots();
+      }
+    });
   }
 
   backClicked() {

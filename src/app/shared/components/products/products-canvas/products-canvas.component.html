@@ -1,0 +1,37 @@
+<div class="canvasContainer">
+    <canvas #canvas></canvas>
+    <mat-icon *ngIf="global.editMode" class="editRoomIcon">
+        edit
+    </mat-icon>
+</div>
+<div>
+    <div *ngFor="let product of products; let i=index;" class="productContainer">
+        <ng-container *ngIf="product === undefined; then loading; else done">
+        </ng-container>
+        <ng-template #loading>
+            <div class="product">
+                <div class="productImage">
+
+                </div>
+                <div class="productText">
+                    <a>Loading...</a>
+                </div>
+            </div>
+        </ng-template>
+        <ng-template #done>
+            <div class="product" (click)="global.currentSelectedProduct = product">
+                <div class="productImage" 
+                [routerLink]="['/product', global.currentSelectedVessel.idVessel, global.currentSelectedRoom.idRoom, product.idProduct]" 
+                (click)="global.currentSelectedProduct = product">
+                    <img src="{{product.image}}" alt="{{product.description}}" height="90" width="160">
+                </div>
+                <div class="roomText" 
+                [routerLink]="['/product', global.currentSelectedVessel.idVessel, global.currentSelectedRoom.idRoom, product.idProduct]" 
+                (click)="global.currentSelectedProduct = product">
+                    <a>{{product.title}}</a>
+                </div>
+            </div>
+        </ng-template>
+    </div>
+    <div *ngIf="global.editMode" class="room">Legg til ny</div>
+</div>
