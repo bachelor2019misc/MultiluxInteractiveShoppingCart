@@ -44,17 +44,18 @@ import { RoomsComponent } from './shared/components/rooms/rooms.component';
 import { ProductsComponent } from './shared/components/products/products.component';
 import { SubProductsComponent } from './shared/components/products/sub-products/sub-products.component';
 import { RoomsCanvasComponent } from './shared/components/rooms/rooms-canvas/rooms-canvas.component';
-import { ProductsCanvasComponent } from './shared/components/products/products.canvas.component';
+import { ProductsCanvasComponent } from './shared/components/products/products-canvas/products-canvas.component';
 import { ShoppingCartComponent } from './shared/components/shopping-cart/shopping-cart.component';
 import { LoginComponent } from './shared/components/login/login.component';
 import { AddUserComponent } from './shared/components/add-user/add-user.component';
 import { EditUserComponent } from './shared/components/edit-user/edit-user.component';
-import {LogoutComponent } from './shared/components/logout/logout.component';
+import { LogoutComponent } from './shared/components/logout/logout.component';
 import { Globals } from './shared/utils/globals';
 import { AddVesselComponent } from './shared/components/vessels/add-vessel/add-vessel.component';
 import { EditVesselComponent } from './shared/components/vessels/edit-vessel/edit-vessel.component';
 import { AddRoomComponent } from './shared/components/rooms/add-room/add-room.component';
 import { EditRoomComponent } from './shared/components/rooms/edit-room/edit-room.component';
+import { AddProductComponent } from './shared/components/products/add-product/add-product.component';
 
 
 
@@ -75,7 +76,8 @@ import { EditRoomComponent } from './shared/components/rooms/edit-room/edit-room
     AddVesselComponent,
     EditVesselComponent,
     AddRoomComponent,
-    EditRoomComponent
+    EditRoomComponent,
+    AddProductComponent
   ],
   imports: [
     BrowserModule,
@@ -97,13 +99,24 @@ import { EditRoomComponent } from './shared/components/rooms/edit-room/edit-room
     RouterModule.forRoot([
       {path: '', component: VesselsComponent},
       {path: 'vessels', component: VesselsComponent},
-      {path: 'rooms/:vesselId', component: RoomsComponent},
-      {path: 'products/:vesselId/:roomId', component: ProductsComponent},
+      {path: 'rooms/:idVessel', component: RoomsComponent},
+      {path: 'products/:idVessel/:idRoom', component: ProductsComponent},
       {path: 'shopping-cart', component: ShoppingCartComponent}
     ])
   ],
   providers: [Globals],
   bootstrap: [AppComponent],
-  entryComponents: [LoginComponent, LogoutComponent, EditUserComponent, AddUserComponent, SubProductsComponent, AddVesselComponent, EditVesselComponent, AddRoomComponent, EditRoomComponent]
+  entryComponents: [
+    LoginComponent, 
+    LogoutComponent, 
+    EditUserComponent, 
+    AddUserComponent, 
+    SubProductsComponent, 
+    AddVesselComponent, 
+    EditVesselComponent, 
+    AddRoomComponent, 
+    EditRoomComponent,
+    AddProductComponent
+  ]
 })
 export class AppModule { }

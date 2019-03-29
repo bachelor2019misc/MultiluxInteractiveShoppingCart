@@ -19,7 +19,7 @@ import { Room } from '../../utils/entities/room.entity';
 })
 export class RoomsComponent implements OnInit, OnDestroy {
 
-  @ViewChild(RoomsCanvasComponent) canvas: RoomsCanvasComponent;
+  @ViewChild(RoomsCanvasComponent) private canvas: RoomsCanvasComponent;
 
   idVessel: string;
   private sub: any;
@@ -34,7 +34,7 @@ export class RoomsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
-      this.idVessel = params['vesselId'];
+      this.idVessel = params['idVessel'];
       console.log("url id: " + this.idVessel);
       if (Number.isInteger(+this.idVessel)) {
         if (this.global.currentSelectedVessel === undefined) {
@@ -53,8 +53,9 @@ export class RoomsComponent implements OnInit, OnDestroy {
         console.log("Id in url is not a number");
         this.router.navigate(['/', 'vessels']);
       }
+
       this.getDots();
-    })
+    });
   }
 
   getDots() {
@@ -65,16 +66,13 @@ export class RoomsComponent implements OnInit, OnDestroy {
         console.log("Dots: ", res);
         this.dots = res;
         this.canvas.dots = this.dots;
-        console.log("Resizing canvas");
+        console.log("Canvas: ", this.canvas);
         this.canvas.resize();
         let tempRooms: Room[] = [];
         for(var i = 0; i < this.dots.length; i++) {
-          console.log("Index ", i);
           this.rest.httpGet("room/" + this.dots[i].idRoom).subscribe(
             res => {
-              console.log(res);
               tempRooms.push(res);
-              console.log(tempRooms);
               if(tempRooms.length === this.dots.length) {
                 for(var indexDot = 0; indexDot < this.dots.length; indexDot++) {
                   for(var indexRoom = 0; indexRoom < tempRooms.length; indexRoom++) {

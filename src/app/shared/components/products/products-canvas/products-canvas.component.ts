@@ -10,29 +10,28 @@ import { Globals } from '../../../utils/globals';
 import { Blueprint } from '../../../utils/entities/blueprint.entity';
 import { Room } from '../../../utils/entities/room.entity';
 import { ActivatedRoute, Router } from '@angular/router';
-import { RoomsComponent } from '../rooms.component';
+import { ProductsComponent } from '../products.component';
+import { RoomDot } from '../../../utils/entities/roomdot.entity';
+import { Product } from '../../../utils/entities/product.entity';
 
 @Component({
-    selector: 'rooms-canvas',
-    templateUrl: './rooms-canvas.component.html',
-    styleUrls: ['./rooms-canvas.component.css']
+    selector: 'products-canvas',
+    templateUrl: './products-canvas.component.html',
+    styleUrls: ['./products-canvas.component.css']
 })
-export class RoomsCanvasComponent implements AfterViewInit {
+export class ProductsCanvasComponent implements AfterViewInit {
     @ViewChild('canvas') public canvas: ElementRef;
 
     @Input() public width = 1400;
     @Input() public height = 700;
-    public dots: BlueprintDot[] = [];
-    public rooms: Room[] = [];
-
-
-    blueprint: Blueprint;
+    public dots: RoomDot[] = [];
+    public products: Product[] = [];
 
     readonly maxWidth: number = this.width;
     readonly maxHeight: number = this.height;
 
     private cx: CanvasRenderingContext2D;
-    private blueprintImage: HTMLImageElement;
+    private roomImage: HTMLImageElement;
 
     constructor(public rest: RestService, private router: Router, private global: Globals) { }
 
@@ -44,20 +43,10 @@ export class RoomsCanvasComponent implements AfterViewInit {
         canvasEl.width = this.width;
         canvasEl.height = this.height;
 
-        this.blueprintImage = new Image();
+        this.roomImage = new Image();
+        this.roomImage.src = this.global.currentSelectedRoom.image;
 
-        this.rest.httpGet('blueprint/' + this.global.currentSelectedVessel.idBlueprint).subscribe(
-            res => {
-                console.log(res);
-                this.blueprint = res;
-                this.blueprintImage.src = this.blueprint.image;
-            },
-            err => {
-                console.log("Error occured: ", err);
-            }
-        );
-
-        this.blueprintImage.onload = () => {
+        this.roomImage.onload = () => {
             this.resize();
             this.draw();
             window.addEventListener('resize', () => this.resize());
@@ -67,8 +56,8 @@ export class RoomsCanvasComponent implements AfterViewInit {
 
     // taken from: https://medium.com/@tarik.nzl/creating-a-canvas-component-with-free-hand-drawing-with-rxjs-and-angular-61279f577415
     private captureEvents(canvasEl: HTMLCanvasElement) {
-        var hoveringDot: BlueprintDot;
-        var selectedDot: BlueprintDot;
+        var hoveringDot: RoomDot;
+        var selectedDot: RoomDot;
         // this will capture all mousedown events from the canvas element
         fromEvent(canvasEl, 'mousemove').subscribe((res: MouseEvent) => {
             const rect = canvasEl.getBoundingClientRect();
@@ -123,11 +112,11 @@ export class RoomsCanvasComponent implements AfterViewInit {
                 } else {
                     document.body.style.cursor = 'default';
                     for(let i = 0; i < this.dots.length; i++) {
-                        if(this.rooms[i].idRoom === selectedDot.idRoom) {
-                            this.global.currentSelectedRoom = this.rooms[i];
+                        if(this.products[i].idProduct === selectedDot.idProduct) {
+                            this.global.currentSelectedProduct = this.products[i];
                         }
                     }
-                    this.router.navigate(['/products', selectedDot.idVessel, selectedDot.idRoom]);
+                    this.router.navigate(['/product', this.global.currentSelectedVessel.idVessel, selectedDot.idRoom, selectedDot.idProduct]);
                 }
             }
         });
@@ -142,7 +131,7 @@ export class RoomsCanvasComponent implements AfterViewInit {
         });
     }
 
-    private colideWithCircle(x, y, dot: BlueprintDot) {
+    private colideWithCircle(x, y, dot: RoomDot) {
         if (checkCollision(x, y, 10, 10, dot.xCoordinates * (this.width / this.maxWidth), dot.yCoordinates * (this.height / this.maxHeight), 20, 20)) {
             return true;
         } else {
@@ -167,13 +156,13 @@ export class RoomsCanvasComponent implements AfterViewInit {
     }
 
     public draw() {
-        this.cx.drawImage(this.blueprintImage, 0, 0, this.width, this.height);
+        this.cx.drawImage(this.roomImage, 0, 0, this.width, this.height);
         for (var i = 0; i < this.dots.length; i++) {
             this.drawCircle(this.dots[i]);
         }
     }
 
-    private drawCircle(dot: BlueprintDot) {
+    private drawCircle(dot: RoomDot) {
         this.cx.beginPath();
         this.cx.arc(dot.xCoordinates * (this.width / this.maxWidth), dot.yCoordinates * (this.height / this.maxHeight), 10, 0, 2 * Math.PI);
         this.cx.closePath();
@@ -183,9 +172,9 @@ export class RoomsCanvasComponent implements AfterViewInit {
         this.cx.stroke();
     }
 
-    private updateDotLocation(dot: BlueprintDot) {
+    private updateDotLocation(dot: RoomDot) {
         console.log(dot);
-        this.rest.httpPut("blueprintdot/" + dot.idBlueprintDot, dot).subscribe(
+        this.rest.httpPut("roomdot/" + dot.idRoomDot, dot).subscribe(
             res => {
                 console.log(res);
             },
