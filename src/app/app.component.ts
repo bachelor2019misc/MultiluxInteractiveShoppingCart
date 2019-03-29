@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {VERSION, MatDialog, MatDialogRef} from '@angular/material';
+import { VERSION, MatDialog, MatDialogRef } from '@angular/material';
 import { LoginComponent } from './shared/components/login/login.component';
 import { LogoutComponent } from './shared/components/logout/logout.component';
 import { EditUserComponent } from './shared/components/edit-user/edit-user.component';
