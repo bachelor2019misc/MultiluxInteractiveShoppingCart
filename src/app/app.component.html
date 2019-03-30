@@ -1,43 +1,39 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div class="header">
-  <div class="header-left">
-    <a href="#default" class="logo"></a>
-  </div>
-  <div class="header-right">
-    <ng-container *ngIf="global.loggedIn; then loggedIn; else loggedOut">
-    </ng-container>
-    <ng-template #loggedIn>
-      <mat-menu #appMenu="matMenu">
-        <button mat-menu-item (click)="openEditUserDialog()">
-          <mat-icon>person</mat-icon>
-          <span>Edit user</span>
-        </button>
-        <button mat-menu-item (click)="openAddUserDialog()">
-          <mat-icon>person_add</mat-icon>
-          <span>Add new user</span>
-        </button>
-        <button mat-menu-item (click)="openLogoutDialog()">
-          <mat-icon>exit_to_app</mat-icon>
-          <span>Logout</span>
-        </button>
-      </mat-menu>
-      <ng-container *ngIf="global.editMode; then editMode; else viewMode">
-      </ng-container>
-      <ng-template #viewMode>
-        <button id=enterEditBtn (click)="enterEditMode()">
-          <mat-icon>
-            edit
-          </mat-icon>
-        </button>
-      </ng-template>
-      <ng-template #editMode>
-        <button id=enterViewBtn (click)="enterViewMode()">
-          <mat-icon>
-            clear
-          </mat-icon>
-        </button>
-      </ng-template>
-      <button id="login" [matMenuTriggerFor]="appMenu">
+
+<ul>
+  <li>
+    <button mat-button style="margin-right: 16px;">
+      <mat-icon routerLink="/shopping-cart">
+        shopping_cart
+      </mat-icon>
+    </button>
+  </li>
+  <li>
+    <button mat-button>
+      <mat-icon routerLink="/shopping-cart">
+        list
+      </mat-icon>
+    </button>
+  </li>
+  <ng-container *ngIf="global.loggedIn; then loggedIn; else loggedOut">
+  </ng-container>
+  <ng-template #loggedIn>
+    <mat-menu #appMenu="matMenu">
+      <button mat-menu-item (click)="openEditUserDialog()">
+        <mat-icon>person</mat-icon>
+        <span>Edit user</span>
+      </button>
+      <button mat-menu-item (click)="openAddUserDialog()">
+        <mat-icon>person_add</mat-icon>
+        <span>Add new user</span>
+      </button>
+      <button mat-menu-item (click)="openLogoutDialog()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+    <li>
+      <button mat-raised-button id="login" [matMenuTriggerFor]="appMenu">
         <div class="icon-text width100 flex-icon-text">
           <span class="icon-text width70">{{global.username}}</span>
           <mat-icon class="icon-text width30">
@@ -45,13 +41,37 @@
           </mat-icon>
         </div>
       </button>
+    </li>
+    <ng-container *ngIf="global.editMode; then editMode; else viewMode">
+    </ng-container>
+    <ng-template #viewMode>
+      <li>
+        <button mat-raised-button id=enterEditBtn (click)="enterEditMode()">
+          <mat-icon>
+            edit
+          </mat-icon>
+        </button>
+      </li>
     </ng-template>
-    <ng-template #loggedOut>
-      <button id="login" (click)="openLoginDialog()"><span class="icon-text">Login</span></button>
+    <ng-template #editMode>
+      <li>
+        <button mat-raised-button id=enterViewBtn (click)="enterViewMode()">
+          <mat-icon>
+            clear
+          </mat-icon>
+        </button>
+      </li>
     </ng-template>
-    <a routerLink="/shopping-cart" id="shopping-cart"></a>
-  </div>
-</div>
+  </ng-template>
+  <ng-template #loggedOut>
+    <li>
+      <button mat-raised-button id="login" (click)="openLoginDialog()"><span class="icon-text">Login</span></button>
+    </li>
+  </ng-template>
+  <li class="header-left">
+    <img src="assets/img/logo.png" routerLink="/vessels" class="logo">
+  </li>
+</ul>
 <div id="main">
   <div id="sheet">
     <router-outlet></router-outlet>
