@@ -3,6 +3,7 @@ import { fromEvent } from 'rxjs';
 import { switchMap, takeUntil, pairwise } from 'rxjs/operators'
 import { logging } from 'protractor';
 import { BlueprintDot } from '../../../utils/entities/blueprintdot.entity';
+import { MatDialog, MatDialogRef } from '@angular/material';
 import { element } from '@angular/core/src/render3';
 import { RestService } from '../../../services/rest/rest.service';
 import { Vessel } from '../../../utils/entities/vessel.entity';
@@ -11,6 +12,7 @@ import { Blueprint } from '../../../utils/entities/blueprint.entity';
 import { Room } from '../../../utils/entities/room.entity';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RoomsComponent } from '../rooms.component';
+import { EditBlueprintComponent } from './edit-blueprint/edit-blueprint.component';
 
 @Component({
     selector: 'rooms-canvas',
@@ -27,14 +29,14 @@ export class RoomsCanvasComponent implements AfterViewInit {
 
 
     blueprint: Blueprint;
-
+    EditBlueprintNameDialogRef: MatDialogRef<EditBlueprintComponent>;
     readonly maxWidth: number = this.width;
     readonly maxHeight: number = this.height;
 
     private cx: CanvasRenderingContext2D;
     private blueprintImage: HTMLImageElement;
 
-    constructor(public rest: RestService, private router: Router, private global: Globals) { }
+    constructor(public rest: RestService, private router: Router, private global: Globals, private dialog: MatDialog) { }
 
     public ngAfterViewInit() {
         const canvasEl: HTMLCanvasElement = this.canvas.nativeElement;
@@ -46,16 +48,7 @@ export class RoomsCanvasComponent implements AfterViewInit {
 
         this.blueprintImage = new Image();
 
-        this.rest.httpGet('blueprint/' + this.global.currentSelectedVessel.idBlueprint).subscribe(
-            res => {
-                console.log(res);
-                this.blueprint = res;
-                this.blueprintImage.src = this.blueprint.image;
-            },
-            err => {
-                console.log("Error occured: ", err);
-            }
-        );
+        this.getBlueprint();
 
         this.blueprintImage.onload = () => {
             this.resize();
@@ -64,6 +57,34 @@ export class RoomsCanvasComponent implements AfterViewInit {
         };
         this.captureEvents(canvasEl);
     }
+
+    getBlueprint() {
+        this.rest.httpGet('blueprint/' + this.global.currentSelectedVessel.idBlueprint).subscribe(
+            res => {
+                console.log(res);
+                this.blueprint = res;
+                this.blueprintImage.src = this.blueprint.image;
+                this.global.currentSelectedBlueprint = this.blueprint;
+            },
+            err => {
+                console.log("Error occured: ", err);
+            }
+        );
+    }
+
+    openEditBlueprint() {
+        this.EditBlueprintNameDialogRef = this.dialog.open(EditBlueprintComponent, {
+          height: "400px",
+          width: "700px",
+          data: {
+          }
+        });
+        this.EditBlueprintNameDialogRef.afterClosed().subscribe((value) => {
+            if(value) {
+              this.getBlueprint()
+            }
+          });
+        }
 
     // taken from: https://medium.com/@tarik.nzl/creating-a-canvas-component-with-free-hand-drawing-with-rxjs-and-angular-61279f577415
     private captureEvents(canvasEl: HTMLCanvasElement) {
