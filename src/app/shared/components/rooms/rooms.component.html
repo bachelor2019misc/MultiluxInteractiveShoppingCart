@@ -2,7 +2,7 @@
     *ngIf="global.currentSelectedVessel !== undefined; then hasCurrentSelectedVessel; else noCurrentSelectedVessel">
 </ng-container>
 <ng-template #hasCurrentSelectedVessel>
-    <div class="links">
+    <div class="topNavigation">
         <span>You are here: </span>
         <a routerLink="/vessels">Vessels</a>
         <mat-icon class="icon-inline">keyboard_arrow_right</mat-icon>

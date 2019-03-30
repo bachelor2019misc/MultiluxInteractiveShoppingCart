@@ -37,14 +37,14 @@ export class EditUserComponent {
       password: ['', [Validators.required]],
       confirmPassword: ['']
     }, { validator: this.checkPasswords });
-   }
+  }
 
   checkPasswords(group: FormGroup) {
-  let pass = group.controls.password.value;
-  let confirmPass = group.controls.confirmPassword.value;
+    let pass = group.controls.password.value;
+    let confirmPass = group.controls.confirmPassword.value;
 
-  return pass === confirmPass ? null : { notSame: true }     
-}
+    return pass === confirmPass ? null : { notSame: true }
+  }
 
   submit(form: any) {
     var username = form.value.username;
