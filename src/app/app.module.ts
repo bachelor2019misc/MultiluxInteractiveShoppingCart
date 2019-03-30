@@ -56,6 +56,7 @@ import { EditVesselComponent } from './shared/components/vessels/edit-vessel/edi
 import { AddRoomComponent } from './shared/components/rooms/add-room/add-room.component';
 import { EditRoomComponent } from './shared/components/rooms/edit-room/edit-room.component';
 import { AddProductComponent } from './shared/components/products/add-product/add-product.component';
+import { EditBlueprintComponent } from './shared/components/rooms/rooms-canvas/edit-blueprint/edit-blueprint.component';
 
 
 
@@ -77,7 +78,8 @@ import { AddProductComponent } from './shared/components/products/add-product/ad
     EditVesselComponent,
     AddRoomComponent,
     EditRoomComponent,
-    AddProductComponent
+    AddProductComponent,
+    EditBlueprintComponent
   ],
   imports: [
     BrowserModule,
@@ -116,7 +118,8 @@ import { AddProductComponent } from './shared/components/products/add-product/ad
     EditVesselComponent, 
     AddRoomComponent, 
     EditRoomComponent,
-    AddProductComponent
+    AddProductComponent,
+    EditBlueprintComponent
   ]
 })
 export class AppModule { }
