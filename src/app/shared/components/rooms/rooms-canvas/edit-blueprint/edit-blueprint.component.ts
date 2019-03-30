@@ -23,6 +23,8 @@ export class EditBlueprintComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.form = this.formBuilder.group({
+    })
     this.image = this.global.currentSelectedBlueprint.image;
   }
 
@@ -37,7 +39,7 @@ export class EditBlueprintComponent implements OnInit {
       );
       this.dialogRef.close(true);
   }
-
+  
   readUrl(event:any) {
     if (event.target.files && event.target.files[0]) {
       var reader = new FileReader();
