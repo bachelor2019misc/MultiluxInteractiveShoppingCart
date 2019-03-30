@@ -1,0 +1,94 @@
+<div class="head">
+  <img src="{{product.image}}">
+  <section>
+    <h1>
+      {{product.title}}
+    </h1>
+    <p>
+      {{product.description}}
+    </p>
+  </section>
+</div>
+<table mat-table [dataSource]="dataSource" matSort>
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID. </th>
+    <td mat-cell *matCellDef="let element">{{element.idSubProduct}}</td>
+    <td mat-footer-cell *matFooterCellDef></td>
+  </ng-container>
+
+  <!-- Product name Column -->
+  <ng-container matColumnDef="title">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+    <td mat-footer-cell *matFooterCellDef></td>
+  </ng-container>
+
+  <!-- Product description Column -->
+  <ng-container matColumnDef="description">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+    <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+    <td mat-footer-cell *matFooterCellDef></td>
+  </ng-container>
+
+  <!-- Watt Column -->
+  <ng-container matColumnDef="watt">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Watt </th>
+    <td mat-cell *matCellDef="let element"> {{element.watt}} </td>
+    <td mat-footer-cell *matFooterCellDef></td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="kelvin">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Kelvin </th>
+    <td mat-cell *matCellDef="let element"> {{element.kelvin}} </td>
+    <td mat-footer-cell *matFooterCellDef></td>
+  </ng-container>
+
+  <!-- Lumen Column -->
+  <ng-container matColumnDef="lumen">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Lumen </th>
+    <td mat-cell *matCellDef="let element"> {{element.lumen}} </td>
+    <td mat-footer-cell *matFooterCellDef></td>
+  </ng-container>
+
+  <!-- Price Column -->
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+    <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+    <td mat-footer-cell *matFooterCellDef></td>
+  </ng-container>
+
+  <!-- Amount Column -->
+  <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Amount</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-form-field floatLabel="never">
+          <input matInput type="tel" (change)="updateAmount(element, $event.target.value)"
+            placeholder="0" [ngModel]="amount" name="amount" enabled="false">
+        </mat-form-field>
+      </td>
+      <td mat-footer-cell *matFooterCellDef></td>
+    </ng-container>
+
+  <!-- Checkbox Column -->
+  <ng-container matColumnDef="select">
+    <th mat-header-cell *matHeaderCellDef>
+      <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()"
+        [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
+      </mat-checkbox>
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+        [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+      </mat-checkbox>
+    </td>
+    <td mat-footer-cell *matFooterCellDef></td>
+  </ng-container>
+
+  <!-- display Column and paginator -->
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="(!selection.isSelected(row)) && selection.toggle(row)"></tr>
+  <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+</table>

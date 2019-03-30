@@ -59,6 +59,8 @@ import { AddRoomComponent } from './shared/components/rooms/add-room/add-room.co
 import { EditRoomComponent } from './shared/components/rooms/edit-room/edit-room.component';
 import { AddProductComponent } from './shared/components/products/add-product/add-product.component';
 import { EditBlueprintComponent } from './shared/components/rooms/rooms-canvas/edit-blueprint/edit-blueprint.component';
+import { ProductListComponent } from './shared/components/product-list/product-list.component';
+import { ProductComponent } from './shared/components/product/product.component';
 
 
 
@@ -81,7 +83,9 @@ import { EditBlueprintComponent } from './shared/components/rooms/rooms-canvas/e
     AddRoomComponent,
     EditRoomComponent,
     AddProductComponent,
-    EditBlueprintComponent
+    EditBlueprintComponent,
+    ProductListComponent,
+    ProductComponent
   ],
   exports: [
     MatTableModule,
@@ -97,6 +101,7 @@ import { EditBlueprintComponent } from './shared/components/rooms/rooms-canvas/e
     MatBadgeModule,
     MatInputModule, 
     MatButtonModule,
+    MatCardModule,
     MatSelectModule,
     MatDialogModule,
     MatCheckboxModule,
@@ -113,7 +118,9 @@ import { EditBlueprintComponent } from './shared/components/rooms/rooms-canvas/e
       {path: 'vessels', component: VesselsComponent},
       {path: 'rooms/:idVessel', component: RoomsComponent},
       {path: 'products/:idVessel/:idRoom', component: ProductsComponent},
-      {path: 'shopping-cart', component: ShoppingCartComponent}
+      {path: 'shopping-cart', component: ShoppingCartComponent},
+      {path: 'product-list', component: ProductListComponent},
+      {path: 'product/:idProduct', component: ProductComponent},
     ])
   ],
   providers: [Globals],

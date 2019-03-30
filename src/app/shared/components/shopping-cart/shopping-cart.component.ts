@@ -32,7 +32,7 @@ export class ShoppingCartComponent implements OnInit{
     let total:number = 0;
     for(let i = 0; i < this.global.currentSelectedCartItems.length; i++) {
       let cartItem: CartItem = this.global.currentSelectedCartItems[i];
-      total += cartItem.amount * cartItem.item.price;
+      total += cartItem.amount * cartItem.price;
     }
     return total;
   }
@@ -51,6 +51,10 @@ export class ShoppingCartComponent implements OnInit{
       }
       i++;
     }
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 }
 
