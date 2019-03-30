@@ -30,9 +30,11 @@ import {
   MatSnackBarModule,
   MatStepperModule,
   MatTableModule,
+  MatPaginatorModule,
   MatTabsModule,
   MatToolbarModule,
   MatTooltipModule,
+  MatSortModule,
   MatDividerModule,
 } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -79,6 +81,11 @@ import { AddProductComponent } from './shared/components/products/add-product/ad
     EditRoomComponent,
     AddProductComponent
   ],
+  exports: [
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+  ],
   imports: [
     BrowserModule,
     FormsModule,
@@ -96,6 +103,9 @@ import { AddProductComponent } from './shared/components/products/add-product/ad
     MatTableModule,
     MatMenuModule,
     MatIconModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatToolbarModule,
     RouterModule.forRoot([
       {path: '', component: VesselsComponent},
       {path: 'vessels', component: VesselsComponent},

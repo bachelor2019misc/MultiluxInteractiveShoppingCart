@@ -2,15 +2,15 @@
 
 <ul>
   <li>
-    <button mat-button style="margin-right: 16px;">
-      <mat-icon routerLink="/shopping-cart">
+    <button mat-button style="margin-right: 16px;" routerLink="/shopping-cart">
+      <mat-icon matBadge="{{this.global.currentSelectedCartItems.length}}" [matBadgeHidden]="this.global.currentSelectedCartItems == 0" matBadgePosition="below before" matBadgeColor="primary">
         shopping_cart
       </mat-icon>
     </button>
   </li>
   <li>
-    <button mat-button>
-      <mat-icon routerLink="/shopping-cart">
+    <button mat-button routerLink="/shopping-cart">
+      <mat-icon>
         list
       </mat-icon>
     </button>
@@ -34,12 +34,10 @@
     </mat-menu>
     <li>
       <button mat-raised-button id="login" [matMenuTriggerFor]="appMenu">
-        <div class="icon-text width100 flex-icon-text">
-          <span class="icon-text width70">{{global.username}}</span>
-          <mat-icon class="icon-text width30">
-            keyboard_arrow_down
-          </mat-icon>
-        </div>
+        <span>{{global.username}}</span>
+        <mat-icon>
+          keyboard_arrow_down
+        </mat-icon>
       </button>
     </li>
     <ng-container *ngIf="global.editMode; then editMode; else viewMode">
