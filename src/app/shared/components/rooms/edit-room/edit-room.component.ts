@@ -18,9 +18,9 @@ export class EditRoomComponent implements OnInit {
 
   constructor(
     public rest: RestService,
-    private global: Globals,
+    public global: Globals,
     private formBuilder: FormBuilder,
-    private dialogRef: MatDialogRef<EditRoomComponent>,
+    public dialogRef: MatDialogRef<EditRoomComponent>,
     @Inject(MAT_DIALOG_DATA) private data
   ) { }
 

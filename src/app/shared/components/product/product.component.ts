@@ -21,7 +21,7 @@ export class ProductComponent implements OnInit {
 
   @Input() product: Product = this.global.currentSelectedProduct;
 
-  constructor(private global: Globals) { }
+  constructor(public global: Globals) { }
 
   ngOnInit() {
   }

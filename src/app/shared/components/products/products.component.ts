@@ -32,7 +32,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   AddProductNameDialogRef: MatDialogRef<AddProductComponent>;
   EditRoomNameDialogRef: MatDialogRef<EditRoomComponent>;
 
-  constructor(private rest: RestService, private dialog: MatDialog, private location: Location, private global: Globals, private router: Router, private route: ActivatedRoute) {
+  constructor(private rest: RestService, private dialog: MatDialog, private location: Location, public global: Globals, private router: Router, private route: ActivatedRoute) {
     if (this.global.currentSelectedRoom === undefined) {
       //this.router.navigate(['/', 'rooms']); TODO: add this when rooms is done
     }

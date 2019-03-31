@@ -30,7 +30,7 @@ export class ProductListComponent implements OnInit {
   testList: Product[] = [{idProduct: 1, title: "TEST", description: "TESTTEST", image: "assets/img/vesselPlaceholder.png"}, 
   {idProduct: 2, title: "TEST", description: "TESTTEST", image: "assets/img/vesselPlaceholder.png"}];
 
-  constructor(private location: Location, private rest: RestService, private global: Globals) { }
+  constructor(private location: Location, private rest: RestService, public global: Globals) { }
 
   ngOnInit() {
     this.rest.httpGet("/product").subscribe(

@@ -19,8 +19,8 @@ export class AddProductComponent implements OnInit {
   constructor(
     public rest: RestService,
     private formBuilder: FormBuilder,
-    private dialogRef: MatDialogRef<AddProductComponent>,
-    private global: Globals,
+    public dialogRef: MatDialogRef<AddProductComponent>,
+    public global: Globals,
     @Inject(MAT_DIALOG_DATA) private data
   ) { }
 

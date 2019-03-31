@@ -20,7 +20,7 @@ export class VesselsComponent implements OnInit {
   AddVesselNameDialogRef: MatDialogRef<AddVesselComponent>;
   EditVesselNameDialogRef: MatDialogRef<EditVesselComponent>;
 
-  constructor(public rest:RestService, private global:Globals, private route: ActivatedRoute, private router: Router, private dialog: MatDialog, private location: Location) { }
+  constructor(public rest:RestService, public global:Globals, private route: ActivatedRoute, private router: Router, private dialog: MatDialog, private location: Location) { }
 
   ngOnInit() {
     this.getVessels();

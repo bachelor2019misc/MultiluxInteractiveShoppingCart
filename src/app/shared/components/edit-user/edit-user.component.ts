@@ -25,11 +25,14 @@ export class EditUserComponent {
   form: FormGroup;
   matcher = new MyErrorStateMatcher();
 
+  username: string;
+  password: string;
+
   constructor(
     public rest: RestService,
-    private dialogRef: MatDialogRef<EditUserComponent>,
+    public dialogRef: MatDialogRef<EditUserComponent>,
     private formBuilder: FormBuilder,
-    private global: Globals,
+    public global: Globals,
     @Inject(MAT_DIALOG_DATA) private data
   ) {
     this.form = this.formBuilder.group({

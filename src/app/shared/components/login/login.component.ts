@@ -19,10 +19,10 @@ export class LoginComponent implements OnInit {
 
   constructor(
     public rest: RestService,
-    private global: Globals,
+    public global: Globals,
     private formBuilder: FormBuilder,
-    private dialogRef: MatDialogRef<LoginComponent>,
-    @Inject(MAT_DIALOG_DATA) private data
+    public dialogRef: MatDialogRef<LoginComponent>,
+    @Inject(MAT_DIALOG_DATA) public data
   ) { }
 
   ngOnInit() {

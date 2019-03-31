@@ -17,8 +17,8 @@ export class SubProductsComponent implements OnInit {
 
 
   constructor(
-    private dialogRef: MatDialogRef<SubProductsComponent>,
-    @Inject(MAT_DIALOG_DATA) private data
+    public dialogRef: MatDialogRef<SubProductsComponent>,
+    @Inject(MAT_DIALOG_DATA) public data
   ) { }
 
   //Whether the number of selected elements matches the total number of rows

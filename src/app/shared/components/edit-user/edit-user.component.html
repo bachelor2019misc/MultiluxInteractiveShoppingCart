@@ -6,7 +6,7 @@
   <mat-dialog-content>
     <mat-form-field>
       <input matInput formControlName="username" placeholder="New username"
-        (ngOnInit)="username(form)">
+        (ngOnInit)="username">
         <mat-error *ngIf="form.hasError('username')">
             Please enter a username
         </mat-error>
@@ -15,14 +15,14 @@
   <mat-dialog-content>
     <mat-form-field>
       <input matInput placeholder="New password" formControlName="password" type="password"
-        (ngOnInit)="password(form)">
+        (ngOnInit)="password">
       <mat-error *ngIf="form.hasError('password')">
           Please enter a password
       </mat-error>
     </mat-form-field>
     <mat-form-field>
       <input matInput placeholder="Confirm password" formControlName="confirmPassword" [errorStateMatcher]="matcher" type="password"
-        (ngOnInit)="password(form)">
+        (ngOnInit)="password">
       <mat-error *ngIf="form.hasError('notSame') && form.controls['confirmPassword'].touched">
           The passwords do not match
       </mat-error> 

@@ -16,7 +16,7 @@ export class ShoppingCartComponent implements OnInit{
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private location: Location, private global: Globals) {}
+  constructor(private location: Location, public global: Globals) {}
   
   ngOnInit(){
     this.dataSource = new MatTableDataSource<CartItem>(this.global.currentSelectedCartItems);

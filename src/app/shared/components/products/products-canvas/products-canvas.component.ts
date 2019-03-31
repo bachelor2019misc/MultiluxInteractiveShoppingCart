@@ -33,7 +33,7 @@ export class ProductsCanvasComponent implements AfterViewInit {
     private cx: CanvasRenderingContext2D;
     private roomImage: HTMLImageElement;
 
-    constructor(public rest: RestService, private router: Router, private global: Globals) { }
+    constructor(public rest: RestService, private router: Router, public global: Globals) { }
 
     public ngAfterViewInit() {
         const canvasEl: HTMLCanvasElement = this.canvas.nativeElement;

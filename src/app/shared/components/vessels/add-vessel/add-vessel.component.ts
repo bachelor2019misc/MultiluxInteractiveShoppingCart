@@ -19,7 +19,7 @@ export class AddVesselComponent implements OnInit {
   constructor(
     public rest: RestService,
     private formBuilder: FormBuilder,
-    private dialogRef: MatDialogRef<AddVesselComponent>,
+    public dialogRef: MatDialogRef<AddVesselComponent>,
     @Inject(MAT_DIALOG_DATA) private data
   ) { }
 

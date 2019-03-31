@@ -24,9 +24,12 @@ export class AddUserComponent {
   form: FormGroup;
   matcher = new MyErrorStateMatcher();
 
+  username: string;
+  password: string;
+
   constructor(
     public rest: RestService,
-    private dialogRef: MatDialogRef<AddUserComponent>,
+    public dialogRef: MatDialogRef<AddUserComponent>,
     private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) private data
   ) {

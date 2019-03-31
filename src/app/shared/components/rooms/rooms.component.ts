@@ -30,7 +30,7 @@ export class RoomsComponent implements OnInit, OnDestroy {
   public dots: BlueprintDot[] = [];
   public rooms: Room[] = [];
 
-  constructor(public rest: RestService, private router: Router, private location: Location, private dialog: MatDialog, private route: ActivatedRoute, private global: Globals) { }
+  constructor(public rest: RestService, private router: Router, private location: Location, private dialog: MatDialog, private route: ActivatedRoute, public global: Globals) { }
 
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {

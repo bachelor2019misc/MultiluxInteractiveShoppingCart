@@ -3,7 +3,7 @@
 <ul>
   <li>
     <button mat-button style="margin-right: 16px;" routerLink="/shopping-cart">
-      <mat-icon matBadge="{{this.global.currentSelectedCartItems.length}}" [matBadgeHidden]="this.global.currentSelectedCartItems == 0" matBadgePosition="below before" matBadgeColor="primary">
+      <mat-icon matBadge="{{this.global.currentSelectedCartItems.length}}" [matBadgeHidden]="this.global.currentSelectedCartItems.length == 0" matBadgePosition="below before" matBadgeColor="primary">
         shopping_cart
       </mat-icon>
     </button>

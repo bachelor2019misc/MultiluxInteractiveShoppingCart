@@ -12,8 +12,8 @@ export class LogoutComponent {
 
   constructor(
     public rest: RestService,
-    private global: Globals,
-    private dialogRef: MatDialogRef<LogoutComponent>,
+    public global: Globals,
+    public dialogRef: MatDialogRef<LogoutComponent>,
     @Inject(MAT_DIALOG_DATA) private data
   ) { }
 

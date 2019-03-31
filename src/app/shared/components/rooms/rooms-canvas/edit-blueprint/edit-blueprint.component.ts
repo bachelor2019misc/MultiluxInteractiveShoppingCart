@@ -16,9 +16,9 @@ export class EditBlueprintComponent implements OnInit {
 
   constructor(
     public rest: RestService,
-    private global: Globals,
+    public global: Globals,
     private formBuilder: FormBuilder,
-    private dialogRef: MatDialogRef<EditBlueprintComponent>,
+    public dialogRef: MatDialogRef<EditBlueprintComponent>,
     @Inject(MAT_DIALOG_DATA) private data
   ) { }
 

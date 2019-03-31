@@ -22,7 +22,7 @@ export class AppComponent {
   EditUserNameDialogRef: MatDialogRef<EditUserComponent>;
   AddUserNameDialogRef: MatDialogRef<AddUserComponent>;
 
-  constructor(private dialog: MatDialog, private global: Globals) {}
+  constructor(private dialog: MatDialog, public global: Globals) {}
 
   openLoginDialog(file?) {
     this.LoginNameDialogRef = this.dialog.open(LoginComponent, {

@@ -19,9 +19,9 @@ export class AddRoomComponent implements OnInit {
   constructor(
     public rest: RestService,
     private formBuilder: FormBuilder,
-    private dialogRef: MatDialogRef<AddRoomComponent>,
-    private global: Globals,
-    @Inject(MAT_DIALOG_DATA) private data
+    public dialogRef: MatDialogRef<AddRoomComponent>,
+    public global: Globals,
+    @Inject(MAT_DIALOG_DATA) public data
   ) { }
 
   ngOnInit() {

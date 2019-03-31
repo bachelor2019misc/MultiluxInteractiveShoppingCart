@@ -38,8 +38,7 @@ export class RoomsCanvasComponent implements AfterViewInit {
     private blueprintImage: HTMLImageElement;
 
     AddRoomNameDialogRef: MatDialogRef<AddRoomComponent>;
-
-    constructor(public rest: RestService, private router: Router, private global: Globals, private dialog: MatDialog) { }
+    constructor(public rest: RestService, private router: Router, public global: Globals, private dialog: MatDialog) { }
 
     public ngAfterViewInit() {
         const canvasEl: HTMLCanvasElement = this.canvas.nativeElement;

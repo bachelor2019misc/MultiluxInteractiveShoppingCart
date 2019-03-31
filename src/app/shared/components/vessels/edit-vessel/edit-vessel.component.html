@@ -3,13 +3,13 @@
   <mat-dialog-content>
     <mat-form-field>
       <input matInput formControlName="title" placeholder="Enter title of vessel"
-        (ngOnInit)="title(form)" value="{{global.currentSelectedVessel.title}}">
+        (ngOnInit)="title" value="{{global.currentSelectedVessel.title}}">
     </mat-form-field>
   </mat-dialog-content>
   <mat-dialog-content>
     <mat-form-field>
       <input matInput formControlName="description" placeholder="Enter description"
-        (ngOnInit)="description(form)" value="{{global.currentSelectedVessel.description}}">
+        (ngOnInit)="description" value="{{global.currentSelectedVessel.description}}">
     </mat-form-field>
   </mat-dialog-content>
   <input class="ng-hide" (change)="readUrl($event);" id="vesselImageInput" multiple type="file"/>
