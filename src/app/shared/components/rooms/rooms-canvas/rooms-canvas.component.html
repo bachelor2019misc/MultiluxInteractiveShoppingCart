@@ -30,5 +30,12 @@
             </div>
         </ng-template>
     </div>
-    <div *ngIf="global.editMode" class="room">Legg til ny</div>
+    <div *ngIf="global.editMode" class="room" (click)="openAddRoom()">
+            <div class="vesselImageContainer">
+                <img src="assets/img/addVessel.png" alt="Picture of room" height="90" width="160">
+            </div>
+            <div class="roomTextContainer">
+                <a>Add new room</a>
+            </div>
+        </div>
 </div>

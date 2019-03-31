@@ -63,3 +63,19 @@ canvas {
     border: 4px solid dodgerblue;
     cursor: pointer;
 }
+
+.roomTextContainer {
+    position: relative;
+    background-color: #f1f1f1;
+    padding: 8px;
+}
+
+.roomTextContainer a {
+    transition: color 0.2s;
+    text-decoration: none;
+}
+
+.vesselImageContainer {
+    position: relative;
+    background-color: white;
+}
