@@ -13,6 +13,7 @@ import { Room } from '../../../utils/entities/room.entity';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RoomsComponent } from '../rooms.component';
 import { EditBlueprintComponent } from './edit-blueprint/edit-blueprint.component';
+import { AddRoomComponent } from '../add-room/add-room.component';
 
 @Component({
     selector: 'rooms-canvas',
@@ -35,6 +36,8 @@ export class RoomsCanvasComponent implements AfterViewInit {
 
     private cx: CanvasRenderingContext2D;
     private blueprintImage: HTMLImageElement;
+
+    AddRoomNameDialogRef: MatDialogRef<AddRoomComponent>;
 
     constructor(public rest: RestService, private router: Router, private global: Globals, private dialog: MatDialog) { }
 
@@ -85,7 +88,17 @@ export class RoomsCanvasComponent implements AfterViewInit {
             }
           });
         }
-
+        
+    openAddRoom(file?) {
+            this.AddRoomNameDialogRef = this.dialog.open(AddRoomComponent, {
+              height: "600px",
+              width: "700px",
+              data: {
+                
+              }
+            });
+            
+          }      
     // taken from: https://medium.com/@tarik.nzl/creating-a-canvas-component-with-free-hand-drawing-with-rxjs-and-angular-61279f577415
     private captureEvents(canvasEl: HTMLCanvasElement) {
         var hoveringDot: BlueprintDot;
