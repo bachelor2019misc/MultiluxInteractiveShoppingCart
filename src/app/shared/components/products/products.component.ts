@@ -109,7 +109,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
               if(tempProducts.length >= this.dots.length) {
                 for(var indexDot = 0; indexDot < this.dots.length; indexDot++) {
                   for(var indexRoom = 0; indexRoom < tempProducts.length; indexRoom++) {
-                    if(this.dots[indexDot].idProduct === tempProducts[indexRoom].idProduct) {
+                    if(+this.dots[indexDot].idProduct === tempProducts[indexRoom].idProduct) {
                       this.products.push(tempProducts[indexRoom]);
                     }
                   }

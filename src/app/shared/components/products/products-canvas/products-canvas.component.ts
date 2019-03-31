@@ -112,7 +112,7 @@ export class ProductsCanvasComponent implements AfterViewInit {
                 } else {
                     document.body.style.cursor = 'default';
                     for(let i = 0; i < this.dots.length; i++) {
-                        if(this.products[i].idProduct === selectedDot.idProduct) {
+                        if(this.products[i].idProduct === +selectedDot.idProduct) {
                             this.global.currentSelectedProduct = this.products[i];
                         }
                     }

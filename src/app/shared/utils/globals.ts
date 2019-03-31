@@ -17,8 +17,8 @@ export class Globals {
     currentSelectedProduct: Product;
     currentSelectedBlueprint: Blueprint;
     currentSelectedCartItems: CartItem[] = [
-        { item: { idSubProduct: 1, title: 'productName', description: 'test', watt: 1000, kelvin: 800, lumen: 11000, price: 200 }, amount: 2 },
-        { item: { idSubProduct: 2, title: 'productName', description: 'test', watt: 1000, kelvin: 800, lumen: 11000, price: 200 }, amount: 2 },
-        { item: { idSubProduct: 3, title: 'productName', description: 'test', watt: 1000, kelvin: 800, lumen: 11000, price: 200 }, amount: 2 },
+        { idSubProduct: 1, title: 'productName', description: 'test', watt: 1000, kelvin: 800, lumen: 11000, price: 200, amount: 2 },
+        { idSubProduct: 2, title: 'productName', description: 'test', watt: 1000, kelvin: 800, lumen: 11000, price: 200, amount: 2 },
+        { idSubProduct: 3, title: 'productName', description: 'test', watt: 1000, kelvin: 800, lumen: 11000, price: 200, amount: 2 },
     ];
 }
