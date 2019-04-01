@@ -1,6 +1,6 @@
 <div class="topNavigation">
   <span>You are here: </span>
-  <a>Proudct List</a>
+  <a>Product List</a>
   <mat-icon class="icon-inline back" (click)="backClicked()">
     arrow_back
   </mat-icon>
@@ -30,7 +30,7 @@
   <ng-container matColumnDef="expandedDetail">
     <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
       <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-        <app-product [product]="element"></app-product>
+        <app-sub-product [product]="element"></app-sub-product>
       </div>
     </td>
   </ng-container>
