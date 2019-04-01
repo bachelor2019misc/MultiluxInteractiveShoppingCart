@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
-import { MatSort, MatPaginator, MatTableDataSource } from '@angular/material';
+import { MatSort, MatPaginator, MatTableDataSource, MatDialogRef, MatDialog } from '@angular/material';
 import { Product } from '../../utils/entities/product.entity';
 import { Globals } from '../../utils/globals';
 import { RestService } from '../../services/rest/rest.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { NewProductComponent } from './new-product/new-product.component';
 
 @Component({
   selector: 'app-product-list',
@@ -27,10 +28,12 @@ export class ProductListComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  AddProductNameDialogRef: MatDialogRef<NewProductComponent>;
+
   testList: Product[] = [{idProduct: 1, title: "TEST", description: "TESTTEST", image: "assets/img/vesselPlaceholder.png"}, 
   {idProduct: 2, title: "TEST", description: "TESTTEST", image: "assets/img/vesselPlaceholder.png"}];
 
-  constructor(private location: Location, private rest: RestService, public global: Globals) { }
+  constructor(private location: Location, private rest: RestService, private dialog: MatDialog, public global: Globals) { }
 
   ngOnInit() {
     this.rest.httpGet("/product").subscribe(
@@ -47,6 +50,21 @@ export class ProductListComponent implements OnInit {
         this.dataSource.sort = this.sort;
       }
     );
+  }
+
+  openAddProduct(file?) {
+    this.AddProductNameDialogRef = this.dialog.open(NewProductComponent, {
+      height: "600px",
+      width: "700px",
+      data: {
+        
+      }
+    });
+    this.AddProductNameDialogRef.afterClosed().subscribe((value) => {
+      if(value) {
+        // Do something
+      }
+    });
   }
 
   applyFilter(filterValue: string) {
