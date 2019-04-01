@@ -52,7 +52,7 @@ export class ProductListComponent implements OnInit {
     );
   }
 
-  openAddProduct(file?) {
+  openNewProduct(file?) {
     this.AddProductNameDialogRef = this.dialog.open(NewProductComponent, {
       height: "600px",
       width: "700px",
