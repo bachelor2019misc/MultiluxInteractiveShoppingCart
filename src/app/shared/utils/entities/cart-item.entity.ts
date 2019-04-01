@@ -1,7 +1,7 @@
 import { SubProduct } from './sub-product.entity';
 
 export class CartItem {
-    idSubProduct: number;
+    idSubproduct: number;
     title: string;
     description: string;
     watt: number;
@@ -9,4 +9,5 @@ export class CartItem {
     lumen: number;
     price: number;
     amount: number; 
+    idProduct: number;
 }

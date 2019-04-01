@@ -44,7 +44,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { VesselsComponent } from './shared/components/vessels/vessels.component';
 import { RoomsComponent } from './shared/components/rooms/rooms.component';
 import { ProductsComponent } from './shared/components/products/products.component';
-import { SubProductsComponent } from './shared/components/products/sub-products/sub-products.component';
+import { SubproductsComponent } from './shared/components/subproducts/subproducts.component';
 import { RoomsCanvasComponent } from './shared/components/rooms/rooms-canvas/rooms-canvas.component';
 import { ProductsCanvasComponent } from './shared/components/products/products-canvas/products-canvas.component';
 import { ShoppingCartComponent } from './shared/components/shopping-cart/shopping-cart.component';
@@ -60,18 +60,19 @@ import { EditRoomComponent } from './shared/components/rooms/edit-room/edit-room
 import { AddProductComponent } from './shared/components/products/add-product/add-product.component';
 import { EditBlueprintComponent } from './shared/components/rooms/rooms-canvas/edit-blueprint/edit-blueprint.component';
 import { ProductListComponent } from './shared/components/product-list/product-list.component';
-import { ProductComponent } from './shared/components/product/product.component';
 import { NewProductComponent } from './shared/components/product-list/new-product/new-product.component';
+import { AddSubproductComponent } from './shared/components/subproducts/add-subproduct/add-subproduct.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    AddSubproductComponent,
     VesselsComponent,
     RoomsComponent,
     ProductsComponent,
-    SubProductsComponent,
+    SubproductsComponent,
     RoomsCanvasComponent,
     ProductsCanvasComponent,
     ShoppingCartComponent,
@@ -86,7 +87,6 @@ import { NewProductComponent } from './shared/components/product-list/new-produc
     AddProductComponent,
     EditBlueprintComponent,
     ProductListComponent,
-    ProductComponent,
     NewProductComponent
   ],
   exports: [
@@ -120,9 +120,10 @@ import { NewProductComponent } from './shared/components/product-list/new-produc
       {path: 'vessels', component: VesselsComponent},
       {path: 'rooms/:idVessel', component: RoomsComponent},
       {path: 'products/:idVessel/:idRoom', component: ProductsComponent},
+      {path: 'sub-products/:idVessel/:idRoom/:idProduct', component: SubproductsComponent},
       {path: 'shopping-cart', component: ShoppingCartComponent},
       {path: 'product-list', component: ProductListComponent},
-      {path: 'product/:idProduct', component: ProductComponent},
+      {path: 'product/:idProduct', component: SubproductsComponent},
     ])
   ],
   providers: [Globals],
@@ -132,13 +133,13 @@ import { NewProductComponent } from './shared/components/product-list/new-produc
     LogoutComponent, 
     EditUserComponent, 
     AddUserComponent, 
-    SubProductsComponent, 
     AddVesselComponent, 
     EditVesselComponent, 
     AddRoomComponent, 
     EditRoomComponent,
     NewProductComponent,
     AddProductComponent,
+    AddSubproductComponent,
     EditBlueprintComponent,
   ]
 })

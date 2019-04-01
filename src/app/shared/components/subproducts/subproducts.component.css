@@ -1,0 +1,50 @@
+.head {
+    vertical-align: top;
+    display: inline-block;
+    width: 100%;
+}
+
+.head img {
+    vertical-align: top;
+    display: inline-block;
+    width: 30%;
+}
+
+.head section {
+    vertical-align: top;
+    display: inline-block;
+    width: 70%;
+}
+
+.head section article {
+    vertical-align: top;
+    display: inline-block;
+    width: 100%;
+}
+
+.head section h1 {
+    margin-left: 16px;
+}
+
+.head section p {
+    margin-left: 16px;
+}
+
+table {
+    width: 100%;
+    text-align: left;
+}
+
+.addSubProduct {
+    float: right;
+    padding: 4px;
+    margin: 8px;
+}
+
+.editColumn {
+    text-align: center;
+}
+
+.editProductButton {
+    float: right;
+}

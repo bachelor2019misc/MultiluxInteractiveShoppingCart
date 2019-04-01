@@ -1,0 +1,23 @@
+form {
+    display: inline-block;
+    position: relative;
+    height: 100%;
+}
+
+.block {
+    display: block;
+}
+
+.image-preview {
+    float: right;
+}
+
+.bottom {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+}
+
+.mat-form-field {
+    padding: 16px;
+}
