@@ -53,7 +53,7 @@
     <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>
   </mat-toolbar-row>
 </mat-toolbar>
-<button mat-fab id="fabBtn" (click)="openAddProduct()" *ngIf="global.editMode;">
+<button mat-fab id="fabBtn" (click)="openNewProduct()" *ngIf="global.editMode;">
     <mat-icon>
         add
     </mat-icon>
