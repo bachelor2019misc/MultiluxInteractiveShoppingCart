@@ -13,8 +13,8 @@ import { NewProductComponent } from './new-product/new-product.component';
   styleUrls: ['./product-list.component.css'],
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0', display: 'none'})),
-      state('expanded', style({height: '*'})),
+      state('collapsed', style({ height: '0px', minHeight: '0', display: 'none' })),
+      state('expanded', style({ height: '*' })),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
   ],
@@ -30,26 +30,13 @@ export class ProductListComponent implements OnInit {
 
   AddProductNameDialogRef: MatDialogRef<NewProductComponent>;
 
-  testList: Product[] = [{idProduct: 1, title: "TEST", description: "TESTTEST", image: "assets/img/vesselPlaceholder.png"}, 
-  {idProduct: 2, title: "TEST", description: "TESTTEST", image: "assets/img/vesselPlaceholder.png"}];
-
   constructor(private location: Location, private rest: RestService, private dialog: MatDialog, public global: Globals) { }
 
   ngOnInit() {
-    this.rest.httpGet("/product").subscribe(
-      res => {
-        console.log("Products: ", res);
-        this.dataSource = new MatTableDataSource<Product>(res);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      },
-      err => {
-        console.log("Error occured: ", err);
-        this.dataSource = new MatTableDataSource<Product>(this.testList);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-      }
-    );
+    this.dataSource = new MatTableDataSource<Product>();
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.getProducts();
   }
 
   openNewProduct(file?) {
@@ -57,12 +44,12 @@ export class ProductListComponent implements OnInit {
       height: "600px",
       width: "700px",
       data: {
-        
+
       }
     });
     this.AddProductNameDialogRef.afterClosed().subscribe((value) => {
-      if(value) {
-        // Do something
+      if (value) {
+        this.getProducts();
       }
     });
   }
@@ -73,6 +60,18 @@ export class ProductListComponent implements OnInit {
 
   backClicked() {
     this.location.back();
+  }
+
+  getProducts() {
+    this.rest.httpGet("product").subscribe(
+      res => {
+        console.log("Products: ", res);
+        this.dataSource.data = res;
+      },
+      err => {
+        console.log("Error occured: ", err);
+      }
+    );
   }
 
 }
