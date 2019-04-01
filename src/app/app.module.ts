@@ -61,6 +61,7 @@ import { AddProductComponent } from './shared/components/products/add-product/ad
 import { EditBlueprintComponent } from './shared/components/rooms/rooms-canvas/edit-blueprint/edit-blueprint.component';
 import { ProductListComponent } from './shared/components/product-list/product-list.component';
 import { ProductComponent } from './shared/components/product/product.component';
+import { NewProductComponent } from './shared/components/product-list/new-product/new-product.component';
 
 
 
@@ -85,7 +86,8 @@ import { ProductComponent } from './shared/components/product/product.component'
     AddProductComponent,
     EditBlueprintComponent,
     ProductListComponent,
-    ProductComponent
+    ProductComponent,
+    NewProductComponent
   ],
   exports: [
     MatTableModule,
@@ -135,8 +137,9 @@ import { ProductComponent } from './shared/components/product/product.component'
     EditVesselComponent, 
     AddRoomComponent, 
     EditRoomComponent,
+    NewProductComponent,
     AddProductComponent,
-    EditBlueprintComponent
+    EditBlueprintComponent,
   ]
 })
 export class AppModule { }
