@@ -6,5 +6,6 @@ export class SubProduct {
     kelvin: number;
     lumen: number;
     price: number;
+    amount: number; 
     idProduct: number;
 }
