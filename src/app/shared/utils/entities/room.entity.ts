@@ -1,5 +1,5 @@
 export class Room {
-    idRoom: string;
+    idRoom: number;
     title: string;
     description: string;
     image: string;

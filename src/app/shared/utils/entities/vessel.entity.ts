@@ -1,5 +1,5 @@
 export class Vessel {
-    idVessel: string;
+    idVessel: number;
     idBlueprint: string;
     title: string;
     description: string;

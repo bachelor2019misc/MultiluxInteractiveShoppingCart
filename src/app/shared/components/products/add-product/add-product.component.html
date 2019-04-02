@@ -1,26 +1,53 @@
-<form [formGroup]="form" (ngSubmit)="submit(form)">
-  <h1 mat-dialog-title>Add Room</h1>
+<div class="dialog">
+  <h1 mat-dialog-title>Add Product to room</h1>
   <mat-dialog-content>
+    <p>
+      Select the products you want to add to the room
+    </p>
+
     <mat-form-field>
-      <input matInput formControlName="title" placeholder="Enter title of room"
-        (ngOnInit)="title">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
     </mat-form-field>
+
+    <table mat-table [dataSource]="dataSource">
+
+      <!-- Position Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> ID. </th>
+        <td mat-cell *matCellDef="let element"> {{element.idProduct}} </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Description </th>
+        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+      </ng-container>
+
+      <!-- Checkbox Column -->
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef class="center">
+          Products to be added:
+        </th>
+        <td mat-cell *matCellDef="let row" class="center">
+          <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+            [checked]="selection.isSelected(row)" [aria-label]="checkboxLabel(row)">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+      </tr>
+    </table>
   </mat-dialog-content>
-  <mat-dialog-content>
-    <mat-form-field>
-      <input matInput formControlName="description" placeholder="Enter description"
-        (ngOnInit)="description">
-    </mat-form-field>
-  </mat-dialog-content>
-  <p>Room Image</p>
-  <input class="ng-hide" (change)="readRoomUrl($event);" id="vesselImageInput" multiple type="file" />
-  <label for="vesselImageInput" class="md-button md-raised md-primary block"></label>
   <mat-dialog-actions class="bottom">
-    <button mat-button type="submit">Add Room</button>
+    <button mat-button type="button" (click)="addProductsToRoom()">Add Product</button>
     <button mat-button type="button" (click)="dialogRef.close()">Cancel</button>
   </mat-dialog-actions>
-</form>
-<div class="image-preview">
-  <p>Room image</p>
-  <img [src]="image" height="216" width="384">
 </div>

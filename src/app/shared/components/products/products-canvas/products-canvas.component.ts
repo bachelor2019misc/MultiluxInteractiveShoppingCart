@@ -116,7 +116,7 @@ export class ProductsCanvasComponent implements AfterViewInit {
                             this.global.currentSelectedProduct = this.products[i];
                         }
                     }
-                    this.router.navigate(['/product', this.global.currentSelectedVessel.idVessel, selectedDot.idRoom, selectedDot.idProduct]);
+                    this.router.navigate(['/subproducts', this.global.currentSelectedVessel.idVessel, selectedDot.idRoom, selectedDot.idProduct]);
                 }
             }
         });

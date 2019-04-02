@@ -1,7 +1,7 @@
 <ng-container
-    *ngIf="global.currentSelectedRoom !== undefined; then hasCurrentSelectedRoom; else hasCurrentSelectedRoom">
+    *ngIf="(doneGettingVessel && doneGettingRoom); then doneLoading; else loading">
 </ng-container>
-<ng-template #hasCurrentSelectedRoom>
+<ng-template #doneLoading>
     <div class="links">
         <span>You are here: </span>
         <a routerLink="/vessels">Vessels</a>
@@ -20,6 +20,6 @@
         </mat-icon>
     </button>
 </ng-template>
-<ng-template #noCurrentSelectedRoom>
-
+<ng-template #loading>
+    <mat-spinner></mat-spinner>
 </ng-template>

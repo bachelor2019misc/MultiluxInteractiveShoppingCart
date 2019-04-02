@@ -21,7 +21,7 @@ export class RoomsComponent implements OnInit, OnDestroy {
 
   @ViewChild(RoomsCanvasComponent) private canvas: RoomsCanvasComponent;
 
-  idVessel: string;
+  idVessel: number;
   private sub: any;
 
   AddVesselNameDialogRef: MatDialogRef<AddRoomComponent>;
@@ -98,7 +98,7 @@ export class RoomsComponent implements OnInit, OnDestroy {
     );
   }
 
-  getVesselById(idVessel: string) {
+  getVesselById(idVessel: number) {
     console.log("IdVessel before getRequest: ", idVessel);
     this.rest.httpGet('vessel/' + idVessel).subscribe(
       res => {

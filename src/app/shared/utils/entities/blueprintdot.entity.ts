@@ -3,5 +3,5 @@ export class BlueprintDot {
     xCoordinates: number;
     yCoordinates: number;
     idVessel: number;
-    idRoom: string;
+    idRoom: number;
 }

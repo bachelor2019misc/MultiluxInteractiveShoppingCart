@@ -3,5 +3,5 @@ export class RoomDot {
     xCoordinates: number;
     yCoordinates: number;
     idRoom: number;
-    idProduct: string;
+    idProduct: number;
 }

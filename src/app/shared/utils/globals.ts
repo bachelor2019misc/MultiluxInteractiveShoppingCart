@@ -17,11 +17,7 @@ export class Globals {
     currentSelectedRoom: Room;
     currentSelectedProduct: Product;
     currentSelectedBlueprint: Blueprint;
-    currentSelectedCartItems: CartItem[] = [
-        { idSubproduct: 1, title: 'productName', description: 'test', watt: 1000, kelvin: 800, lumen: 11000, price: 200, idProduct: 1, amount: 2 },
-        { idSubproduct: 2, title: 'productName', description: 'test', watt: 1000, kelvin: 800, lumen: 11000, price: 200, idProduct: 2, amount: 2 },
-        { idSubproduct: 3, title: 'productName', description: 'test', watt: 1000, kelvin: 800, lumen: 11000, price: 200, idProduct: 3, amount: 2 },
-    ];
+    currentSelectedCartItems: CartItem[] = [];
 
     addSubProductToCart(subProduct: SubProduct) {
         console.log(subProduct);

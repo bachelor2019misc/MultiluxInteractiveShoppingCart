@@ -7,6 +7,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { RestService } from '../../services/rest/rest.service';
 import { AddSubproductComponent } from './add-subproduct/add-subproduct.component';
 import { CartItem } from '../../utils/entities/cart-item.entity';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-sub-product',
@@ -16,23 +17,207 @@ import { CartItem } from '../../utils/entities/cart-item.entity';
 export class SubproductsComponent implements OnInit, DoCheck {
 
   displayedColumns: string[];
-  dataSource: MatTableDataSource<SubProduct>;
+  dataSource: MatTableDataSource<SubProduct> = new MatTableDataSource<SubProduct>();
   selection = new SelectionModel<SubProduct>(true, []);
+
+  navigation: boolean;
+
+  doneGettingVessel: boolean = false;
+  doneGettingRoom: boolean = false;
+  doneGettingProduct: boolean = false;
+  done: boolean = false;
+
+  idVessel: number;
+  idRoom: number;
+  idProduct: number;
+
+  private sub: any;
+  private dataSub: any;
 
   @Input() product: Product = this.global.currentSelectedProduct;
 
   AddProductNameDialogRef: MatDialogRef<AddSubproductComponent>;
 
-  constructor(private rest: RestService, private dialog: MatDialog, public global: Globals) { }
+  constructor(private rest: RestService, private dialog: MatDialog, private router: Router, private route: ActivatedRoute, public global: Globals) { }
 
   ngOnInit() {
     this.updateColumns();
-    this.dataSource = new MatTableDataSource<SubProduct>();
-    this.getSubProducts();
+    this.dataSub = this.route.data.subscribe(data => {
+      this.navigation = data.navigation;
+      if (this.navigation === undefined) {
+        this.done = true;
+        this.getSubProducts();
+      } else if (this.navigation) {
+        this.getAllFromURL();
+      } else {
+        this.doneGettingVessel = true;
+        this.doneGettingRoom = true;
+        this.getProductFromURL();
+      }
+    });
+  }
+
+  getAllFromURL() {
+    this.sub = this.route.params.subscribe(params => {
+      this.idVessel = +params['idVessel'];
+
+      console.log(this.idVessel);
+      if (isNaN(this.idVessel)) {
+        console.log("Id in url is not a number");
+        this.router.navigate(['/', 'vessels']);
+      } else {
+        if (this.global.currentSelectedVessel === undefined) {
+          console.log("There is not a defined vessel");
+          this.getVesselById(this.idVessel);
+        } else {
+          if (this.idVessel === this.global.currentSelectedVessel.idVessel) {
+            // Do nothing since the correct vessel is already in memory
+            console.log("Vessel in memory is the same as id url");
+            this.doneGettingVessel = true;
+          } else {
+            console.log("There is a vessel in memory, but it does not have the same id as the url");
+            this.getVesselById(this.idVessel);
+          }
+        }
+      }
+
+      this.idRoom = +params['idRoom'];
+      if (isNaN(this.idVessel)) {
+        console.log("Id in url is not a number");
+        this.router.navigate(['/', 'vessels']);
+      } else {
+        if (this.global.currentSelectedRoom === undefined) {
+          console.log("There is not a defined vessel");
+          this.getRoomById(this.idRoom);
+        } else {
+          if (this.idRoom === this.global.currentSelectedRoom.idRoom) {
+            // Do nothing since the correct vessel is already in memory
+            console.log("Vessel in memory is the same as id url");
+            this.doneGettingRoom = true;
+          } else {
+            console.log("There is a vessel in memory, but it does not have the same id as the url");
+            this.getRoomById(this.idRoom);
+          }
+        }
+      }
+
+      this.idProduct = +params['idProduct'];
+      if (isNaN(this.idVessel)) {
+        console.log("Id in url is not a number");
+        this.router.navigate(['/', 'vessels']);
+      } else {
+        if (this.global.currentSelectedProduct === undefined) {
+          console.log("There is not a defined vessel");
+          this.getProductById(this.idProduct);
+        } else {
+          if (this.idProduct === this.global.currentSelectedProduct.idProduct) {
+            // Do nothing since the correct vessel is already in memory
+            console.log("Vessel in memory is the same as id url");
+            this.doneGettingProduct = true;
+            if (this.doneGettingRoom && this.doneGettingVessel && this.doneGettingProduct) {
+              this.done = true;
+              this.getSubProducts();
+            }
+          } else {
+            console.log("There is a vessel in memory, but it does not have the same id as the url");
+            this.getRoomById(this.idProduct);
+          }
+        }
+      }
+
+      console.log("Getting subProducts");
+      this.getSubProducts();
+    });
+  }
+
+  getProductFromURL() {
+    this.sub = this.route.params.subscribe(params => {
+      this.idProduct = +params['idProduct'];
+      if (isNaN(this.idVessel)) {
+        console.log("Id in url is not a number");
+        this.router.navigate(['/', 'vessels']);
+      } else {
+        if (this.global.currentSelectedProduct === undefined) {
+          console.log("There is not a defined vessel");
+          this.getRoomById(this.idProduct);
+        } else {
+          if (this.idProduct === this.global.currentSelectedProduct.idProduct) {
+            // Do nothing since the correct vessel is already in memory
+            console.log("Vessel in memory is the same as id url");
+            this.doneGettingRoom = true;
+            if (this.doneGettingRoom && this.doneGettingVessel && this.doneGettingProduct) {
+              this.done = true;
+              this.getSubProducts();
+            }
+          } else {
+            console.log("There is a vessel in memory, but it does not have the same id as the url");
+            this.getRoomById(this.idProduct);
+          }
+        }
+      }
+
+      console.log("Getting subProducts");
+      this.getSubProducts();
+    });
+  }
+
+  getVesselById(idVessel: number) {
+    console.log("IdVessel before getRequest: ", idVessel);
+    this.rest.httpGet('vessel/' + idVessel).subscribe(
+      res => {
+        console.log(res);
+        this.global.currentSelectedVessel = res;
+        this.doneGettingVessel = true;
+        if (this.doneGettingRoom && this.doneGettingVessel && this.doneGettingProduct) {
+          this.done = true;
+          this.getSubProducts();
+        }
+      },
+      err => {
+        console.log("Error occured: ", err);
+      }
+    );
+  }
+
+  getRoomById(idRoom: number) {
+    console.log("IdRoom before getRequest: ", idRoom);
+    this.rest.httpGet('room/' + idRoom).subscribe(
+      res => {
+        console.log(res);
+        this.global.currentSelectedRoom = res;
+        this.doneGettingRoom = true;
+        if (this.doneGettingRoom && this.doneGettingVessel && this.doneGettingProduct) {
+          this.done = true;
+          this.getSubProducts();
+        }
+      },
+      err => {
+        console.log("Error occured: ", err);
+      }
+    );
+  }
+
+  getProductById(idProduct: number) {
+    console.log("IdRoom before getRequest: ", idProduct);
+    this.rest.httpGet('product/' + idProduct).subscribe(
+      res => {
+        console.log(res);
+        this.product = res;
+        this.global.currentSelectedProduct = res;
+        this.doneGettingProduct = true;
+        if (this.doneGettingRoom && this.doneGettingVessel && this.doneGettingProduct) {
+          this.done = true;
+          this.getSubProducts();
+        }
+      },
+      err => {
+        console.log("Error occured: ", err);
+      }
+    );
   }
 
   ngDoCheck(): void {
-    this.updateColumns(); 
+    this.updateColumns();
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
@@ -58,25 +243,27 @@ export class SubproductsComponent implements OnInit, DoCheck {
   }
 
   SubProductChecked(subProduct: SubProduct) {
-    if(!this.selection.isSelected(subProduct)) {
+    console.log("Checked");
+    if (!this.selection.isSelected(subProduct)) {
       this.global.addSubProductToCart(subProduct);
     } else {
-      for( var i = 0; i < this.global.currentSelectedCartItems.length; i++){
+      for (var i = 0; i < this.global.currentSelectedCartItems.length; i++) {
         if (this.global.currentSelectedCartItems[i].idSubproduct === subProduct.idSubproduct) {
-          this.global.currentSelectedCartItems.splice(i, 1); 
+          this.global.currentSelectedCartItems.splice(i, 1);
         }
-     }
+      }
     }
   }
 
   getSubProducts() {
-    this.rest.httpGet("subproductbyidproduct/" + this.product.idProduct).subscribe(
+    if(this.product !== undefined) {
+      this.rest.httpGet("subproductbyidproduct/" + this.product.idProduct).subscribe(
       res => {
-        console.log("SubProducts: ", res);
         this.dataSource.data = res;
-        for(let x = 0; x < res.length; x++) {
-          for(let y = 0; y < this.global.currentSelectedCartItems.length; y++) {
-            if(this.global.currentSelectedCartItems[y].idSubproduct === res[x].idSubProduct) {
+        for (let x = 0; x < res.length; x++) {
+          for (let y = 0; y < this.global.currentSelectedCartItems.length; y++) {
+            if (this.global.currentSelectedCartItems[y].idSubproduct === res[x].idSubproduct) {
+              console.log(res[x]);
               this.selection.toggle(res[x]);
             }
           }
@@ -86,20 +273,29 @@ export class SubproductsComponent implements OnInit, DoCheck {
         console.log("Error occured: ", err);
       }
     );
+    }
   }
 
   updateColumns() {
-    if(this.global.editMode) {
-      this.displayedColumns =  ['id', 'title', 'description', 'watt', 'kelvin', 'lumen', 'price', 'amount', 'select', 'edit'];
+    if (this.global.editMode) {
+      this.displayedColumns = ['id', 'title', 'description', 'watt', 'kelvin', 'lumen', 'price', 'amount', 'select', 'edit'];
     } else {
-      this.displayedColumns =  ['id', 'title', 'description', 'watt', 'kelvin', 'lumen', 'price', 'amount', 'select'];
+      this.displayedColumns = ['id', 'title', 'description', 'watt', 'kelvin', 'lumen', 'price', 'amount', 'select'];
     }
   }
 
   updateAmount(item: SubProduct, amount: number) {
-    for(let i = 0; i < this.global.currentSelectedCartItems.length; i++) {
-      if(this.global.currentSelectedCartItems[i].idSubproduct === item.idSubproduct) {
+    for (let i = 0; i < this.global.currentSelectedCartItems.length; i++) {
+      if (this.global.currentSelectedCartItems[i].idSubproduct === item.idSubproduct) {
         this.global.currentSelectedCartItems[i].amount = amount;
+      }
+    }
+  }
+
+  getAmount(subproduct: SubProduct):number {
+    for (let i = 0; i < this.global.currentSelectedCartItems.length; i++) {
+      if (this.global.currentSelectedCartItems[i].idSubproduct === subproduct.idSubproduct) {
+        return this.global.currentSelectedCartItems[i].amount;
       }
     }
   }
@@ -119,5 +315,5 @@ export class SubproductsComponent implements OnInit, DoCheck {
     });
   }
 
-  
+
 }
