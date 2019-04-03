@@ -3,6 +3,7 @@ import {MatSort, MatTableDataSource, MatPaginator} from '@angular/material';
 import { Location } from '@angular/common';
 import { CartItem } from '../../utils/entities/cart-item.entity';
 import { Globals } from '../../utils/globals';
+import { JsontoCsvService } from '../../services/jsontocsv/jsontocsv.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -16,7 +17,7 @@ export class ShoppingCartComponent implements OnInit{
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private location: Location, public global: Globals) {}
+  constructor(private location: Location, public global: Globals, public jsontocsv: JsontoCsvService) {}
   
   ngOnInit(){
     this.dataSource = new MatTableDataSource<CartItem>(this.global.currentSelectedCartItems);
@@ -55,6 +56,10 @@ export class ShoppingCartComponent implements OnInit{
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  downloadCsv() {
+    this.jsontocsv.jsonToCsv();
   }
 }
 
