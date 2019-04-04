@@ -2,9 +2,12 @@
   <h1 mat-dialog-title>Edit Blueprint</h1>
   <input class="ng-hide" (change)="readUrl($event);" id="blueprintImageInput" multiple type="file"/>
   <label for="blueprintImageInput" class="md-button md-raised md-primary"></label>
-  <mat-dialog-actions>
+  <mat-dialog-actions class="bottom">
     <button mat-button type="submit">Add Blueprint</button>
     <button mat-button type="button" (click)="dialogRef.close()">Cancel</button>
   </mat-dialog-actions>
 </form>
-<img class="image-preview" [src]="image" height="216" width="384">
+<div class="image-preview">
+  <p>Blueprint image</p>
+  <img [src]="image" height="216" width="384">
+</div>

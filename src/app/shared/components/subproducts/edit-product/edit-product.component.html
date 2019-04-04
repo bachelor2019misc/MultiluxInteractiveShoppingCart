@@ -1,0 +1,25 @@
+<form [formGroup]="form" (ngSubmit)="submit(form)">
+  <h1 mat-dialog-title>Edit Product</h1>
+  <mat-dialog-content>
+    <mat-form-field>
+      <input matInput formControlName="title" placeholder="Enter title of product"
+        (ngOnInit)="title" value="{{this.title}}">
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-content>
+    <mat-form-field>
+      <input matInput formControlName="description" placeholder="Enter description"
+        (ngOnInit)="description" value="{{this.description}}">
+    </mat-form-field>
+  </mat-dialog-content>
+  <input class="ng-hide" (change)="readUrl($event);" id="productImageInput" multiple type="file"/>
+  <label for="productImageInput" class="md-button md-raised md-primary"></label>
+  <mat-dialog-actions  class="bottom">
+    <button mat-button type="submit">Edit Product</button>
+    <button mat-button type="button" (click)="dialogRef.close()">Cancel</button>
+  </mat-dialog-actions>
+</form>
+<div class="image-preview">
+  <p>Product image</p>
+  <img [src]="image" height="216" width="384">
+</div>

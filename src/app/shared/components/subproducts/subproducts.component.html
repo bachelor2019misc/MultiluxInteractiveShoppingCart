@@ -18,7 +18,7 @@
     <img src="{{product.image}}">
     <section>
       <article>
-        <button mat-button class="editProductButton" *ngIf="global.editMode">
+        <button mat-button class="editProductButton" (click)="openEditProduct()" click *ngIf="global.editMode">
           <mat-icon>
             edit
           </mat-icon>
