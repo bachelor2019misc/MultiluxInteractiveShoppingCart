@@ -8,6 +8,7 @@ import { RestService } from '../../services/rest/rest.service';
 import { AddSubproductComponent } from './add-subproduct/add-subproduct.component';
 import { CartItem } from '../../utils/entities/cart-item.entity';
 import { ActivatedRoute, Router } from '@angular/router';
+import { EditProductComponent } from './edit-product/edit-product.component';
 
 @Component({
   selector: 'app-sub-product',
@@ -21,6 +22,7 @@ export class SubproductsComponent implements OnInit, DoCheck {
   selection = new SelectionModel<SubProduct>(true, []);
 
   navigation: boolean;
+  EditProductNameDialogRef: MatDialogRef<EditProductComponent>;
 
   doneGettingVessel: boolean = false;
   doneGettingRoom: boolean = false;
@@ -56,6 +58,21 @@ export class SubproductsComponent implements OnInit, DoCheck {
       }
     });
   }
+
+  openEditProduct() {
+    this.EditProductNameDialogRef = this.dialog.open(EditProductComponent, {
+      height: "400px",
+      width: "700px",
+      data: {
+        idProduct: this.product.idProduct
+      }
+    });
+    this.EditProductNameDialogRef.afterClosed().subscribe((value) => {
+        if(value) {
+          this.getProductById(this.product.idProduct);
+        }
+      });
+    }
 
   getAllFromURL() {
     this.sub = this.route.params.subscribe(params => {
