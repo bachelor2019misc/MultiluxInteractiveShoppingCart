@@ -125,6 +125,7 @@ import { AddSubproductComponent } from './shared/components/subproducts/add-subp
       {path: 'shopping-cart', component: ShoppingCartComponent},
       {path: 'product-list', component: ProductListComponent},
       {path: 'product/:idProduct', component: SubproductsComponent, data : { navigation : 'false'}},
+      {path: '**', component: VesselsComponent}
     ])
   ],
   providers: [Globals],
