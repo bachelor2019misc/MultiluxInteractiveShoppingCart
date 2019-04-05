@@ -21,6 +21,8 @@ export class RoomsComponent implements OnInit, OnDestroy {
 
   @ViewChild(RoomsCanvasComponent) private canvas: RoomsCanvasComponent;
 
+  doneGettingVessel: boolean = false;
+
   idVessel: number;
   private sub: any;
 
@@ -44,6 +46,7 @@ export class RoomsComponent implements OnInit, OnDestroy {
           if (this.idVessel === this.global.currentSelectedVessel.idVessel) {
             // Do nothing since the correct vessel is already in memory
             console.log("Vessel in memory is the same as id url");
+            this.doneGettingVessel = true;
           } else {
             console.log("There is a vessel in memory, but it does not have the same id as the url");
             this.getVesselById(this.idVessel);
@@ -59,43 +62,47 @@ export class RoomsComponent implements OnInit, OnDestroy {
   }
 
   getDots() {
-    this.dots = [];
-    this.rooms = [];
-    this.rest.httpGet("blueprintdotbyidvessel/" + this.idVessel).subscribe(
-      res => {
-        console.log("Dots: ", res);
-        this.dots = res;
-        this.canvas.dots = this.dots;
-        console.log("Canvas: ", this.canvas);
-        this.canvas.resize();
-        let tempRooms: Room[] = [];
-        for(var i = 0; i < this.dots.length; i++) {
-          this.rest.httpGet("room/" + this.dots[i].idRoom).subscribe(
-            res => {
-              tempRooms.push(res);
-              if(tempRooms.length === this.dots.length) {
-                for(var indexDot = 0; indexDot < this.dots.length; indexDot++) {
-                  for(var indexRoom = 0; indexRoom < tempRooms.length; indexRoom++) {
-                    if(this.dots[indexDot].idRoom === tempRooms[indexRoom].idRoom) {
-                      this.rooms.push(tempRooms[indexRoom]);
+    if (this.doneGettingVessel) {
+      this.dots = [];
+      this.rooms = [];
+      this.rest.httpGet("blueprintdotbyidvessel/" + this.idVessel).subscribe(
+        res => {
+          console.log("Dots: ", res);
+          this.dots = res;
+          this.canvas.dots = this.dots;
+          console.log("Canvas: ", this.canvas);
+          this.canvas.resize();
+          let tempRooms: Room[] = [];
+          for(var i = 0; i < this.dots.length; i++) {
+            this.rest.httpGet("room/" + this.dots[i].idRoom).subscribe(
+              res => {
+                tempRooms.push(res);
+                if(tempRooms.length === this.dots.length) {
+                  for(var indexDot = 0; indexDot < this.dots.length; indexDot++) {
+                    for(var indexRoom = 0; indexRoom < tempRooms.length; indexRoom++) {
+                      if(this.dots[indexDot].idRoom === tempRooms[indexRoom].idRoom) {
+                        this.rooms.push(tempRooms[indexRoom]);
+                      }
                     }
                   }
+                  console.log("Sorting rooms");
+                  this.canvas.rooms = this.rooms;
+                  this.canvas.draw();
                 }
-                console.log("Sorting rooms");
-                this.canvas.rooms = this.rooms;
-                this.canvas.draw();
+              },
+              err => {
+                console.log("Error occured: ", err);
               }
-            },
-            err => {
-              console.log("Error occured: ", err);
-            }
-          );
+            );
+          }
+        },
+        err => {
+          console.log("Error occured: ", err);
         }
-      },
-      err => {
-        console.log("Error occured: ", err);
-      }
-    );
+      );
+    } else {
+      console.log("Loading..")
+    }
   }
 
   getVesselById(idVessel: number) {
@@ -104,6 +111,10 @@ export class RoomsComponent implements OnInit, OnDestroy {
       res => {
         console.log(res);
         this.global.currentSelectedVessel = res;
+        this.doneGettingVessel = true;
+        if (this.doneGettingVessel) {
+          this.getDots();
+        }
       },
       err => {
         console.log("Error occured: ", err);
