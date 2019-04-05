@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, DoCheck } from '@angular/core';
+import { Location } from '@angular/common';
 import { Product } from '../../utils/entities/product.entity';
 import { Globals } from '../../utils/globals';
 import { SubProduct } from '../../utils/entities/sub-product.entity';
@@ -39,8 +40,7 @@ export class SubproductsComponent implements OnInit, DoCheck {
   @Input() product: Product = this.global.currentSelectedProduct;
 
   AddProductNameDialogRef: MatDialogRef<AddSubproductComponent>;
-
-  constructor(private rest: RestService, private dialog: MatDialog, private router: Router, private route: ActivatedRoute, public global: Globals) { }
+  constructor(private rest: RestService, private dialog: MatDialog, private location: Location, private router: Router, private route: ActivatedRoute, public global: Globals) { }
 
   ngOnInit() {
     this.updateColumns();
@@ -330,6 +330,10 @@ export class SubproductsComponent implements OnInit, DoCheck {
         this.getSubProducts();
       }
     });
+  }
+
+  backClicked() {
+    this.location.back();
   }
 
 
