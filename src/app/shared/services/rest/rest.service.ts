@@ -15,6 +15,8 @@ let options = { headers: headers };
 const endpointLogin = 'login';
 const endpointEditUser = 'user/';
 const endpointAddUser = 'add';
+//editroom
+const endpointEditRoom ='room/';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +30,14 @@ export class RestService {
     console.log(json);
     console.log(JSON.stringify(json));
     return this.httpPost(endpointLogin, json);
+  }
+
+  //editRoom
+  editRoom ( oldtitle:string,title:string, description:string, image:any) {
+  let json = {title:title, description:description, image:image};
+  console.log(json);
+  console.log(JSON.stringify(json));
+  return this.httpPut(endpointEditRoom + oldtitle, json);
   }
 
   editUser(oldusername:string, username:string, password:string) :Observable<any> {
