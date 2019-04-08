@@ -14,15 +14,4 @@ export class CartItem {
     monterestilordre: number;
     enhetskode: string;
     price: number;
-    linjerabatt: number;
-    nettoenhetspris: number;
-    db: number;
-    dg: number;
-    linjebeløpeksklmva: number;
-    skaltilordnes: number;
-    tilordnet: number;
-    valutafaktor: number;
-    valutakode: string;
-    enhetskost: number;
-    valutapris: number;
 }
