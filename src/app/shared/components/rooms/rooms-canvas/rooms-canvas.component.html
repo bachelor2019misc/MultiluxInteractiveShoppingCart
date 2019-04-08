@@ -11,7 +11,7 @@
         <ng-template #loading>
             <div class="room">
                 <div class="roomImage">
-
+                   
                 </div>
                 <div class="roomText">
                     <a>Loading...</a>
@@ -20,10 +20,16 @@
         </ng-template>
         <ng-template #done>
             <div class="room">
+                
                 <div class="roomImage">
+                    <!--Edit rooms knapp-->
+                        <mat-icon *ngIf="global.editMode" class="editBlueprintIcon" (click)="openEditRoom(room);">
+                                edit
+                            </mat-icon>
                     <img src="{{room.image}}" alt="{{room.description}}" height="90" width="160"
                         (click)="global.currentSelectedRoom = room" [routerLink]="['/products', global.currentSelectedVessel.idVessel, room.idRoom]">
                 </div>
+                
                 <div class="roomText" [routerLink]="['/products', global.currentSelectedVessel.idVessel, room.idRoom]">
                     <a>{{room.title}}</a>
                 </div>
