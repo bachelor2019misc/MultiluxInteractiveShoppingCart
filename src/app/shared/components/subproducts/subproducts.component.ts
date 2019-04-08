@@ -295,9 +295,9 @@ export class SubproductsComponent implements OnInit, DoCheck {
 
   updateColumns() {
     if (this.global.editMode) {
-      this.displayedColumns = ['id', 'title', 'description', 'watt', 'kelvin', 'lumen', 'price', 'amount', 'select', 'edit'];
+      this.displayedColumns = ['productNumber', 'title', 'description', 'watt', 'kelvin', 'lumen', 'price', 'amount', 'select', 'edit'];
     } else {
-      this.displayedColumns = ['id', 'title', 'description', 'watt', 'kelvin', 'lumen', 'price', 'amount', 'select'];
+      this.displayedColumns = ['productNumber', 'title', 'description', 'watt', 'kelvin', 'lumen', 'price', 'amount', 'select'];
     }
   }
 

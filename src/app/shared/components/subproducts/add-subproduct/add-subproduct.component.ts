@@ -13,6 +13,7 @@ import { Product } from '../../../utils/entities/product.entity';
 export class AddSubproductComponent implements OnInit {
   form: FormGroup;
 
+  productNumber: string;
   title: string;
   description: string;
   watt: number;
@@ -28,6 +29,7 @@ export class AddSubproductComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.formBuilder.group({
+      productNumber: this.data.productNumber ? this.data.title : '',
       title: this.data.title ? this.data.title : '',
       description: this.data.description ? this.data.description : '',
       watt: this.data.watt ? this.data.watt : '',
@@ -39,6 +41,7 @@ export class AddSubproductComponent implements OnInit {
 
   submit(form: any) {
     this.rest.httpPost('subproduct', {
+      "productNumber": form.value.productNumber,
       "title": form.value.title,
       "description": form.value.description,
       "watt": form.value.watt,
