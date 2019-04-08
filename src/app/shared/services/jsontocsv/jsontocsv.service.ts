@@ -10,15 +10,16 @@ export class JsontoCsvService {
 
   constructor(public global: Globals) { }
 
-  jsonToCsv () {
+  cartToCsv () {
     var cartItems = this.global.currentSelectedCartItems;
 
     var convertableJson = [];
 
     if (cartItems.length > 0) {
-      // json2csvParser cannot parse JSON arrays
-      // Each item in cartItems is put into a separate javascript object and 
-      // pushed into convertableJson so that json2csvParser can work with it.
+      // json2csvParser cannot parse JSON arrays, and not all values of CartItem are needed in the CSV.
+      //
+      // The required values of each item in cartItems is put into a separate javascript 
+      // object and pushed into convertableJson so that json2csvParser can work with it.
       cartItems.forEach(item => {
         let newItem = {};
         newItem['Type'] = item.title;
@@ -31,26 +32,13 @@ export class JsontoCsvService {
         newItem['Ant. som skal monteres til ordre'] = item.lokasjonskode;
         newItem['Enhetskode'] = item.enhetskode;
         newItem['Salgspris Ekskl. mva,'] = item.price * item.amount;
-        newItem['Linjerabatt-%'] = item.linjerabatt;
-        newItem['Netto enhetspris'] = item.price;
-        newItem['DB'] = item.db;
-        newItem['DG%'] = item.dg;
-        newItem['Linjebeløp Ekskl. mva.'] = item.linjebeløpeksklmva;
-        newItem['Ant. som skal tilordnes'] = item.skaltilordnes;
-        newItem['Ant. tilordnet'] = item.tilordnet;
-        newItem['Valutafaktor'] = item.valutafaktor;
-        newItem['Valutakode'] = item.valutakode;
-        newItem['Enhetskost (NOK)'] = item.enhetskost;
-        newItem['Valutapris'] = item.valutapris;
         convertableJson.push(newItem);
       });
 
       var { Parser } = require('json2csv');
       //The fields of the csv file are defined
       var fields = ['Type', 'Nr.', 'Prosess', 'Beskrivelse', 'Variantkode', 'Lokasjonskode', 
-        'Antall', 'Ant. som skal monteres til ordre', 'Enhetskode', 'Salgspris Ekskl. mva,', 
-        'Linjerabatt-%', 'Netto enhetspris', 'DB', 'DG%', 'Linjebeløp Ekskl. mva.', 'Ant. som skal tilordnes', 
-        'Ant. tilordnet', 'Valutafaktor', 'Valutakode', 'Enhetskost (NOK)', 'Valutapris'];
+        'Antall', 'Ant. som skal monteres til ordre', 'Enhetskode', 'Salgspris Ekskl. mva,'];
       var json2csvParser = new Parser({ fields });
       var csv = json2csvParser.parse(convertableJson);
 

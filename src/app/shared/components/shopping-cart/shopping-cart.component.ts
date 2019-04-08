@@ -59,7 +59,7 @@ export class ShoppingCartComponent implements OnInit{
   }
 
   downloadCsv() {
-    this.jsontocsv.jsonToCsv();
+    this.jsontocsv.cartToCsv();
   }
 }
 
