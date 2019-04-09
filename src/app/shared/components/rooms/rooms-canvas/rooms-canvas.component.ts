@@ -217,6 +217,7 @@ export class RoomsCanvasComponent implements AfterViewInit {
     }
 
     public draw() {
+        this.cx.clearRect(0, 0, this.width, this.height);
         this.cx.drawImage(this.blueprintImage, 0, 0, this.width, this.height);
         for (var i = 0; i < this.dots.length; i++) {
             this.drawCircle(this.dots[i]);
