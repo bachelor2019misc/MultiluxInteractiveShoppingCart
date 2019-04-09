@@ -3,6 +3,7 @@
     text-align: left;
     display: inline-block;
     width: 100%;
+    position: relative;
 }
 
 .head img {
@@ -73,4 +74,9 @@ table {
 .icon-inline {
     display: inline-block;
     vertical-align: middle;
+}
+
+.productGeneralInfo {
+    background-color: whitesmoke;
+    padding: 16px;
 }
