@@ -123,10 +123,10 @@ import { EditProductComponent } from './shared/components/subproducts/edit-produ
       {path: 'vessels', component: VesselsComponent},
       {path: 'rooms/:idVessel', component: RoomsComponent},
       {path: 'products/:idVessel/:idRoom', component: ProductsComponent},
-      {path: 'subproducts/:idVessel/:idRoom/:idProduct', component: SubproductsComponent, data : { navigation : 'true'}},
+      {path: 'subproducts/:idVessel/:idRoom/:idProduct', component: SubproductsComponent, data : { navigation : true}},
       {path: 'shopping-cart', component: ShoppingCartComponent},
       {path: 'product-list', component: ProductListComponent},
-      {path: 'product/:idProduct', component: SubproductsComponent, data : { navigation : 'false'}},
+      {path: 'product/:idProduct', component: SubproductsComponent, data : { navigation : false}},
       {path: '**', component: VesselsComponent}
     ])
   ],

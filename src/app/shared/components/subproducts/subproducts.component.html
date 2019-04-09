@@ -1,19 +1,39 @@
 <ng-container *ngIf="done; then doneLoading; else loading">
 </ng-container>
 <ng-template #doneLoading>
-  <div class="links" *ngIf="navigation">
-    <span>You are here: </span>
-    <a routerLink="/vessels">Vessels</a>
-    <mat-icon class="icon-inline">keyboard_arrow_right</mat-icon>
-    <a [routerLink]="['/rooms', global.currentSelectedVessel.idVessel]">{{global.currentSelectedVessel.title}}</a>
-    <mat-icon class="icon-inline">keyboard_arrow_right</mat-icon>
-    <a [routerLink]="['/products', global.currentSelectedVessel.idVessel, global.currentSelectedRoom.idRoom]">{{global.currentSelectedRoom.title}}</a>
-    <mat-icon class="icon-inline">keyboard_arrow_right</mat-icon>
-    <a>{{global.currentSelectedProduct.title}}</a>
-    <mat-icon class="icon-inline back" (click)="backClicked()">
-      arrow_back
-    </mat-icon>
-  </div>
+  <ng-container *ngIf="navigation === undefined; then navUndefined; else navDefined">
+  </ng-container>
+  <ng-template #navUndefined>
+  </ng-template>
+  <ng-template #navDefined>
+    <ng-container *ngIf="navigation; then navTrue; else navFalse">
+    </ng-container>
+    <ng-template #navTrue>
+      <div class="links">
+        <span>You are here: </span>
+        <a routerLink="/vessels">Vessels</a>
+        <mat-icon class="icon-inline">keyboard_arrow_right</mat-icon>
+        <a [routerLink]="['/rooms', global.currentSelectedVessel.idVessel]">{{global.currentSelectedVessel.title}}</a>
+        <mat-icon class="icon-inline">keyboard_arrow_right</mat-icon>
+        <a
+          [routerLink]="['/products', global.currentSelectedVessel.idVessel, global.currentSelectedRoom.idRoom]">{{global.currentSelectedRoom.title}}</a>
+        <mat-icon class="icon-inline">keyboard_arrow_right</mat-icon>
+        <a>{{global.currentSelectedProduct.title}}</a>
+        <mat-icon class="icon-inline back" (click)="backClicked()">
+          arrow_back
+        </mat-icon>
+      </div>
+    </ng-template>
+    <ng-template #navFalse>
+      <div class="links">
+        <span>You are here: </span>
+        <a>{{global.currentSelectedProduct.title}}</a>
+        <mat-icon class="icon-inline back" (click)="backClicked()">
+          arrow_back
+        </mat-icon>
+      </div>
+    </ng-template>
+  </ng-template>
   <div class="head">
     <img src="{{product.image}}">
     <section>
@@ -86,10 +106,11 @@
     <!-- Amount Column -->
     <ng-container matColumnDef="amount">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Amount</th>
-      <td mat-cell *matCellDef="let element" (click)="(!selection.isSelected(element) && SubProductChecked(element)); (!selection.isSelected(element) && selection.toggle(element));">
+      <td mat-cell *matCellDef="let element"
+        (click)="(!selection.isSelected(element) && SubProductChecked(element)); (!selection.isSelected(element) && selection.toggle(element));">
         <mat-form-field floatLabel="never">
-          <input matInput type="number" (change)="updateAmount(element, $event.target.value)" placeholder="{{getAmount(element) || 0}}"
-            [ngModel]="amount" name="amount" enabled="false">
+          <input matInput type="number" (change)="updateAmount(element, $event.target.value)"
+            placeholder="{{getAmount(element) || 0}}" [ngModel]="amount" name="amount" enabled="false">
         </mat-form-field>
       </td>
       <td mat-footer-cell *matFooterCellDef></td>

@@ -22,14 +22,15 @@ export class Globals {
     addSubProductToCart(subProduct: SubProduct) {
         console.log(subProduct);
         let newCartItem: CartItem = new CartItem;
+        newCartItem.idProduct = subProduct.idProduct;
         newCartItem.idSubproduct = subProduct.idSubproduct;
+        newCartItem.type = "vare";
+        newCartItem.productNumber = subProduct.productNumber;
         newCartItem.title = subProduct.title;
         newCartItem.description = subProduct.description;
-        newCartItem.watt = subProduct.watt;
-        newCartItem.kelvin = subProduct.kelvin;
-        newCartItem.lumen = subProduct.lumen;
+        newCartItem.locationCode = "BØ";
         newCartItem.price = subProduct.price;
-        newCartItem.idProduct = subProduct.idProduct;
+        newCartItem.unitCode = "STK";
 
         this.currentSelectedCartItems.push(newCartItem);
     }

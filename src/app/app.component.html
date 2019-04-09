@@ -21,12 +21,16 @@
     <mat-menu #appMenu="matMenu">
       <button mat-menu-item (click)="openEditUserDialog()">
         <mat-icon>person</mat-icon>
-        <span>Edit user</span>
+        <span>Edit profile</span>
       </button>
       <button mat-menu-item (click)="openAddUserDialog()">
         <mat-icon>person_add</mat-icon>
         <span>Add new user</span>
       </button>
+      <button mat-menu-item (click)="openSettingsDialog()">
+          <mat-icon>settings</mat-icon>
+          <span>Settings</span>
+        </button>
       <button mat-menu-item (click)="openLogoutDialog()">
         <mat-icon>exit_to_app</mat-icon>
         <span>Logout</span>

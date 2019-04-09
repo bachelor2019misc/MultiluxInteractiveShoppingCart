@@ -22,16 +22,16 @@ export class JsontoCsvService {
       // object and pushed into convertableJson so that json2csvParser can work with it.
       cartItems.forEach(item => {
         let newItem = {};
-        newItem['Type'] = item.title;
-        newItem['Nr.'] = item.nr;
-        newItem['Prosess'] = item.prosess; 
-        newItem['Beskrivelse'] = item.description;
-        newItem['Variasntkode'] = item.variantkode;
-        newItem['Lokasjonskode'] = item.lokasjonskode;
+        newItem['Type'] = item.type;
+        newItem['Nr.'] = item.productNumber;
+        newItem['Prosess'] = item.process; 
+        newItem['Beskrivelse'] = item.title + ", " + item.description;
+        newItem['Variantkode'] = "0";
+        newItem['Lokasjonskode'] = item.locationCode;
         newItem['Antall'] = item.amount;
-        newItem['Ant. som skal monteres til ordre'] = item.lokasjonskode;
-        newItem['Enhetskode'] = item.enhetskode;
-        newItem['Salgspris Ekskl. mva,'] = item.price * item.amount;
+        newItem['Ant. som skal monteres til ordre'] = " ";
+        newItem['Enhetskode'] = item.unitCode;
+        newItem['Salgspris Ekskl. mva,'] = item.price;
         convertableJson.push(newItem);
       });
 
