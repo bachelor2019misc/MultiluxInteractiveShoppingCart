@@ -2,6 +2,11 @@
   <h1 mat-dialog-title>New sub-product</h1>
   <mat-dialog-content>
     <mat-form-field>
+      <input matInput formControlName="productNumber" placeholder="Enter productnumber" (ngOnInit)="productNumber">
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-content>
+    <mat-form-field>
       <input matInput formControlName="title" placeholder="Enter title of product" (ngOnInit)="title">
     </mat-form-field>
   </mat-dialog-content>

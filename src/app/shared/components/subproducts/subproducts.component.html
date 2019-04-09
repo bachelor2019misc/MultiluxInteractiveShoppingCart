@@ -35,9 +35,9 @@
   <table mat-table [dataSource]="dataSource" matSort>
 
     <!-- Position Column -->
-    <ng-container matColumnDef="id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID. </th>
-      <td mat-cell *matCellDef="let element">{{element.idSubproduct}}</td>
+    <ng-container matColumnDef="productNumber">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Nr. </th>
+      <td mat-cell *matCellDef="let element">{{element.productNumber}}</td>
       <td mat-footer-cell *matFooterCellDef></td>
     </ng-container>
 
