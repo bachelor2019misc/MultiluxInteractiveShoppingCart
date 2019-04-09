@@ -104,7 +104,8 @@ li button .mat-icon {
 }
 
 #main {
-  overflow: auto;
+  overflow-y: scroll;
+  overflow-x: auto; 
   max-height: calc(100vh - 80px);
 }
 

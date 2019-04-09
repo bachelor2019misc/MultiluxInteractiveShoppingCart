@@ -34,3 +34,25 @@ tr.mat-footer-row {
   position: absolute;
   right: 4px;
 }
+
+td.mat-column-amount {
+  width: 30px;
+}
+
+td.mat-column-remove {
+  width: 30px;
+  text-align: center;
+}
+
+th.mat-column-amount {
+  width: 30px;
+}
+
+th.mat-column-remove {
+  width: 30px;
+  text-align: center;
+}
+
+table .amount {
+  max-width: 40px;
+}

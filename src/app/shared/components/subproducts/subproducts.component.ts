@@ -46,12 +46,15 @@ export class SubproductsComponent implements OnInit, DoCheck {
     this.updateColumns();
     this.dataSub = this.route.data.subscribe(data => {
       this.navigation = data.navigation;
+      console.log(this.navigation);
       if (this.navigation === undefined) {
         this.done = true;
         this.getSubProducts();
       } else if (this.navigation) {
+        console.log("Getting all currentSelected");
         this.getAllFromURL();
       } else {
+        console.log("Getting product currentSelected");
         this.doneGettingVessel = true;
         this.doneGettingRoom = true;
         this.getProductFromURL();
@@ -68,11 +71,11 @@ export class SubproductsComponent implements OnInit, DoCheck {
       }
     });
     this.EditProductNameDialogRef.afterClosed().subscribe((value) => {
-        if(value) {
-          this.getProductById(this.product.idProduct);
-        }
-      });
-    }
+      if (value) {
+        this.getProductById(this.product.idProduct);
+      }
+    });
+  }
 
   getAllFromURL() {
     this.sub = this.route.params.subscribe(params => {
@@ -150,25 +153,25 @@ export class SubproductsComponent implements OnInit, DoCheck {
   getProductFromURL() {
     this.sub = this.route.params.subscribe(params => {
       this.idProduct = +params['idProduct'];
-      if (isNaN(this.idVessel)) {
+      if (isNaN(this.idProduct)) {
         console.log("Id in url is not a number");
         this.router.navigate(['/', 'vessels']);
       } else {
         if (this.global.currentSelectedProduct === undefined) {
           console.log("There is not a defined vessel");
-          this.getRoomById(this.idProduct);
+          this.getProductById(this.idProduct);
         } else {
           if (this.idProduct === this.global.currentSelectedProduct.idProduct) {
             // Do nothing since the correct vessel is already in memory
-            console.log("Vessel in memory is the same as id url");
-            this.doneGettingRoom = true;
+            console.log("Product in memory is the same as id url");
+            this.doneGettingProduct = true;
             if (this.doneGettingRoom && this.doneGettingVessel && this.doneGettingProduct) {
               this.done = true;
               this.getSubProducts();
             }
           } else {
             console.log("There is a vessel in memory, but it does not have the same id as the url");
-            this.getRoomById(this.idProduct);
+            this.getProductById(this.idProduct);
           }
         }
       }
@@ -273,23 +276,23 @@ export class SubproductsComponent implements OnInit, DoCheck {
   }
 
   getSubProducts() {
-    if(this.product !== undefined) {
+    if (this.product !== undefined) {
       this.rest.httpGet("subproductbyidproduct/" + this.product.idProduct).subscribe(
-      res => {
-        this.dataSource.data = res;
-        for (let x = 0; x < res.length; x++) {
-          for (let y = 0; y < this.global.currentSelectedCartItems.length; y++) {
-            if (this.global.currentSelectedCartItems[y].idSubproduct === res[x].idSubproduct) {
-              console.log(res[x]);
-              this.selection.toggle(res[x]);
+        res => {
+          this.dataSource.data = res;
+          for (let x = 0; x < res.length; x++) {
+            for (let y = 0; y < this.global.currentSelectedCartItems.length; y++) {
+              if (this.global.currentSelectedCartItems[y].idSubproduct === res[x].idSubproduct) {
+                console.log(res[x]);
+                this.selection.toggle(res[x]);
+              }
             }
           }
+        },
+        err => {
+          console.log("Error occured: ", err);
         }
-      },
-      err => {
-        console.log("Error occured: ", err);
-      }
-    );
+      );
     }
   }
 
@@ -309,7 +312,7 @@ export class SubproductsComponent implements OnInit, DoCheck {
     }
   }
 
-  getAmount(subproduct: SubProduct):number {
+  getAmount(subproduct: SubProduct): number {
     for (let i = 0; i < this.global.currentSelectedCartItems.length; i++) {
       if (this.global.currentSelectedCartItems[i].idSubproduct === subproduct.idSubproduct) {
         return this.global.currentSelectedCartItems[i].amount;
