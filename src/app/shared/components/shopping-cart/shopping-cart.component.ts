@@ -52,7 +52,7 @@ export class ShoppingCartComponent implements OnInit {
     this.location.back();
   }
 
-  removeItem(item: CartItem) {
+  remove(item: CartItem) {
     let i = 0;
     while (i < this.global.currentSelectedCartItems.length) {
       if (this.global.currentSelectedCartItems[i] === item) {
