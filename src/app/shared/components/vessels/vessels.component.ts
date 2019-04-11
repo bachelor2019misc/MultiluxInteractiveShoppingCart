@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { Globals } from '../../utils/globals';
 import { AddVesselComponent } from './add-vessel/add-vessel.component'
-import { Vessel } from '../../utils/entities/vessel.entity';
+import { Vessel } from '../../models/vessel.model';
 import { EditVesselComponent } from './edit-vessel/edit-vessel.component';
 
 @Component({

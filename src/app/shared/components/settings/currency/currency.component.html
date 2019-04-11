@@ -1,0 +1,69 @@
+<mat-card>
+  <mat-card-title>
+    Currency
+  </mat-card-title>
+  <mat-card-content>
+    <table mat-table [dataSource]="dataSource" matSort matSortActive="title" matSortDirection="asc">
+
+      <!-- Title Column -->
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
+        <td mat-cell *matCellDef="let element">
+          <mat-form-field floatLabel="never">
+            <input matInput type="text" (change)="updateCurrencyTitle(element, $event.target.value)"
+              placeholder="{{element.title || 0}}" [ngModel]="title" name="title">
+          </mat-form-field>
+        </td>
+      </ng-container>
+
+      <!-- Value Column -->
+      <ng-container matColumnDef="value">
+        <th mat-header-cell *matHeaderCellDef> Value </th>
+        <td mat-cell *matCellDef="let element">
+          <mat-form-field floatLabel="never">
+            <input matInput type="number" change="updateCurrencyValue(element, $event.target.value))"
+              placeholder="{{element.value || 0}}" [ngModel]="value" name="value">
+          </mat-form-field>
+        </td>
+      </ng-container>
+
+      <!-- Checkbox Column -->
+      <ng-container matColumnDef="default">
+        <th mat-header-cell *matHeaderCellDef>
+          Default
+        </th>
+        <td mat-cell *matCellDef="let element" class="centerColumn">
+          <mat-checkbox (change)="setAsDefault(element);" [checked]="element.default">
+          </mat-checkbox>
+        </td>
+      </ng-container>
+
+      <!-- Delete Column -->
+      <ng-container matColumnDef="delete">
+        <th mat-header-cell *matHeaderCellDef class="centerColumn"> Delete </th>
+        <td mat-cell *matCellDef="let element" class="centerColumn">
+          <button mat-button (click)="deleteCurrency(element)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
+      <!-- display Column and paginator -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <form [formGroup]="form" (ngSubmit)="submit(form)" class="addCurrency">
+      <mat-form-field>
+        <input matInput formControlName="title" placeholder="Name" (ngOnInit)="title" value="{{this.title}}">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput formControlName="value" placeholder="Value" (ngOnInit)="value" value="{{this.value}}">
+      </mat-form-field>
+      <mat-checkbox formControlName="default">
+        Default
+      </mat-checkbox>
+      <button mat-button type="submit">Add Currency</button>
+    </form>
+  </mat-card-content>
+</mat-card>

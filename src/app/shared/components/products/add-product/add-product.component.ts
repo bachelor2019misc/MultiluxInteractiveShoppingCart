@@ -4,8 +4,8 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatTableDataSource } from '@angular/mate
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Globals } from '../../../utils/globals';
 import { SelectionModel } from '@angular/cdk/collections';
-import { Product } from '../../../utils/entities/product.entity';
-import { RoomDot } from '../../../utils/entities/roomdot.entity';
+import { Product } from '../../../models/product.model';
+import { RoomDot } from '../../../models/roomdot.model';
 
 @Component({
   selector: 'app-add-room',

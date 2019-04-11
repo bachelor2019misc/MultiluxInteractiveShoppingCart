@@ -1,0 +1,10 @@
+<div class="topNavigation">
+  <span>You are here: </span>
+  <a>Settings</a>
+  <mat-icon class="icon-inline back" (click)="backClicked()">
+    arrow_back
+  </mat-icon>
+</div>
+<div id="settings">
+  <settings-currency *ngIf="global.loggedIn"></settings-currency>
+</div>

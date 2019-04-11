@@ -1,18 +1,10 @@
 import { Component, Input, ElementRef, AfterViewInit, ViewChild, AfterViewChecked, OnInit, ViewChildren, QueryList, ContentChildren } from '@angular/core'
 import { fromEvent } from 'rxjs';
-import { switchMap, takeUntil, pairwise } from 'rxjs/operators'
-import { logging } from 'protractor';
-import { BlueprintDot } from '../../../utils/entities/blueprintdot.entity';
-import { element } from '@angular/core/src/render3';
 import { RestService } from '../../../services/rest/rest.service';
-import { Vessel } from '../../../utils/entities/vessel.entity';
 import { Globals } from '../../../utils/globals';
-import { Blueprint } from '../../../utils/entities/blueprint.entity';
-import { Room } from '../../../utils/entities/room.entity';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ProductsComponent } from '../products.component';
-import { RoomDot } from '../../../utils/entities/roomdot.entity';
-import { Product } from '../../../utils/entities/product.entity';
+import { Router } from '@angular/router';
+import { RoomDot } from '../../../models/roomdot.model';
+import { Product } from '../../../models/product.model';
 
 @Component({
     selector: 'products-canvas',

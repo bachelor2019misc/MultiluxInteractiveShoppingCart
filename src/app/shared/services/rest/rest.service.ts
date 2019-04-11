@@ -80,4 +80,8 @@ export class RestService {
   httpPut(endpoint:string, json:object) :Observable<any> {
     return this.http.put(baseURL + endpoint,  JSON.stringify(json), options);
   }
+
+  httpDelete(endpoint:string) :Observable<any> {
+    return this.http.delete(baseURL + endpoint, options);
+  }
 }

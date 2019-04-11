@@ -1,13 +1,13 @@
 import { Component, OnInit, Input, DoCheck } from '@angular/core';
 import { Location } from '@angular/common';
-import { Product } from '../../utils/entities/product.entity';
+import { Product } from '../../models/product.model';
 import { Globals } from '../../utils/globals';
-import { SubProduct } from '../../utils/entities/sub-product.entity';
+import { SubProduct } from '../../models/sub-product.model';
 import { MatTableDataSource, MatDialogRef, MatDialog } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { RestService } from '../../services/rest/rest.service';
 import { AddSubproductComponent } from './add-subproduct/add-subproduct.component';
-import { CartItem } from '../../utils/entities/cart-item.entity';
+import { CartItem } from '../../models/cart-item.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EditProductComponent } from './edit-product/edit-product.component';
 

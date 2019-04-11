@@ -1,11 +1,12 @@
 // globals.ts
 import { Injectable } from '@angular/core';
-import { Vessel } from './entities/vessel.entity';
-import { Room } from './entities/room.entity';
-import { Product } from './entities/product.entity';
-import { Blueprint } from './entities/blueprint.entity';
-import { CartItem } from './entities/cart-item.entity';
-import { SubProduct } from './entities/sub-product.entity';
+import { Vessel } from '../models/vessel.model';
+import { Room } from '../models/room.model';
+import { Product } from '../models/product.model';
+import { Blueprint } from '../models/blueprint.model';
+import { CartItem } from '../models/cart-item.model';
+import { SubProduct } from '../models/sub-product.model';
+import { Currency } from '../models/currency.model';
 
 @Injectable()
 export class Globals {
@@ -13,6 +14,7 @@ export class Globals {
     loggedIn: boolean = false;
     editMode: boolean = false;
 
+    currentSelectedCurrency: Currency;
     currentSelectedVessel: Vessel;
     currentSelectedRoom: Room;
     currentSelectedProduct: Product;

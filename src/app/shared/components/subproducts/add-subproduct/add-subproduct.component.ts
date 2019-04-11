@@ -3,7 +3,7 @@ import { RestService } from '../../../services/rest/rest.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Globals } from '../../../utils/globals';
-import { Product } from '../../../utils/entities/product.entity';
+import { Product } from '../../../models/product.model';
 
 @Component({
   selector: 'app-add-subproduct',

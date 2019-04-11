@@ -1,0 +1,29 @@
+.mat-card {
+  min-width: 300px;
+  max-width: 600px;
+  margin: 50px;
+  display: inline-block;
+}
+
+table {
+  width: 100%;
+  text-align: left;
+}
+
+.addCurrency {
+  padding-top: 24px;
+}
+
+.mat-form-field {
+  max-width: 100px;
+  padding-right: 16px;
+}
+
+.mat-checkbox {
+  max-width: 100px;
+  padding-right: 16px;
+}
+
+.centerColumn {
+  text-align: center;
+}
