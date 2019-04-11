@@ -3,7 +3,9 @@
 <ul>
   <li>
     <button mat-button style="margin-right: 16px;" routerLink="/shopping-cart">
-      <mat-icon matBadge="{{this.global.currentSelectedCartItems.length}}" [matBadgeHidden]="this.global.currentSelectedCartItems.length == 0" matBadgePosition="below before" matBadgeColor="primary">
+      <mat-icon matBadge="{{this.global.currentSelectedCartItems.length}}"
+        [matBadgeHidden]="this.global.currentSelectedCartItems.length == 0" matBadgePosition="below before"
+        matBadgeColor="primary">
         shopping_cart
       </mat-icon>
     </button>
@@ -27,10 +29,10 @@
         <mat-icon>person_add</mat-icon>
         <span>Add new user</span>
       </button>
-      <button mat-menu-item (click)="openSettingsDialog()">
-          <mat-icon>settings</mat-icon>
-          <span>Settings</span>
-        </button>
+      <button mat-menu-item routerLink="/settings">
+        <mat-icon>settings</mat-icon>
+        <span>Settings</span>
+      </button>
       <button mat-menu-item (click)="openLogoutDialog()">
         <mat-icon>exit_to_app</mat-icon>
         <span>Logout</span>
@@ -70,6 +72,21 @@
       <button mat-raised-button id="login" (click)="openLoginDialog()"><span class="icon-text">Login</span></button>
     </li>
   </ng-template>
+  <mat-menu #currencyMenu="matMenu">
+    <button mat-menu-item (click)="changeCurrency(currency)" *ngFor="let currency of currencies; let i = index">
+      <span>{{currency.title}}</span>
+    </button>
+  </mat-menu>
+  <li>
+    <div id="currencyBlock">
+      <span>
+        Currency:
+      </span>
+      <button mat-button id="currency" [matMenuTriggerFor]="currencyMenu">
+        <span>{{global.currentSelectedCurrency.title}}</span>
+      </button>
+    </div>
+  </li>
   <li class="header-left">
     <img src="assets/img/logo.png" routerLink="/vessels" class="logo">
   </li>

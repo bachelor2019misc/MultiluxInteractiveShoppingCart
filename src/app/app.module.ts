@@ -63,6 +63,8 @@ import { ProductListComponent } from './shared/components/product-list/product-l
 import { NewProductComponent } from './shared/components/product-list/new-product/new-product.component';
 import { AddSubproductComponent } from './shared/components/subproducts/add-subproduct/add-subproduct.component';
 import { EditProductComponent } from './shared/components/subproducts/edit-product/edit-product.component';
+import { SettingsComponent } from './shared/components/settings/settings.component';
+import { CurrencyComponent } from './shared/components/settings/currency/currency.component';
 
 
 
@@ -90,6 +92,8 @@ import { EditProductComponent } from './shared/components/subproducts/edit-produ
     ProductListComponent,
     NewProductComponent,
     EditProductComponent,
+    SettingsComponent,
+    CurrencyComponent,
   ],
   exports: [
     MatTableModule,
@@ -127,6 +131,7 @@ import { EditProductComponent } from './shared/components/subproducts/edit-produ
       {path: 'shopping-cart', component: ShoppingCartComponent},
       {path: 'product-list', component: ProductListComponent},
       {path: 'product/:idProduct', component: SubproductsComponent, data : { navigation : false}},
+      {path: 'settings', component: SettingsComponent},
       {path: '**', component: VesselsComponent}
     ])
   ],

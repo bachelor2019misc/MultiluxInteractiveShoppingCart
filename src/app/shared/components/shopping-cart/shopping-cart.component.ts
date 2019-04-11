@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSort, MatTableDataSource, MatPaginator } from '@angular/material';
 import { Location } from '@angular/common';
-import { CartItem } from '../../utils/entities/cart-item.entity';
+import { CartItem } from '../../models/cart-item.model';
 import { Globals } from '../../utils/globals';
 import { JsontoCsvService } from '../../services/jsontocsv/jsontocsv.service';
 import { JsToPdfService } from '../../services/jstopdf/jstopdf.service';
@@ -48,7 +48,7 @@ export class ShoppingCartComponent implements OnInit {
     let total: number = 0;
     for (let i = 0; i < this.global.currentSelectedCartItems.length; i++) {
       let cartItem: CartItem = this.global.currentSelectedCartItems[i];
-      total += cartItem.amount * cartItem.price;
+      total += cartItem.amount * cartItem.price / this.global.currentSelectedCurrency.value;
     }
     return total;
   }

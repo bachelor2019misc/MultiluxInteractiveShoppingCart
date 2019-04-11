@@ -2,14 +2,14 @@ import { Component, Input, ElementRef, AfterViewInit, ViewChild, AfterViewChecke
 import { fromEvent } from 'rxjs';
 import { switchMap, takeUntil, pairwise } from 'rxjs/operators'
 import { logging } from 'protractor';
-import { BlueprintDot } from '../../../utils/entities/blueprintdot.entity';
+import { BlueprintDot } from '../../../models/blueprintdot.model';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { element } from '@angular/core/src/render3';
 import { RestService } from '../../../services/rest/rest.service';
-import { Vessel } from '../../../utils/entities/vessel.entity';
+import { Vessel } from '../../../models/vessel.model';
 import { Globals } from '../../../utils/globals';
-import { Blueprint } from '../../../utils/entities/blueprint.entity';
-import { Room } from '../../../utils/entities/room.entity';
+import { Blueprint } from '../../../models/blueprint.model';
+import { Room } from '../../../models/room.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RoomsComponent } from '../rooms.component';
 import { EditBlueprintComponent } from './edit-blueprint/edit-blueprint.component';

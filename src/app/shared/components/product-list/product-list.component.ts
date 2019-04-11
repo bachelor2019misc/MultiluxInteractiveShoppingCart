@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { MatSort, MatPaginator, MatTableDataSource, MatDialogRef, MatDialog } from '@angular/material';
-import { Product } from '../../utils/entities/product.entity';
+import { Product } from '../../models/product.model';
 import { Globals } from '../../utils/globals';
 import { RestService } from '../../services/rest/rest.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';

@@ -4,13 +4,13 @@ import { RestService } from '../../services/rest/rest.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Globals } from '../../utils/globals';
 import { routerNgProbeToken } from '@angular/router/src/router_module';
-import { Blueprint } from '../../utils/entities/blueprint.entity';
-import { BlueprintDot } from '../../utils/entities/blueprintdot.entity';
+import { Blueprint } from '../../models/blueprint.model';
+import { BlueprintDot } from '../../models/blueprintdot.model';
 import { RoomsCanvasComponent } from './rooms-canvas/rooms-canvas.component';
 import { MatDialogRef, MatDialog } from '@angular/material';
 import { AddRoomComponent } from './add-room/add-room.component';
 import { EditRoomComponent } from './edit-room/edit-room.component';
-import { Room } from '../../utils/entities/room.entity';
+import { Room } from '../../models/room.model';
 
 @Component({
   selector: 'app-rooms',
