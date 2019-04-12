@@ -5,6 +5,7 @@ import { Globals } from '../../../utils/globals';
 import { MatTableDataSource, MatSort } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'settings-currency',
@@ -21,7 +22,7 @@ export class CurrencyComponent implements OnInit {
 
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private currencyService: CurrencyService, private formBuilder: FormBuilder, private global: Globals) { }
+  constructor(private location: Location, private currencyService: CurrencyService, private formBuilder: FormBuilder, private global: Globals) { }
 
   ngOnInit() {
     this.dataSource.sort = this.sort;
@@ -102,4 +103,6 @@ export class CurrencyComponent implements OnInit {
       }
     );
   }
+
+  
 }

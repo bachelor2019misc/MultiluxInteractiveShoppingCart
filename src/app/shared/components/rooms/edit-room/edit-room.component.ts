@@ -22,7 +22,7 @@ export class EditRoomComponent implements OnInit {
     public global: Globals,
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<EditRoomComponent>,
-    @Inject(MAT_DIALOG_DATA) private data
+    @Inject(MAT_DIALOG_DATA) public data
     
   ) { }
 
