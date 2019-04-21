@@ -58,20 +58,23 @@
             Info:
           </h3>
           <p>
-            - Prisene er basert på tilbudsdagens valuta.<br/>
-            - Ved endring utover +-2% endres prisene tilsvarende total prosentsats.<br/>
-            - I tillegg kommer 1% miljøgebyr, fraktsonetillegg (min. 200,-) og 0,9% emballasjeavgift på netto fakturabeløp.<br/>
-            - Lyskilder leveres i hele kartonger.<br/>
-            - Materiell fra Vik Ørsta leveres fraktfritt.<br/>
-            - Lossing av materiell er mottakers ansvar.<br/>
-            - Vi tar forbehold om at det er tilbudt riktige typer og masser. Disse må kontrolleres av kunde.<br/>
-            - Forventet leveringstid: Etter avtale<br/>
-            - Pristilbudet gjelder beskrevet mengde, samlet levering.<br/><br/>
-            Ellers gjelder våre vanlige leveringsbetingelser, se <a href="https://www.multilux.no">www.multilux.no</a><br>
-            Vi håper med dette å ha gitt Dere et interessant pristilbud, og imøteser gjerne Deres bestillinger<br/><br/>
+            - Prisene er basert på tilbudsdagens valuta.<br />
+            - Ved endring utover +-2% endres prisene tilsvarende total prosentsats.<br />
+            - I tillegg kommer 1% miljøgebyr, fraktsonetillegg (min. 200,-) og 0,9% emballasjeavgift på netto
+            fakturabeløp.<br />
+            - Lyskilder leveres i hele kartonger.<br />
+            - Materiell fra Vik Ørsta leveres fraktfritt.<br />
+            - Lossing av materiell er mottakers ansvar.<br />
+            - Vi tar forbehold om at det er tilbudt riktige typer og masser. Disse må kontrolleres av kunde.<br />
+            - Forventet leveringstid: Etter avtale<br />
+            - Pristilbudet gjelder beskrevet mengde, samlet levering.<br /><br />
+            Ellers gjelder våre vanlige leveringsbetingelser, se <a
+              href="https://www.multilux.no">www.multilux.no</a><br>
+            Vi håper med dette å ha gitt Dere et interessant pristilbud, og imøteser gjerne Deres
+            bestillinger<br /><br />
 
-            Med vennlig hilsen<br/>
-            Multilux AS<br/>
+            Med vennlig hilsen<br />
+            Multilux AS<br />
           </p>
         </div>
       </article>
@@ -124,7 +127,8 @@
     <!-- Price Column -->
     <ng-container matColumnDef="price">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
-      <td mat-cell *matCellDef="let element"> {{element.price / global.currentSelectedCurrency.value}} {{global.currentSelectedCurrency.title}}</td>
+      <td mat-cell *matCellDef="let element"> {{element.price / global.currentSelectedCurrency.value}}
+        {{global.currentSelectedCurrency.title}}</td>
       <td mat-footer-cell *matFooterCellDef></td>
     </ng-container>
 
@@ -159,7 +163,9 @@
     <ng-container matColumnDef="edit">
       <th mat-header-cell *matHeaderCellDef class="editColumn"> Edit </th>
       <td mat-cell *matCellDef="let element" class="editColumn">
-        <mat-icon>edit</mat-icon>
+        <button mat-button (click)="openEditSubproduct(element);">
+          <mat-icon>edit</mat-icon>
+        </button>
       </td>
       <td mat-footer-cell *matFooterCellDef></td>
     </ng-container>
@@ -170,7 +176,7 @@
     <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
   </table>
 
-  <button mat-button class="addSubProduct" *ngIf="global.editMode" (click)="openAddSubProduct();">
+  <button mat-button class="addSubProduct" *ngIf="global.editMode" (click)="openAddSubproduct();">
     <span>
       Add SubProduct
     </span>

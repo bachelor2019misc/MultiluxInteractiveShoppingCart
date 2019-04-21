@@ -34,6 +34,10 @@ export class ShoppingCartComponent implements OnInit {
     this.dataSource = new MatTableDataSource<CartItem>(this.global.currentSelectedCartItems);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
+    this.dataSource.filterPredicate = (data, filter) => {
+      const dataStr = data.productNumber + data.title + data.description + data.price + data.amount;
+      return dataStr.indexOf(filter) != -1; 
+    }
   }
 
   updateProcess(item: CartItem, process: string) {

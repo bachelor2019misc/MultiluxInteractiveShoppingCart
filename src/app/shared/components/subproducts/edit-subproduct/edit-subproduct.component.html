@@ -1,0 +1,36 @@
+<form [formGroup]="form" (ngSubmit)="submit(form)">
+  <h1 mat-dialog-title>Edit sub-product</h1>
+  <mat-dialog-content>
+    <mat-form-field>
+      <input matInput formControlName="productNumber" placeholder="Enter productnumber" (ngOnInit)="productNumber">
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-content>
+    <mat-form-field>
+      <input matInput formControlName="title" placeholder="Enter title of product" (ngOnInit)="title">
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-content>
+    <mat-form-field>
+      <input matInput formControlName="description" placeholder="Enter description" (ngOnInit)="description">
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-content>
+    <mat-form-field>
+      <input matInput type="number" formControlName="watt" placeholder="Enter watt" (ngOnInit)="watt">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="number" formControlName="kelvin" placeholder="Enter kelvin" (ngOnInit)="kelvin">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="number" formControlName="lumen" placeholder="Enter lumen" (ngOnInit)="lumen">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="number" formControlName="price" placeholder="Enter price" (ngOnInit)="price">
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions class="bottom">
+    <button mat-button type="submit">Update SubProduct</button>
+    <button mat-button type="button" (click)="dialogRef.close()">Cancel</button>
+  </mat-dialog-actions>
+</form>

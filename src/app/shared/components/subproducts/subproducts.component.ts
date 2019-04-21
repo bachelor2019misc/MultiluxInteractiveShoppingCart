@@ -10,6 +10,7 @@ import { AddSubproductComponent } from './add-subproduct/add-subproduct.componen
 import { CartItem } from '../../models/cart-item.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EditProductComponent } from './edit-product/edit-product.component';
+import { EditSubproductComponent } from './edit-subproduct/edit-subproduct.component';
 
 @Component({
   selector: 'app-sub-product',
@@ -39,7 +40,8 @@ export class SubproductsComponent implements OnInit, DoCheck {
 
   @Input() product: Product = this.global.currentSelectedProduct;
 
-  AddProductNameDialogRef: MatDialogRef<AddSubproductComponent>;
+  AddSubProductNameDialogRef: MatDialogRef<AddSubproductComponent>;
+  EditSubProductNameDialogRef: MatDialogRef<EditSubproductComponent>;
   constructor(private rest: RestService, private dialog: MatDialog, private location: Location, private router: Router, private route: ActivatedRoute, public global: Globals) { }
 
   ngOnInit() {
@@ -320,15 +322,30 @@ export class SubproductsComponent implements OnInit, DoCheck {
     }
   }
 
-  openAddSubProduct(file?) {
-    this.AddProductNameDialogRef = this.dialog.open(AddSubproductComponent, {
+  openAddSubproduct(file?) {
+    this.AddSubProductNameDialogRef = this.dialog.open(AddSubproductComponent, {
       height: "600px",
       width: "500px",
       data: {
         idProduct: this.product.idProduct
       }
     });
-    this.AddProductNameDialogRef.afterClosed().subscribe((value) => {
+    this.AddSubProductNameDialogRef.afterClosed().subscribe((value) => {
+      if (value) {
+        this.getSubProducts();
+      }
+    });
+  }
+
+  openEditSubproduct(subproduct: SubProduct) {
+    this.EditSubProductNameDialogRef = this.dialog.open(EditSubproductComponent, {
+      height: "600px",
+      width: "500px",
+      data: {
+        subproduct: subproduct
+      }
+    });
+    this.EditSubProductNameDialogRef.afterClosed().subscribe((value) => {
       if (value) {
         this.getSubProducts();
       }
@@ -338,6 +355,4 @@ export class SubproductsComponent implements OnInit, DoCheck {
   backClicked() {
     this.location.back();
   }
-
-
 }
