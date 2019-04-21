@@ -43,12 +43,13 @@ export class AddRoomComponent implements OnInit {
     }).subscribe(
       res => {
         console.log(res);
+        this.dialogRef.close(true);
       },
       err => {
         console.log("Error occured: ", err);
+        this.dialogRef.close(true);
       }
     );
-    this.dialogRef.close(true);
   }
 
   readRoomUrl(event: any) {

@@ -27,6 +27,10 @@ export class AddProductComponent implements OnInit {
 
   ngOnInit() {
     this.getProducts();
+    this.dataSource.filterPredicate = (data, filter) => {
+      const dataStr = data.idProduct + data.title + data.description;
+      return dataStr.indexOf(filter) != -1; 
+    }
   }
 
   /** Whether the number of selected elements matches the total number of rows. */
@@ -67,6 +71,7 @@ export class AddProductComponent implements OnInit {
         },
         err => {
           console.log("Error occured: ", err);
+          this.dialogRef.close(true);
         }
       );
     }

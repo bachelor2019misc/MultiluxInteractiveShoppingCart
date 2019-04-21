@@ -38,12 +38,13 @@ export class EditRoomComponent implements OnInit {
     this.rest.httpPut('room/' + this.data.room.idRoom, {"title" : form.value.title,"description" : form.value.description, "hidden" : false, "image" : this.image}).subscribe(
       res => {
         console.log(res);
+        this.dialogRef.close(true);
       },
       err => {
         console.log("Error occured: ", err);
+        this.dialogRef.close(true);
       }
     );
-    this.dialogRef.close(true);
   }
 
   readUrl(event:any) {

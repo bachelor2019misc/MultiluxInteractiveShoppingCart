@@ -62,6 +62,7 @@ import { EditBlueprintComponent } from './shared/components/rooms/rooms-canvas/e
 import { ProductListComponent } from './shared/components/product-list/product-list.component';
 import { NewProductComponent } from './shared/components/product-list/new-product/new-product.component';
 import { AddSubproductComponent } from './shared/components/subproducts/add-subproduct/add-subproduct.component';
+import { EditSubproductComponent } from './shared/components/subproducts/edit-subproduct/edit-subproduct.component';
 import { EditProductComponent } from './shared/components/subproducts/edit-product/edit-product.component';
 import { SettingsComponent } from './shared/components/settings/settings.component';
 import { CurrencyComponent } from './shared/components/settings/currency/currency.component';
@@ -72,6 +73,7 @@ import { CurrencyComponent } from './shared/components/settings/currency/currenc
   declarations: [
     AppComponent,
     AddSubproductComponent,
+    EditSubproductComponent,
     VesselsComponent,
     RoomsComponent,
     ProductsComponent,
@@ -149,6 +151,7 @@ import { CurrencyComponent } from './shared/components/settings/currency/currenc
     NewProductComponent,
     AddProductComponent,
     AddSubproductComponent,
+    EditSubproductComponent,
     EditBlueprintComponent,
     EditProductComponent
   ]

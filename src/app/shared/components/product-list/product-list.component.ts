@@ -37,6 +37,10 @@ export class ProductListComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.getProducts();
+    this.dataSource.filterPredicate = (data, filter) => {
+      const dataStr = data.idProduct + data.title + data.description;
+      return dataStr.indexOf(filter) != -1; 
+    }
   }
 
   openNewProduct(file?) {
