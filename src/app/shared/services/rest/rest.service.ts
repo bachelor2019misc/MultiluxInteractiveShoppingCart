@@ -24,13 +24,6 @@ const endpointEditRoom ='room/';
 export class RestService {
 
   constructor(private http: HttpClient) {}
-  
-  login(username:string, password:string) :Observable<any> {
-    let json = {username: username, password:password};
-    console.log(json);
-    console.log(JSON.stringify(json));
-    return this.httpPost(endpointLogin, json);
-  }
 
   //editRoom
   editRoom ( oldtitle:string,title:string, description:string, image:any) {

@@ -9,13 +9,15 @@
     </ng-container>
     <ng-template #viewMode>
         <div *ngFor="let vessel of vessels; let i=index;" class="vessel">
-            <div class="vesselImageContainer">
-                <img src="{{vessel.image}}" alt="{{vessel.description}}" height="216" width="384"
-                    (click)="setCurrectSelectedVessel(vessel)" [routerLink]="['/rooms', vessel.idVessel]">
-            </div>
-            <div class="vesselTextContainer" (click)="setCurrectSelectedVessel(vessel)"
-                [routerLink]="['/rooms', vessel.idVessel]">
-                <a>{{vessel.title}}</a>
+            <div *ngIf="vessel.hidden === false">
+                <div class="vesselImageContainer">
+                    <img src="{{vessel.image}}" alt="{{vessel.description}}" height="216" width="384"
+                        (click)="setCurrectSelectedVessel(vessel)" [routerLink]="['/rooms', vessel.idVessel]">
+                </div>
+                <div class="vesselTextContainer" (click)="setCurrectSelectedVessel(vessel)"
+                    [routerLink]="['/rooms', vessel.idVessel]">
+                    <a>{{vessel.title}}</a>
+                </div>
             </div>
         </div>
     </ng-template>
@@ -24,6 +26,14 @@
             <div class="vesselImageContainer">
                 <img src="{{vessel.image}}" alt="{{vessel.description}}" height="216" width="384"
                     (click)="setCurrectSelectedVessel(vessel)" [routerLink]="['/rooms', vessel.idVessel]">
+                <mat-icon *ngIf="vessel.hidden === false" class="visibilityVesselIcon"
+                    (click)="hideVessel(vessel);">
+                    visibility
+                </mat-icon>
+                <mat-icon *ngIf="vessel.hidden === true" class="visibilityVesselIcon"
+                    (click)="showVessel(vessel);">
+                    visibility_off
+                </mat-icon>
                 <mat-icon class="editVesselIcon" (click)="setCurrectSelectedVessel(vessel); openEditVessel();">
                     edit
                 </mat-icon>

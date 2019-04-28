@@ -9,6 +9,7 @@ import { Globals } from './shared/utils/globals'
 import { filter } from 'rxjs/operators';
 import { Currency } from './shared/models/currency.model';
 import { CurrencyService } from './shared/services/currency/currency.service';
+import { LoginService } from './shared/services/login/login.service';
 
 @Component({
   selector: 'app-root',
@@ -41,9 +42,11 @@ export class AppComponent implements OnInit {
     },
   ]
 
-  constructor(private currencyService: CurrencyService, private dialog: MatDialog, public global: Globals) { }
+  constructor(private loginService: LoginService, private currencyService: CurrencyService, private dialog: MatDialog, public global: Globals) { }
 
   ngOnInit() {
+    this.loginService.checkLoginTokenInCookies();
+    this.global.getCurrenctSelectedCartITemsFromCookies();
     this.global.currentSelectedCurrency = {
       "idCurrency": 1,
       "title": "NOK",

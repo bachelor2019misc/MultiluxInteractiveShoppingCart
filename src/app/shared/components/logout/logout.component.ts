@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { RestService } from '../../services/rest/rest.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { Globals } from '../../utils/globals';
+import { LoginService } from '../../services/login/login.service';
 
 @Component({
   selector: 'app-logout',
@@ -11,7 +12,7 @@ import { Globals } from '../../utils/globals';
 export class LogoutComponent {
 
   constructor(
-    public rest: RestService,
+    private loginService: LoginService,
     public global: Globals,
     public dialogRef: MatDialogRef<LogoutComponent>,
     @Inject(MAT_DIALOG_DATA) private data
@@ -19,8 +20,7 @@ export class LogoutComponent {
 
 
   logout() {
-    this.rest.setDefaultHeader();
-    this.global.loggedIn = false;
-    this.dialogRef.close(); 
+    this.loginService.logout();
+    this.dialogRef.close();
   }
 }

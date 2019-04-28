@@ -68,9 +68,15 @@ export class ShoppingCartComponent implements OnInit {
         this.global.currentSelectedCartItems.splice(i, 1);
         i = this.global.currentSelectedCartItems.length;
         this.dataSource.data = this.global.currentSelectedCartItems;
+        this.global.resetCurrenctSelectedCartITemsFromCookies();
       }
       i++;
     }
+  }
+
+  removeAll() {
+    this.global.currentSelectedCartItems = [];
+    this.global.resetCurrenctSelectedCartITemsFromCookies();
   }
 
   applyFilter(filterValue: string) {
