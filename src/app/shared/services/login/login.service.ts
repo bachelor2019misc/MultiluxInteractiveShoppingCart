@@ -43,6 +43,20 @@ export class LoginService {
       this.rest.setNewHeader('Authorization', token);
       this.global.loggedIn = true;
       this.global.username = username;
+      this.refreshLoginToken();
     }
+  }
+
+  refreshLoginToken() {
+    this.rest.httpGet("jwtrefresh").subscribe(
+      res => {
+        console.log(res);
+        this.rest.setNewHeader('Authorization', res.token);
+        this.cookie.setCookie("Authorization", res.token, 2);
+      },
+      err => {
+        console.log("Error occured: ", err);
+      }
+    );
   }
 }
