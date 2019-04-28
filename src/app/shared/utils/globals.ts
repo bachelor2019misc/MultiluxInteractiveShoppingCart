@@ -22,7 +22,7 @@ export class Globals {
     currentSelectedBlueprint: Blueprint;
     currentSelectedCartItems: CartItem[] = [];
 
-    constructor(private cookie: CookieService) {}
+    constructor(private cookie: CookieService) { }
 
     addSubProductToCart(subProduct: SubProduct) {
         console.log(subProduct);
@@ -43,7 +43,11 @@ export class Globals {
     }
 
     getCurrenctSelectedCartITemsFromCookies() {
-        this.currentSelectedCartItems = JSON.parse(this.cookie.getCookie("CartItems"));
+        let items: string = this.cookie.getCookie("CartItems");
+        console.log(items);
+        if (items) {
+            this.currentSelectedCartItems = JSON.parse(items);
+        }
     }
 
     resetCurrenctSelectedCartITemsFromCookies() {
