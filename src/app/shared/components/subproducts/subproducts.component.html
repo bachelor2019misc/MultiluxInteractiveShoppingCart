@@ -80,7 +80,8 @@
       </article>
     </section>
   </div>
-  <table mat-table [dataSource]="dataSource" matSort>
+  <table mat-table [dataSource]="dataSource" matSort matSort matSortActive="productNumber"
+  matSortDirection="asc">
 
     <!-- Position Column -->
     <ng-container matColumnDef="productNumber">

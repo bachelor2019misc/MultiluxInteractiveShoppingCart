@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { headersToString } from 'selenium-webdriver/http';
 import { Http2ServerRequest } from 'http2';
 import { Globals } from '../../utils/globals';
+import { LoginService } from '../../services/login/login.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
   password: string;
 
   constructor(
-    public rest: RestService,
+    public loginService: LoginService,
     public global: Globals,
     private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<LoginComponent>,
@@ -33,17 +34,7 @@ export class LoginComponent implements OnInit {
   }
 
   submit(form: any) {
-    this.rest.login(form.value.username, form.value.password).subscribe(
-      res => {
-        console.log(res);
-        this.rest.setNewHeader('Authorization', res.token);
-        this.global.loggedIn = true;
-        this.global.username = form.value.username;
-      },
-      err => {
-        console.log("Error occured: ", err);
-      }
-    );
-    this.dialogRef.close(`${form.value.username.password}`);
+    this.loginService.login(form.value.username, form.value.password);
+    this.dialogRef.close();
   }
 }

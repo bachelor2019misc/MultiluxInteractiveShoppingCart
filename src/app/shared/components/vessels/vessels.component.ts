@@ -15,12 +15,12 @@ import { EditVesselComponent } from './edit-vessel/edit-vessel.component';
 })
 export class VesselsComponent implements OnInit {
 
-  vessels:Vessel[] = [];
+  vessels: Vessel[] = [];
 
   AddVesselNameDialogRef: MatDialogRef<AddVesselComponent>;
   EditVesselNameDialogRef: MatDialogRef<EditVesselComponent>;
 
-  constructor(public rest:RestService, public global:Globals, private route: ActivatedRoute, private router: Router, private dialog: MatDialog, private location: Location) { }
+  constructor(public rest: RestService, public global: Globals, private route: ActivatedRoute, private router: Router, private dialog: MatDialog, private location: Location) { }
 
   ngOnInit() {
     this.getVessels();
@@ -44,11 +44,11 @@ export class VesselsComponent implements OnInit {
       height: "600px",
       width: "700px",
       data: {
-        
+
       }
     });
     this.AddVesselNameDialogRef.afterClosed().subscribe((value) => {
-      if(value) {
+      if (value) {
         this.getVessels()
       }
     });
@@ -59,11 +59,11 @@ export class VesselsComponent implements OnInit {
       height: "400px",
       width: "700px",
       data: {
-        
+
       }
     });
     this.EditVesselNameDialogRef.afterClosed().subscribe((value) => {
-      if(value) {
+      if (value) {
         this.getVessels()
       }
     });
@@ -72,6 +72,32 @@ export class VesselsComponent implements OnInit {
   setCurrectSelectedVessel(vessel: Vessel) {
     console.log(vessel);
     this.global.currentSelectedVessel = vessel;
+  }
+
+  hideVessel(vessel: Vessel) {
+    vessel.hidden = true;
+    this.rest.httpPut("vessel/" + vessel.idVessel, vessel).subscribe(
+      res => {
+        console.log(res);
+        this.getVessels();
+      },
+      err => {
+        console.log("Error occured: ", err);
+      }
+    );
+  }
+
+  showVessel(vessel: Vessel) {
+    vessel.hidden = false;
+    this.rest.httpPut("vessel/" + vessel.idVessel, vessel).subscribe(
+      res => {
+        console.log(res);
+        this.getVessels();
+      },
+      err => {
+        console.log("Error occured: ", err);
+      }
+    );
   }
 
   backClicked() {

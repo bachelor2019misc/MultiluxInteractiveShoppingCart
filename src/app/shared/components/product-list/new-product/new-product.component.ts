@@ -34,7 +34,8 @@ export class NewProductComponent implements OnInit {
     this.rest.httpPost('product', {
       "title": form.value.title,
       "description": form.value.description,
-      "image": this.image
+      "image": this.image,
+      "hidden": true
     }).subscribe(
       res => {
         console.log(res);

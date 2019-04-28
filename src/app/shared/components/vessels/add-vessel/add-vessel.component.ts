@@ -36,7 +36,7 @@ export class AddVesselComponent implements OnInit {
     this.rest.httpPost('vessel', {
       "title": form.value.title,
       "description": form.value.description,
-      "hidden": false,
+      "hidden": true,
       "imageVessel": this.imageVessel,
       "imageBlueprint": this.imageBlueprint
     }).subscribe(
