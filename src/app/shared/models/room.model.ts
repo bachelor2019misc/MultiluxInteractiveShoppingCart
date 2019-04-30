@@ -3,4 +3,5 @@ export class Room {
     title: string;
     description: string;
     image: string;
+    hidden: boolean;
 }

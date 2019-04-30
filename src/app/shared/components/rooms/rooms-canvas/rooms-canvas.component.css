@@ -1,81 +1,98 @@
 .room {
-    color: #000;
-    display: inline-block;
-    vertical-align: top;
-    font-size: 24px;
-    transition: color 0.2s;
-    margin: 6px;
+  color: #000;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 24px;
+  transition: color 0.2s;
+  margin: 6px;
 }
 
 .roomImage {
-    position: relative;
-    background-color: white;
+  position: relative;
+  background-color: white;
 }
 
 .roomText {
-    position: relative;
-    background-color: #f1f1f1;
-    padding: 8px;
+  position: relative;
+  background-color: #f1f1f1;
+  padding: 8px;
 }
 
 .roomText a {
-    transition: color 0.2s;
-    text-decoration: none;
+  transition: color 0.2s;
+  text-decoration: none;
 }
 
 .room:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .room:hover .roomText a {
-    color: dodgerblue;
+  color: dodgerblue;
 }
 
 .hover {
-    color: dodgerblue;
+  color: dodgerblue;
 }
 
 .roomContainer {
-    display: inline-block;
+  display: inline-block;
 }
 
 .canvasContainer {
-    position: relative;
+  position: relative;
 }
 
 canvas {
-    border: 1px solid #000;
+  border: 1px solid #000;
 }
 
 .editBlueprintIcon {
-    position: absolute;
-    border: 1px solid black;
-    color: black;
-    background-color: #f1f1f1;
-    box-sizing: content-box;
-    transition: border 0.5s;
-    padding: 8px;
-    right: -2px;
-    bottom: 4px;
+  position: absolute;
+  border: 1px solid black;
+  color: black;
+  background-color: #f1f1f1;
+  box-sizing: content-box;
+  transition: border 0.5s;
+  padding: 8px;
+  right: -2px;
+  bottom: 2px;
+}
+
+.visibilityBlueprintIcon {
+  position: absolute;
+  border: 1px solid black;
+  color: black;
+  background-color: #f1f1f1;
+  box-sizing: content-box;
+  transition: border 0.5s;
+  padding: 8px;
+  left: 0px;
+  bottom: 2px;
 }
 
 .editBlueprintIcon:hover {
-    border: 4px solid dodgerblue;
-    cursor: pointer;
+  border: 4px solid dodgerblue;
+  cursor: pointer;
 }
 
+.visibilityBlueprintIcon:hover {
+    border: 4px solid dodgerblue;
+    cursor: pointer;
+  }
+
 .roomTextContainer {
-    position: relative;
-    background-color: #f1f1f1;
-    padding: 8px;
+  position: relative;
+  background-color: #f1f1f1;
+  padding: 8px;
 }
 
 .roomTextContainer a {
-    transition: color 0.2s;
-    text-decoration: none;
+  transition: color 0.2s;
+  text-decoration: none;
 }
 
 .vesselImageContainer {
-    position: relative;
-    background-color: white;
+  position: relative;
+  background-color: white;
 }

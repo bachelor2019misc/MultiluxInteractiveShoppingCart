@@ -97,39 +97,50 @@ export class ProductsComponent implements OnInit, OnDestroy {
       console.log("Getting dots 2");
       this.dots = [];
       this.products = [];
+      let tempDots: RoomDot[] = [];
       this.rest.httpGet("roomdotbyidroom/" + this.idRoom).subscribe(
         res => {
           console.log("Dots: ", res);
-          this.dots = res;
-          console.log(this.canvas);
-          this.canvas.dots = this.dots;
-          console.log("Resizing canvas");
-          this.canvas.resize();
+          tempDots = res;
           let tempProducts: Product[] = [];
-          for (var i = 0; i < this.dots.length; i++) {
-            console.log("Index ", i);
-            this.rest.httpGet("product/" + this.dots[i].idProduct).subscribe(
-              res => {
-                console.log(res);
-                tempProducts.push(res);
-                console.log(tempProducts);
-                if (tempProducts.length >= this.dots.length) {
-                  for (var indexDot = 0; indexDot < this.dots.length; indexDot++) {
-                    for (var indexRoom = 0; indexRoom < tempProducts.length; indexRoom++) {
-                      if (+this.dots[indexDot].idProduct === tempProducts[indexRoom].idProduct) {
-                        this.products.push(tempProducts[indexRoom]);
+          if (tempDots.length > 0) {
+            for (var i = 0; i < tempDots.length; i++) {
+              console.log("dot: ", tempDots[i]);
+              this.rest.httpGet("product/" + tempDots[i].idProduct).subscribe(
+                res => {
+                  console.log("Products: ", res);
+                  tempProducts.push(res);
+                  console.log(tempProducts);
+                  if (tempProducts.length >= tempDots.length) {
+                    for (var indexDot = 0; indexDot < tempDots.length; indexDot++) {
+                      for (var indexRoom = 0; indexRoom < tempProducts.length; indexRoom++) {
+                        if(tempProducts[indexRoom].hidden) {
+                          // Skip this room
+                        } else {
+                          if (tempDots[indexDot].idProduct === tempProducts[indexRoom].idProduct) {
+                            this.dots.push(tempDots[indexDot]);
+                            this.products.push(tempProducts[indexRoom]);
+                          }
+                        }
                       }
+
                     }
+                    console.log("Sorting rooms and removing hidden");
+
+                    this.canvas.dots = this.dots;
+                    this.canvas.products = this.products;
+                    this.canvas.draw();
                   }
-                  console.log("Sorting rooms");
-                  this.canvas.products = this.products;
-                  this.canvas.draw();
+                },
+                err => {
+                  console.log("Error occured: ", err);
                 }
-              },
-              err => {
-                console.log("Error occured: ", err);
-              }
-            );
+              );
+            }
+          } else {
+            this.canvas.dots = this.dots;
+            this.canvas.products = this.products;
+            this.canvas.resize();
           }
         },
         err => {

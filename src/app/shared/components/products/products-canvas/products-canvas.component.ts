@@ -1,4 +1,4 @@
-import { Component, Input, ElementRef, AfterViewInit, ViewChild, AfterViewChecked, OnInit, ViewChildren, QueryList, ContentChildren } from '@angular/core'
+import { Component, Input, ElementRef, AfterViewInit, ViewChild, AfterViewChecked, OnInit, ViewChildren, QueryList, ContentChildren, EventEmitter, Output } from '@angular/core'
 import { fromEvent } from 'rxjs';
 import { RestService } from '../../../services/rest/rest.service';
 import { Globals } from '../../../utils/globals';
@@ -16,6 +16,7 @@ export class ProductsCanvasComponent implements AfterViewInit {
 
     @Input() public width = 1400;
     @Input() public height = 700;
+    @Output() changes = new EventEmitter<string>();
     public dots: RoomDot[] = [];
     public products: Product[] = [];
 
@@ -65,7 +66,7 @@ export class ProductsCanvasComponent implements AfterViewInit {
                 if (this.colideWithCircle(currentPos.x, currentPos.y, this.dots[i])) {
                     document.body.style.cursor = 'pointer';
                     hoveringDot = this.dots[i];
-                    if(room === undefined) {
+                    if (room === undefined) {
                         // Do nothing
                     } else {
                         room.classList.add("hover");
@@ -73,7 +74,7 @@ export class ProductsCanvasComponent implements AfterViewInit {
                     i = this.dots.length;
                 } else {
                     hoveringDot = undefined;
-                    if(room === undefined) {
+                    if (room === undefined) {
                         // Do nothing
                     } else {
                         room.classList.remove("hover");
@@ -103,8 +104,8 @@ export class ProductsCanvasComponent implements AfterViewInit {
                     // Do nothing
                 } else {
                     document.body.style.cursor = 'default';
-                    for(let i = 0; i < this.dots.length; i++) {
-                        if(this.products[i].idProduct === +selectedDot.idProduct) {
+                    for (let i = 0; i < this.dots.length; i++) {
+                        if (this.products[i].idProduct === +selectedDot.idProduct) {
                             this.global.currentSelectedProduct = this.products[i];
                         }
                     }
@@ -175,6 +176,26 @@ export class ProductsCanvasComponent implements AfterViewInit {
                 console.log("Error occured: ", err);
             }
         );
+    }
+
+    deleteRoomDot(product: Product) {
+        for (let i = 0; i < this.dots.length; i++) {
+            if (this.dots[i].idProduct === product.idProduct) {
+                this.rest.httpDelete("roomdot/" + this.dots[i].idRoomDot).subscribe(
+                    res => {
+                        console.log(res);
+                        this.update();
+                    },
+                    err => {
+                        console.log("Error occured: ", err);
+                    }
+                );
+            }
+        }
+    }
+
+    update() {
+        this.changes.emit();
     }
 }
 

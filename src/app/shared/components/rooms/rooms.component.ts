@@ -69,7 +69,6 @@ export class RoomsComponent implements OnInit, OnDestroy {
         res => {
           console.log("Dots: ", res);
           this.dots = res;
-          this.canvas.dots = this.dots;
           console.log("Canvas: ", this.canvas);
           this.canvas.resize();
           let tempRooms: Room[] = [];
@@ -86,7 +85,7 @@ export class RoomsComponent implements OnInit, OnDestroy {
                     }
                   }
                   console.log("Sorting rooms");
-                  this.canvas.rooms = this.rooms;
+                  this.canvas.setDotsAndRooms(this.dots, this.rooms);
                   this.canvas.draw();
                 }
               },
