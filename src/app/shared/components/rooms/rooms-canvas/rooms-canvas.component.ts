@@ -14,7 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { RoomsComponent } from '../rooms.component';
 import { EditBlueprintComponent } from './edit-blueprint/edit-blueprint.component';
 import { AddRoomComponent } from '../add-room/add-room.component';
-import {EditRoomComponent} from '../edit-room/edit-room.component'; //edit room
+import { EditRoomComponent } from '../edit-room/edit-room.component'; //edit room
 
 @Component({
     selector: 'rooms-canvas',
@@ -27,6 +27,7 @@ export class RoomsCanvasComponent implements AfterViewInit {
     @Input() public width = 1400;
     @Input() public height = 700;
     public dots: BlueprintDot[] = [];
+    public viewDots: BlueprintDot[] = [];
     public rooms: Room[] = [];
 
 
@@ -40,9 +41,9 @@ export class RoomsCanvasComponent implements AfterViewInit {
 
     AddRoomNameDialogRef: MatDialogRef<AddRoomComponent>;
     constructor(public rest: RestService, private router: Router, public global: Globals, private dialog: MatDialog) { }
-//edit room
+    //edit room
     EditRoomNameDialogRef: MatDialogRef<EditRoomComponent>;
-   
+
 
     public ngAfterViewInit() {
         const canvasEl: HTMLCanvasElement = this.canvas.nativeElement;
@@ -80,39 +81,39 @@ export class RoomsCanvasComponent implements AfterViewInit {
 
     openEditBlueprint() {
         this.EditBlueprintNameDialogRef = this.dialog.open(EditBlueprintComponent, {
-          height: "400px",
-          width: "700px",
-          data: {
-          }
+            height: "400px",
+            width: "700px",
+            data: {
+            }
         });
         this.EditBlueprintNameDialogRef.afterClosed().subscribe((value) => {
-            if(value) {
-              this.getBlueprint()
+            if (value) {
+                this.getBlueprint()
             }
-          });
-        }
-        
+        });
+    }
+
     openAddRoom(file?) {
-            this.AddRoomNameDialogRef = this.dialog.open(AddRoomComponent, {
-              height: "600px",
-              width: "700px",
-              data: {
-                
-              }
-            });
-            
-          } 
-          //edit room
-          openEditRoom(room:Room) {
-            this.EditRoomNameDialogRef = this.dialog.open(EditRoomComponent, {
-              height: "400px",
-              width: "700px",
-              data: {
-               room : room 
-              }
-            });
-            
-          }   
+        this.AddRoomNameDialogRef = this.dialog.open(AddRoomComponent, {
+            height: "600px",
+            width: "700px",
+            data: {
+
+            }
+        });
+
+    }
+    //edit room
+    openEditRoom(room: Room) {
+        this.EditRoomNameDialogRef = this.dialog.open(EditRoomComponent, {
+            height: "400px",
+            width: "700px",
+            data: {
+                room: room
+            }
+        });
+
+    }
 
 
     // taken from: https://medium.com/@tarik.nzl/creating-a-canvas-component-with-free-hand-drawing-with-rxjs-and-angular-61279f577415
@@ -134,7 +135,7 @@ export class RoomsCanvasComponent implements AfterViewInit {
                 if (this.colideWithCircle(currentPos.x, currentPos.y, this.dots[i])) {
                     document.body.style.cursor = 'pointer';
                     hoveringDot = this.dots[i];
-                    if(room === undefined) {
+                    if (room === undefined) {
                         // Do nothing
                     } else {
                         room.classList.add("hover");
@@ -142,7 +143,7 @@ export class RoomsCanvasComponent implements AfterViewInit {
                     i = this.dots.length;
                 } else {
                     hoveringDot = undefined;
-                    if(room === undefined) {
+                    if (room === undefined) {
                         // Do nothing
                     } else {
                         room.classList.remove("hover");
@@ -172,8 +173,8 @@ export class RoomsCanvasComponent implements AfterViewInit {
                     // Do nothing
                 } else {
                     document.body.style.cursor = 'default';
-                    for(let i = 0; i < this.dots.length; i++) {
-                        if(this.rooms[i].idRoom === selectedDot.idRoom) {
+                    for (let i = 0; i < this.dots.length; i++) {
+                        if (this.rooms[i].idRoom === selectedDot.idRoom) {
                             this.global.currentSelectedRoom = this.rooms[i];
                         }
                     }
@@ -217,10 +218,12 @@ export class RoomsCanvasComponent implements AfterViewInit {
     }
 
     public draw() {
+        console.log("draw");
         this.cx.clearRect(0, 0, this.width, this.height);
         this.cx.drawImage(this.blueprintImage, 0, 0, this.width, this.height);
-        for (var i = 0; i < this.dots.length; i++) {
-            this.drawCircle(this.dots[i]);
+        console.log("draw viewDots: ", this.viewDots);
+        for (var i = 0; i < this.viewDots.length; i++) {
+            this.drawCircle(this.viewDots[i]);
         }
     }
 
@@ -244,6 +247,61 @@ export class RoomsCanvasComponent implements AfterViewInit {
                 console.log("Error occured: ", err);
             }
         );
+    }
+
+    showRoom(room: Room) {
+        room.hidden = false;
+        this.rest.httpPut('room/' + room.idRoom, room).subscribe(
+            res => {
+                console.log(res);
+                this.resetViewDots();
+            },
+            err => {
+                console.log("Error occured: ", err);
+                room.hidden = true;
+            }
+        );
+    }
+
+    hideRoom(room: Room) {
+        room.hidden = true;
+        this.rest.httpPut('room/' + room.idRoom, room).subscribe(
+            res => {
+                console.log(res);
+                this.resetViewDots();
+            },
+            err => {
+                console.log("Error occured: ", err);
+                room.hidden = false;
+            }
+        );
+    }
+
+    setDotsAndRooms(dots: BlueprintDot[], rooms: Room[]) {
+        this.dots = dots;
+        this.rooms = rooms;
+        for (let id = 0; id < dots.length; id++) {
+            for (let ir = 0; ir < rooms.length; ir++) {
+                if ((rooms[ir].idRoom === dots[id].idRoom) && (rooms[ir].hidden === false)) {
+                    this.viewDots.push(dots[id]);
+                }
+            }
+        }
+    }
+
+    private resetViewDots() {
+        this.viewDots = [];
+        for (let id = 0; id < this.dots.length; id++) {
+            for (let ir = 0; ir < this.rooms.length; ir++) {
+                if ((this.rooms[ir].idRoom === this.dots[id].idRoom)) {
+                    if (this.rooms[ir].hidden === false) {
+                        this.viewDots.push(this.dots[id]);
+                    }
+                }
+            }
+        }
+        console.log("ViewDots: ", this.viewDots);
+        this.draw();
     }
 }
 

@@ -20,14 +20,19 @@
         </ng-template>
         <ng-template #done>
             <div class="product">
-                <div class="productImage" 
-                [routerLink]="['/subproducts', global.currentSelectedVessel.idVessel, global.currentSelectedRoom.idRoom, product.idProduct]" 
-                (click)="global.currentSelectedProduct = product">
-                    <img src="{{product.image}}" alt="{{product.description}}" height="90" width="160">
+                <div class="productImage">
+                    <div *ngIf="global.editMode">
+                        <mat-icon class="deleteRoomDotIcon" (click)="deleteRoomDot(product);">
+                            delete
+                        </mat-icon>
+                    </div>
+                    <img src="{{product.image}}" alt="{{product.description}}" height="90" width="160"
+                        (click)="global.currentSelectedProduct = product"
+                        [routerLink]="['/subproducts', global.currentSelectedVessel.idVessel, global.currentSelectedRoom.idRoom, product.idProduct]">
                 </div>
-                <div class="roomText" 
-                [routerLink]="['/subproducts', global.currentSelectedVessel.idVessel, global.currentSelectedRoom.idRoom, product.idProduct]" 
-                (click)="global.currentSelectedProduct = product">
+                <div class="productText"
+                    [routerLink]="['/subproducts', global.currentSelectedVessel.idVessel, global.currentSelectedRoom.idRoom, product.idProduct]"
+                    (click)="global.currentSelectedProduct = product">
                     <a>{{product.title}}</a>
                 </div>
             </div>

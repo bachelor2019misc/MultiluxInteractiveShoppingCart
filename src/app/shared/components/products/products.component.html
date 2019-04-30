@@ -13,7 +13,7 @@
             arrow_back
         </mat-icon>
     </div>
-    <products-canvas></products-canvas>
+    <products-canvas (changes)="getDots()"></products-canvas>
     <button *ngIf="global.editMode" mat-fab id="fabBtn" (click)="openAddProduct()">
         <mat-icon>
             add

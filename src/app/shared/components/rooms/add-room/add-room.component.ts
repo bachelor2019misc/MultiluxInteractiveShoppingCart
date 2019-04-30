@@ -37,6 +37,7 @@ export class AddRoomComponent implements OnInit {
       "title": form.value.title,
       "description": form.value.description,
       "image": this.image,
+      "hidden": true,
       "xCoordinates": Math.floor(Math.random() * 1400) + 1,
       "yCoordinates": Math.floor(Math.random() * 700) + 1,
       "idVessel": this.global.currentSelectedVessel.idVessel
